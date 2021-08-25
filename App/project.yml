@@ -1,0 +1,24 @@
+name: Skatable
+
+settings:
+  DEVELOPMENT_TEAM: H7BM7N56V5
+
+options:
+  bundleIdPrefix: com.vcoutasso
+  deploymentTarget:
+    iOS: 14.0
+
+targets:
+  Skatable:
+    type: application
+    platform: iOS
+    sources:
+      - path: Skatable
+    preBuildScripts:
+      - name: SwiftLint
+        script: |
+          "${PODS_ROOT}/SwiftLint/swiftlint"
+      - name: SwiftGen
+        script: |
+          "${PODS_ROOT}/SwiftGen/bin/swiftgen"
+
