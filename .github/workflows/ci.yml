@@ -1,0 +1,28 @@
+name: CI
+
+on: 
+  push:
+    branches:
+      - master
+      - development
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: List available Xcode versions
+        run: ls /Applications | grep Xcode
+
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode_12.5.app && /usr/bin/xcodebuild -version
+
+      - name: Install xcodegen
+        run: brew install xcodegen
+
+      - name: Generate project and install dependencies
+        run: make generate
+
+      - name: Build and run unit tests
+        run: xcodebuild -workspace Skatable.xcworkspace -scheme Skatable -destination platform\=iOS\ Simulator,OS\=14.5,name\=iPhone\ 12 build test | xcpretty && exit ${PIPESTATUS[0]}
