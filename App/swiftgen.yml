@@ -1,0 +1,10 @@
+input_dir: Skatable/Resources/
+output_dir: Skatable/Resources/Generated/
+strings:
+  inputs: Base.lproj
+  filter: .+\.strings$
+  outputs:
+    - templateName: structured-swift5
+      output: Strings.swift
+      params:
+          enumName: Strings
