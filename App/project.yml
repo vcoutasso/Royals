@@ -20,5 +20,5 @@ targets:
           "${PODS_ROOT}/SwiftLint/swiftlint"
       - name: SwiftGen
         script: |
-          "${PODS_ROOT}/SwiftGen/bin/swiftgen"
+          "${PODS_ROOT}/SwiftGen/bin/swiftgen" config run --config .swiftgen.yml
 
