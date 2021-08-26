@@ -2,6 +2,7 @@ name: CI
 
 on: 
   push:
+  pull_request:
     branches:
       - master
       - develop
@@ -24,5 +25,5 @@ jobs:
       - name: Generate project and install dependencies
         run: make generate
 
-      - name: Build and run unit tests
+      - name: Build project
         run: xcodebuild -workspace App/Skatable.xcworkspace -scheme Skatable -destination platform\=iOS\ Simulator,OS\=14.0,name\=iPhone\ 12 build | xcpretty && exit ${PIPESTATUS[0]}
