@@ -8,11 +8,9 @@
 import UIKit
 
 class ViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Set background color to white for test purposes
-        self.view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.white
     }
-
 }
