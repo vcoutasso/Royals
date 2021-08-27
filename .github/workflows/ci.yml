@@ -2,8 +2,9 @@ name: CI
 
 on: 
   push:
-    #    branches:
-    #      - develop
+    branches:
+      - develop
+      - feature/config-dir
   pull_request:
     branches:
       - master
