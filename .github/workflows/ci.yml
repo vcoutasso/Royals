@@ -38,9 +38,9 @@ jobs:
     name: Swift-Format
     steps:
       - name: Checkout
-      - uses: actions/checkout@v2
-      - with:
-        ref: ${{ github.head_ref }}
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Install and run SwiftFormat
         run: brew install swiftformat && swiftformat App --swiftversion 5 --config config/swiftformat
