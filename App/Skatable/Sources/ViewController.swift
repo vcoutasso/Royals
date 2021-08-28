@@ -6,29 +6,51 @@
 //
 
 import UIKit
-import MapKit
 
-class ViewController: UIViewController, MKMapViewDelegate {
-    var mapView: MKMapView!
+class ViewController: UIViewController {
+    // MARK: - Variables
+
+    var tabBarViewController: UITabBarController!
+
+    // Populated by `setupViewControllers`
+    var tabBarItems: [TabBarItemVC] = []
+
+    // MARK: - Overridden methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mapView = MKMapView()
+        setupViewControllers()
 
-        mapView.mapType = MKMapType.standard
-        mapView.isZoomEnabled = true
-        mapView.isScrollEnabled = true
+        setupTabBar()
+    }
 
-        mapView.translatesAutoresizingMaskIntoConstraints = false
+    override func viewDidAppear(_ animated: Bool) {
+        present(tabBarViewController, animated: false)
+    }
 
-        view.addSubview(mapView)
+    // MARK: - Private methods
 
-        NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: view.topAnchor),
-            mapView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            mapView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+    private func setupViewControllers() {
+        tabBarItems.append(TabBarItemVC(viewController: MapViewController(), iconName: Strings.Icons.map))
+    }
+
+    private func setupTabBar() {
+        tabBarViewController = UITabBarController()
+        tabBarViewController.setViewControllers(tabBarItems.map { $0.viewController }, animated: false)
+        tabBarViewController.modalPresentationStyle = .fullScreen
+
+        guard let items = tabBarViewController.tabBar.items else { return }
+
+        // TODO: Fill current item
+        for idx in 0..<items.count {
+            items[idx].image = UIImage(systemName: tabBarItems[idx].iconName)
+        }
+    }
+
+    // TODO: This probably belongs somewhere else.
+    struct TabBarItemVC {
+        let viewController: UIViewController
+        let iconName: String
     }
 }

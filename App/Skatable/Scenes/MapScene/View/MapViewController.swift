@@ -1,16 +1,34 @@
 //
-//  MapView.swift
+//  MapViewController.swift
 //  Skatable
 //
 //  Created by Bruno Thuma on 27/08/21.
 //
 
-import Foundation
 import UIKit
+import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, MKMapViewDelegate {
+    var mapView: MKMapView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+
+        mapView = MKMapView()
+
+        mapView.mapType = MKMapType.standard
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = true
+
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(mapView)
+
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraint(equalTo: view.topAnchor),
+            mapView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            mapView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
     }
 }
