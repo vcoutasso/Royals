@@ -32,5 +32,8 @@ jobs:
       - name: Run SwiftGen
         run: App/Pods/SwiftGen/bin/swiftgen config run --config config/swiftgen.yml
 
+      - name: Update project files
+        run: make generate
+
       - name: Build project
         run: xcodebuild -workspace App/Skatable.xcworkspace -scheme Skatable -destination platform\=iOS\ Simulator,OS\=14.5,name\=iPhone\ 12 build | xcpretty && exit ${PIPESTATUS[0]}
