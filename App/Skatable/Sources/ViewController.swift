@@ -12,7 +12,7 @@ class ViewController: UIViewController {
 
     var tabBarViewController: UITabBarController!
 
-    // Populated by `setupViewControllers`
+    // Populated by `setupTabBarItems`
     var tabBarItems: [TabBarItemVC] = []
 
     // MARK: - Overridden methods
@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupViewControllers()
+        setupTabBarItems()
 
         setupTabBar()
     }
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
 
     // MARK: - Private methods
 
-    private func setupViewControllers() {
+    private func setupTabBarItems() {
         tabBarItems.append(TabBarItemVC(viewController: MapViewController(), iconName: Strings.Icons.map))
     }
 
