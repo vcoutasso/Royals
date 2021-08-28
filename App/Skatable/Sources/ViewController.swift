@@ -9,46 +9,26 @@ import UIKit
 import MapKit
 
 class ViewController: UIViewController, MKMapViewDelegate {
-
-    var cluesLabel: UILabel!
-    var answersLabel: UILabel!
-    var currentAnswer: UITextField!
-    let mapView = MKMapView()
+    var mapView: MKMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Set background color to green for test purposes
-        self.view.backgroundColor = UIColor.green
 
-        cluesLabel = UILabel()
-        cluesLabel.translatesAutoresizingMaskIntoConstraints = false
-        cluesLabel.textAlignment = .right
-        cluesLabel.text = "Score: 0"
-        view.addSubview(cluesLabel)
-
-        NSLayoutConstraint.activate([
-            cluesLabel
-                .topAnchor
-                .constraint(equalTo: view
-                                .layoutMarginsGuide
-                                .topAnchor),
-            cluesLabel
-                .trailingAnchor
-                .constraint(equalTo: view
-                                .layoutMarginsGuide
-                                .trailingAnchor)
-        ])
-
-        mapView.frame = CGRect(x: view.safeAreaLayoutGuide.layoutFrame.minX,
-                               y: view.safeAreaLayoutGuide.layoutFrame.minY,
-                               width: view.safeAreaLayoutGuide.layoutFrame.size.width,
-                               height: view.safeAreaLayoutGuide.layoutFrame.size.height)
+        mapView = MKMapView()
 
         mapView.mapType = MKMapType.standard
-                mapView.isZoomEnabled = true
-                mapView.isScrollEnabled = true
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = true
+
+        mapView.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(mapView)
-    }
 
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mapView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            mapView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
 }
