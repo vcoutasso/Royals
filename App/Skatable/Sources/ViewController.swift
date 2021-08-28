@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         setupTabBar()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_: Bool) {
         present(tabBarViewController, animated: false)
     }
 
@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         guard let items = tabBarViewController.tabBar.items else { return }
 
         // TODO: Fill current item
-        for idx in 0..<items.count {
+        for idx in 0 ..< items.count {
             items[idx].image = UIImage(systemName: tabBarItems[idx].iconName)
         }
     }
