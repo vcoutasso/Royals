@@ -42,9 +42,14 @@ class ViewController: UIViewController {
 
         guard let items = tabBarViewController.tabBar.items else { return }
 
-        // TODO: Fill current item
         for idx in items.indices {
-            items[idx].image = UIImage(systemName: tabBarItems[idx].iconName)
+            if #available(iOS 13.0, *) {
+                // TODO: Fill current item
+                items[idx].image = UIImage(systemName: tabBarItems[idx].iconName)
+            }
+            else {
+                items[idx].image = UITabBarItem(tabBarSystemItem: .search, tag: idx).image
+            }
         }
     }
 
