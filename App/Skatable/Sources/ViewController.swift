@@ -25,7 +25,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         view.addSubview(mapView)
 
         NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mapView.topAnchor.constraint(equalTo: view.topAnchor),
             mapView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             mapView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
