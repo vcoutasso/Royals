@@ -15,9 +15,6 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Install SwiftFormat
-        run: brew install swiftformat
-
       - name: Format code
         run: swiftformat App --config config/swiftformat
 
