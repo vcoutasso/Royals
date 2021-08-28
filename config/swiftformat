@@ -10,7 +10,6 @@
 --exclude ../**/Generated,../**/Pods
 
 # rules
---elseposition next-line
 --ranges no-space
 --maxwidth 120
 --wraparguments after-first

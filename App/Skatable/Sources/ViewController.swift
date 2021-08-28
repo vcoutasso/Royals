@@ -46,9 +46,8 @@ class ViewController: UIViewController {
             if #available(iOS 13.0, *) {
                 // TODO: Fill current item
                 items[idx].image = UIImage(systemName: tabBarItems[idx].iconName)
-            }
-            else {
-                items[idx].image = UITabBarItem(tabBarSystemItem: .search, tag: idx).image
+            } else {
+                // TODO: Set custom icons for ios 12 etc
             }
         }
     }
