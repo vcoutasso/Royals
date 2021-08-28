@@ -1,5 +1,5 @@
-input_dir: Skatable/Resources/
-output_dir: Skatable/Resources/Generated/
+input_dir: ../App/Skatable/Resources/
+output_dir: ../App/Skatable/Resources/Generated/
 strings:
   inputs: Base.lproj
   filter: .+\.strings$

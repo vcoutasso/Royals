@@ -1,0 +1,40 @@
+name: SwiftFormat
+
+on: 
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  swift-format:
+    runs-on: macos-latest
+    name: SwiftFormat
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Install SwiftFormat
+        run: brew install swiftformat
+
+      - name: Format code
+        run: swiftformat App --swiftversion 5 --config config/swiftformat
+
+      - name: Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
+
+      - name: Push changes
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --global user.name 'Vinícius Couto'
+          git config --global user.email 'vcoutasso@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git commit -am "SwiftFormat: Automated changes"
+          git push
+

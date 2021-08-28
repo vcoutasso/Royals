@@ -17,8 +17,8 @@ targets:
     preBuildScripts:
       - name: SwiftLint
         script: |
-          "${PODS_ROOT}/SwiftLint/swiftlint"
+          "${PODS_ROOT}/SwiftLint/swiftlint" --config ../config/swiftlint.yml
       - name: SwiftGen
         script: |
-          "${PODS_ROOT}/SwiftGen/bin/swiftgen" config run --config .swiftgen.yml
+          "${PODS_ROOT}/SwiftGen/bin/swiftgen" config run --config ../config/swiftgen.yml
 

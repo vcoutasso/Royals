@@ -1,4 +1,4 @@
-name: CI
+name: Build
 
 on: 
   push:
@@ -12,8 +12,10 @@ on:
 jobs:
   build:
     runs-on: macos-11.0
+    name: Build
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: List available Xcode versions
         run: ls /Applications | grep Xcode
