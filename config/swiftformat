@@ -1,1 +1,21 @@
+--swiftversion 5
+
+#indent
+--indent 4
+
+# disabled rules
+--disable wrapMultilineStatementBraces
+
+# excluded paths
 --exclude ../**/Generated,../**/Pods
+
+# rules
+--elseposition next-line
+--ranges no-space
+--maxwidth 120
+--wraparguments after-first
+--wrapcollections before-first
+--self init-only
+--stripunusedargs closure-only
+--trimwhitespace always
+--specifierorder public, private(set), private, fileprivate, internal, open, static, class, convenience, override, lazy, weak

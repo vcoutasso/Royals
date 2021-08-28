@@ -3,11 +3,7 @@ name: SwiftFormat
 on: 
   push:
     branches:
-      - develop
-  pull_request:
-    branches:
-      - master
-      - develop
+      - '*/**'
 
 jobs:
   swift-format:
@@ -19,11 +15,8 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Install SwiftFormat
-        run: brew install swiftformat
-
       - name: Format code
-        run: swiftformat App --swiftversion 5 --config config/swiftformat
+        run: swiftformat App --config config/swiftformat
 
       - name: Check for modified files
         id: git-check

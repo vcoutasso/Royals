@@ -3,6 +3,7 @@ name: Build
 on: 
   push:
     branches:
+      - master
       - develop
   pull_request:
     branches:
@@ -27,6 +28,12 @@ jobs:
         run: brew install xcodegen
 
       - name: Generate project and install dependencies
+        run: make generate
+
+      - name: Run SwiftGen
+        run: App/Pods/SwiftGen/bin/swiftgen config run --config config/swiftgen.yml
+
+      - name: Update project files
         run: make generate
 
       - name: Build project
