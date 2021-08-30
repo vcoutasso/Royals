@@ -6,7 +6,7 @@ settings:
 options:
   bundleIdPrefix: com.vcoutasso
   deploymentTarget:
-    iOS: 14.0
+    iOS: 13.0
 
 targets:
   Skatable:
