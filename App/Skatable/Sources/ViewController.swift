@@ -25,14 +25,18 @@ class ViewController: UIViewController {
         setupTabBar()
     }
 
-    override func viewDidAppear(_: Bool) {
-        present(tabBarViewController, animated: false)
+    override func viewDidAppear(_ animated: Bool) {
+        present(tabBarViewController, animated: animated)
     }
 
     // MARK: - Private methods
 
     private func setupTabBarItems() {
+        tabBarItems.append(TabBarItemVC(viewController: UIViewController(), iconName: Strings.Icons.home))
         tabBarItems.append(TabBarItemVC(viewController: MapViewController(), iconName: Strings.Icons.map))
+        tabBarItems.append(TabBarItemVC(viewController: UIViewController(), iconName: Strings.Icons.add))
+        tabBarItems.append(TabBarItemVC(viewController: UIViewController(), iconName: Strings.Icons.leaderboard))
+        tabBarItems.append(TabBarItemVC(viewController: UIViewController(), iconName: Strings.Icons.profile))
     }
 
     private func setupTabBar() {
