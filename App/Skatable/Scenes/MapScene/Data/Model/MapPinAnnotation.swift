@@ -8,12 +8,12 @@
 import MapKit
 
 class MapPinAnnotation: NSObject, MKAnnotation {
-    let name: String?
+    let title: String?
     let type: MapPinType
     let coordinate: CLLocationCoordinate2D
 
-    init(name: String, coordinate: CLLocationCoordinate2D, type: MapPinType) {
-        self.name = name
+    init(title: String, coordinate: CLLocationCoordinate2D, type: MapPinType) {
+        self.title = title
         self.type = type
         self.coordinate = coordinate
     }
