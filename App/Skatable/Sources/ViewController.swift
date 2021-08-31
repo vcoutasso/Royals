@@ -33,20 +33,20 @@ class ViewController: UIViewController {
 
     private func setupTabBarItems() {
         tabBarItems
-            .append(TabBarItemVC(viewController: UIViewController(), iconName: Strings.Icons.home,
-                                 title: Strings.Titles.home))
+            .append(TabBarItemVC(viewController: UIViewController(), iconName: Strings.Names.Icons.home,
+                                 title: Strings.Localizable.Tabbar.Home.title))
         tabBarItems
-            .append(TabBarItemVC(viewController: MapViewController(), iconName: Strings.Icons.map,
-                                 title: Strings.Titles.map))
+            .append(TabBarItemVC(viewController: MapViewController(), iconName: Strings.Names.Icons.map,
+                                 title: Strings.Localizable.Tabbar.Map.title))
         tabBarItems
-            .append(TabBarItemVC(viewController: UIViewController(), iconName: Strings.Icons.add,
-                                 title: Strings.Titles.add))
+            .append(TabBarItemVC(viewController: UIViewController(), iconName: Strings.Names.Icons.add,
+                                 title: Strings.Localizable.Tabbar.Add.title))
         tabBarItems
-            .append(TabBarItemVC(viewController: UIViewController(), iconName: Strings.Icons.leaderboard,
-                                 title: Strings.Titles.leaderboard))
+            .append(TabBarItemVC(viewController: UIViewController(), iconName: Strings.Names.Icons.leaderboard,
+                                 title: Strings.Localizable.Tabbar.Leaderboard.title))
         tabBarItems
-            .append(TabBarItemVC(viewController: UIViewController(), iconName: Strings.Icons.profile,
-                                 title: Strings.Titles.profile))
+            .append(TabBarItemVC(viewController: UIViewController(), iconName: Strings.Names.Icons.profile,
+                                 title: Strings.Localizable.Tabbar.Profile.title))
     }
 
     private func setupTabBar() {

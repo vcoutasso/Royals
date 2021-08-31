@@ -1,7 +1,9 @@
 input_dir: ../App/Skatable/Resources/
 output_dir: ../App/Skatable/Resources/Generated/
 strings:
-  inputs: Base.lproj
+  inputs: 
+    - Base.lproj
+    - Names.strings
   filter: .+\.strings$
   outputs:
     - templateName: structured-swift5
