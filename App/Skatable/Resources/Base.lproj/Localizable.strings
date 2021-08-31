@@ -10,3 +10,9 @@
 "icons.add" = "plus.diamond";
 "icons.leaderboard" = "crown";
 "icons.profile" = "person";
+
+"titles.home" = "Feed";
+"titles.map" = "Mapa";
+"titles.add" = "Publicar";
+"titles.leaderboard" = "Royals";
+"titles.profile" = "Perfil";
