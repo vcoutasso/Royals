@@ -57,8 +57,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) {
             annotationView = dequeuedAnnotationView
             annotationView?.annotation = annotation
-        }
-        else {
+        } else {
             let av = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
             av.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             annotationView = av
