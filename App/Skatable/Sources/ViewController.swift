@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         tabBarViewController = UITabBarController()
         tabBarViewController.setViewControllers(tabBarItems.map { $0.viewController }, animated: false)
         tabBarViewController.modalPresentationStyle = .fullScreen
-        tabBarViewController.tabBar.unselectedItemTintColor = tabBarViewController.tabBar.tintColor
+        tabBarViewController.tabBar.tintColor = Assets.Colors.yellow.color
 
         guard let items = tabBarViewController.tabBar.items else { return }
 
