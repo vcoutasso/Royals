@@ -15,7 +15,6 @@
 --wraparguments before-first
 --closingparen balanced
 --wrapcollections before-first
---wrapreturntype if-multiline
 --self init-only
 --stripunusedargs closure-only
 --trimwhitespace always
