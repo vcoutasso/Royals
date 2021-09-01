@@ -18,12 +18,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         super.viewDidLoad()
 
         mapView = MKMapView()
-        mapView.delegate = self
         mapView.mapType = MKMapType.standard
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
         mapView.isRotateEnabled = true
         mapView.translatesAutoresizingMaskIntoConstraints = false
+        mapView.delegate = self
 
         locationManager = CLLocationManager()
         locationManager.delegate = self
