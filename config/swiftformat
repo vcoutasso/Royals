@@ -10,11 +10,12 @@
 --exclude ../**/Generated,../**/Pods
 
 # rules
---elseposition next-line
 --ranges no-space
 --maxwidth 120
---wraparguments after-first
+--wraparguments before-first
+--closingparen balanced
 --wrapcollections before-first
+--wrapreturntype if-multiline
 --self init-only
 --stripunusedargs closure-only
 --trimwhitespace always

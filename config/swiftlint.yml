@@ -1,5 +1,6 @@
 disabled_rules:
-  - trailing_comma
+    - trailing_comma
+    - identifier_name
 custom_rules:
   swiftgen_assets:
     name: "SwiftGen Assets"
