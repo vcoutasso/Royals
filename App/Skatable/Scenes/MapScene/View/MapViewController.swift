@@ -23,14 +23,12 @@ final class MapViewController: UIViewController {
 
         locationAdapter.delegate = self
 
-//        // TODO: this ugly. make pretty.
-//        #if DEBUG
-//            let spot = MapPinAnnotation.fixtureSpot()
-//            let stopper = MapPinAnnotation.fixtureStopper()
+        // TODO: this ugly. make pretty.
+        #if DEBUG
+            let repository = MapPinAnnotationRepository()
+            let annotations = repository.annotations()
 //            mapView.addAnnotations([spot, stopper])
-//        #endif
-
-//        getCurrentLocation()
+        #endif
     }
 
     private enum LayoutMetrics {
