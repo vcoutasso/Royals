@@ -105,6 +105,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         return annotationView
     }
 
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        // Set custom image for custom pins
+        if let mapPin = view.annotation as? MapPinAnnotation {
+            switch mapPin.type {
+            case .skateSpot:
+                view.image = view.image?.imageWithColor(color: Assets.Colors.green.color)
+            case .skateStopper:
+                view.image = view.image?.imageWithColor(color: Assets.Colors.red.color)
+            }
+        }
+    }
+
     func centerMapToLocation(_ location: CLLocation, regionRadius: CLLocationDistance) {
         let coordinateRegion = MKCoordinateRegion(
             center: location.coordinate,
