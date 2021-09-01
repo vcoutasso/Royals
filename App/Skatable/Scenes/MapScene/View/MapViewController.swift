@@ -18,12 +18,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         super.viewDidLoad()
 
         mapView = MKMapView()
-        mapView.delegate = self
         mapView.mapType = MKMapType.standard
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
         mapView.isRotateEnabled = true
         mapView.translatesAutoresizingMaskIntoConstraints = false
+        mapView.delegate = self
 
         locationManager = CLLocationManager()
         locationManager.delegate = self
@@ -64,25 +64,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
 
     func mapViewWillStartLocatingUser(_ mapView: MKMapView) {
-        mapView.centerToLocation(currentLocation, regionRadius: LayoutMetrics.centerToUserRegionRadius)
-    }
-
-    private enum LayoutMetrics {
-        static let centerToUserRegionRadius: CLLocationDistance = 1000
-    }
-}
-
-private extension MKMapView {
-    func centerToLocation(
-        _ location: CLLocation,
-        regionRadius: CLLocationDistance
-    ) {
-        let coordinateRegion = MKCoordinateRegion(
-            center: location.coordinate,
-            latitudinalMeters: regionRadius,
-            longitudinalMeters: regionRadius
-        )
-        setRegion(coordinateRegion, animated: true)
+        centerMapToLocation(currentLocation, regionRadius: LayoutMetrics.centerToUserRegionRadius)
     }
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -121,5 +103,31 @@ private extension MKMapView {
         }
 
         return annotationView
+    }
+
+    // TODO: This needs a smoother transition. Also, pretty sure just one annotation should be selected at a time
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        // Set custom image for custom pins
+        if let mapPin = view.annotation as? MapPinAnnotation {
+            switch mapPin.type {
+            case .skateSpot:
+                view.image = view.image?.imageWithColor(color: Assets.Colors.green.color)
+            case .skateStopper:
+                view.image = view.image?.imageWithColor(color: Assets.Colors.red.color)
+            }
+        }
+    }
+
+    func centerMapToLocation(_ location: CLLocation, regionRadius: CLLocationDistance) {
+        let coordinateRegion = MKCoordinateRegion(
+            center: location.coordinate,
+            latitudinalMeters: regionRadius,
+            longitudinalMeters: regionRadius
+        )
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+
+    private enum LayoutMetrics {
+        static let centerToUserRegionRadius: CLLocationDistance = 1000
     }
 }
