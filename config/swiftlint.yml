@@ -1,3 +1,19 @@
 disabled_rules:
     - trailing_comma
     - identifier_name
+custom_rules:
+  swiftgen_assets:
+    name: "SwiftGen Assets"
+    regex: '(UIImage|UIColor)(\.init)?\(named: ?"?.+"?(, ?in:.+?, ?compatibleWith:.+?)?\)|#imageLiteral\(resourceName: ?".+"\)'
+    message: "Use Assets.Images.<asset> instead"
+    severity: error
+  swiftgen_colors:
+    name: "SwiftGen Colors"
+    regex: '(UIColor(\.init)?|#colorLiteral)\(((red|displayP3Red):.+?,green:.+?,blue:.+?,alpha:.+?)|(white:.+?,alpha:.+?)|(hue:.+?,saturation:.+?,brightness:.+?,alpha:.+?)\)'
+    message: "Use Assets.Colors.<color> instead"
+    severity: error
+  swiftgen_strings:
+    name: "SwiftGen Strings"
+    regex: 'NSLocalizedString'
+    message: "Use Strings.key instead"
+    severity: error

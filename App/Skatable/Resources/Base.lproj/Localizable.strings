@@ -5,8 +5,8 @@
   Created by Vinícius Couto on 25/08/21.
 */
 
-"icons.home" = "house";
-"icons.map" = "map";
-"icons.add" = "plus.diamond";
-"icons.leaderboard" = "crown";
-"icons.profile" = "person";
+"tabbar.home.title" = "Home";
+"tabbar.map.title" = "Map";
+"tabbar.add.title" = "Publish";
+"tabbar.leaderboard.title" = "Leaderboard";
+"tabbar.profile.title" = "Profile";
