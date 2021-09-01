@@ -1,0 +1,13 @@
+/* 
+  Names.strings
+  Skatable
+
+  Created by Vinícius Couto on 31/08/21.
+  
+*/
+
+"icons.home" = "house";
+"icons.map" = "map";
+"icons.add" = "plus.diamond";
+"icons.leaderboard" = "crown";
+"icons.profile" = "person";
