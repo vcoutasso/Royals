@@ -105,6 +105,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         return annotationView
     }
 
+    // TODO: This needs a smoother transition. Also, pretty sure just one annotation should be selected at a time
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         // Set custom image for custom pins
         if let mapPin = view.annotation as? MapPinAnnotation {
