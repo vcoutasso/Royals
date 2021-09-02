@@ -27,11 +27,7 @@ final class MapViewController: UIViewController {
 
         view.addSubview(searchBar)
 
-        searchBar.snp.makeConstraints { make in
-            make.bottomMargin.equalToSuperview().offset(LayoutMetrics.searchBarBottomOffset)
-            make.leading.equalToSuperview().offset(LayoutMetrics.searchBarLeadingOffset)
-            make.trailing.equalToSuperview().offset(LayoutMetrics.searchBarTrailingOffset)
-        }
+        setupConstraints()
 
         locationAdapter.delegate = self
         mapAdapter.delegate = self
@@ -48,7 +44,9 @@ final class MapViewController: UIViewController {
 
     private func setupConstraints() {
         searchBar.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.bottomMargin.equalToSuperview().offset(LayoutMetrics.searchBarBottomOffset)
+            make.leading.equalToSuperview().offset(LayoutMetrics.searchBarLeadingOffset)
+            make.trailing.equalToSuperview().offset(LayoutMetrics.searchBarTrailingOffset)
         }
     }
 

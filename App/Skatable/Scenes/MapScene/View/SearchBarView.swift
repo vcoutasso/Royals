@@ -26,8 +26,7 @@ final class SearchBarView: UISearchBar, UISearchBarDelegate {
     private func setupView() {
         searchBarStyle = .prominent
         placeholder = Strings.Localizable.MapView.whereTo
-//        bar.backgroundImage = UIImage()
-        // TODO: Use assets
+        backgroundImage = UIImage()
         isTranslucent = true
         delegate = self
         translatesAutoresizingMaskIntoConstraints = false
