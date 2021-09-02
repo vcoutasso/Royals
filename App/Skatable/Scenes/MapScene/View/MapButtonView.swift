@@ -7,22 +7,23 @@
 
 import UIKit
 
-class MapButtonView: UIButton {
-    private var icon: UIImage
+final class MapButtonView: UIButton {
+    // MARK: - Private variables
+
+    private let iconName: String
+    private var icon: UIImage?
     private var action: () -> Void
 
-    init(iconName: String, action: @escaping (() -> Void)) {
-        self.icon = UIImage(systemName: iconName)!
+    // MARK: - Initialization
 
+    init(iconName: String, action: @escaping (() -> Void)) {
+        self.iconName = iconName
         self.action = action
 
         super.init(frame: .zero)
 
-        // TODO: implement our own color pallete here
-        backgroundColor = .systemGray
-        setImage(icon, for: .normal)
-
-        target(forAction: #selector(tap), withSender: nil)
+        setupView()
+        setupConstraints()
     }
 
     @available(*, unavailable)
@@ -30,7 +31,37 @@ class MapButtonView: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc func tap() {
+    // MARK: - Private methods
+
+    private func setupView() {
+        let font = UIFont.systemFont(ofSize: LayoutMetrics.iconFontSize, weight: .bold)
+        let configuration = UIImage.SymbolConfiguration(font: font)
+
+        icon = UIImage(systemName: iconName, withConfiguration: configuration)?
+            .imageWithColor(color: Assets.Colors.white.color)
+
+        backgroundColor = Assets.Colors.darkSystemGray4.color
+        setImage(icon, for: .normal)
+        target(forAction: #selector(tap), withSender: nil)
+        layer.cornerRadius = LayoutMetrics.backgroundRectCornerRadius
+    }
+
+    private func setupConstraints() {
+        snp.makeConstraints { make in
+            make.size.equalTo(LayoutMetrics.backgroundRectSize)
+        }
+    }
+
+    @objc private func tap() {
         action()
+    }
+
+    // MARK: - Layout Metrics
+
+    private enum LayoutMetrics {
+        private static let rectSize: Int = 45
+        static let backgroundRectSize = CGSize(width: rectSize, height: rectSize)
+        static let backgroundRectCornerRadius: CGFloat = 8
+        static let iconFontSize: CGFloat = 20
     }
 }
