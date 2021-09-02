@@ -10,3 +10,5 @@
 "tabbar.add.title" = "Publish";
 "tabbar.leaderboard.title" = "Leaderboard";
 "tabbar.profile.title" = "Profile";
+
+"mapView.whereTo" = "Where are you going to skate today?";
