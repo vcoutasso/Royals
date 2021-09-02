@@ -6,6 +6,7 @@
 //
 
 import MapKit
+import SnapKit
 
 final class MapView: UIView {
     // MARK: - Private variables
@@ -67,12 +68,12 @@ final class MapView: UIView {
     }
 
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            map.topAnchor.constraint(equalTo: topAnchor),
-            map.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
-            map.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
-            map.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        map.snp.makeConstraints { make -> Void in
+            make.top.equalToSuperview()
+            make.right.equalToSuperview()
+            make.left.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
     }
 
     private enum LayoutMetrics {
