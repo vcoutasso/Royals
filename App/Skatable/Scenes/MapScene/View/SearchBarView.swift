@@ -7,29 +7,13 @@
 
 import UIKit
 
-final class SearchBarView: UIView, UISearchBarDelegate {
-    // MARK: - Private variables
-
-    private lazy var searchBar: UISearchBar = {
-        let bar = UISearchBar()
-
-        bar.searchBarStyle = .default
-        bar.placeholder = Strings.Localizable.MapView.whereTo
-        bar.backgroundImage = UIImage()
-        bar.isTranslucent = true
-        bar.delegate = self
-        bar.translatesAutoresizingMaskIntoConstraints = false
-
-        return bar
-    }()
-
+final class SearchBarView: UISearchBar, UISearchBarDelegate {
     // MARK: - Initialization
 
     init() {
         super.init(frame: .zero)
 
-        setupHierarchy()
-        setupConstraints()
+        setupView()
     }
 
     @available(*, unavailable)
@@ -39,13 +23,13 @@ final class SearchBarView: UIView, UISearchBarDelegate {
 
     // MARK: - Private methods
 
-    private func setupHierarchy() {
-        addSubview(searchBar)
-    }
-
-    private func setupConstraints() {
-        searchBar.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+    private func setupView() {
+        searchBarStyle = .prominent
+        placeholder = Strings.Localizable.MapView.whereTo
+//        bar.backgroundImage = UIImage()
+        // TODO: Use assets
+        isTranslucent = true
+        delegate = self
+        translatesAutoresizingMaskIntoConstraints = false
     }
 }
