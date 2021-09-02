@@ -6,43 +6,27 @@
 //
 
 import MapKit
-import SnapKit
 
-final class MapView: UIView {
-    // MARK: - Private variables
-
-    private lazy var map: MKMapView = {
-        let map = MKMapView()
-
-        map.mapType = MKMapType.standard
-        map.isZoomEnabled = true
-        map.isScrollEnabled = true
-        map.isRotateEnabled = true
-        map.translatesAutoresizingMaskIntoConstraints = false
-
-        return map
-    }()
-
+final class MapView: MKMapView {
     // MARK: - Initialization
 
     init(delegate: MKMapViewDelegate) {
         super.init(frame: .zero)
 
-        setupHierarchy()
-        setupConstraints()
+        setupView()
 
-        map.delegate = delegate
+        self.delegate = delegate
     }
 
     @available(*, unavailable)
-    required init?(coder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Public methods
 
     func didLocateUser() {
-        map.showsUserLocation = true
+        showsUserLocation = true
     }
 
     func centerMap(to location: CLLocation) {
@@ -54,23 +38,21 @@ final class MapView: UIView {
     }
 
     func addPins(_ pins: [MKAnnotation]) {
-        map.addAnnotations(pins)
+        addAnnotations(pins)
     }
 
     // MARK: - Private methods
 
-    private func setupHierarchy() {
-        addSubview(map)
+    private func setupView() {
+        mapType = MKMapType.standard
+        isZoomEnabled = true
+        isScrollEnabled = true
+        isRotateEnabled = true
+        translatesAutoresizingMaskIntoConstraints = false
     }
 
     private func setRegion(_ coordinateRegion: MKCoordinateRegion) {
-        map.setRegion(coordinateRegion, animated: true)
-    }
-
-    private func setupConstraints() {
-        map.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        setRegion(coordinateRegion, animated: true)
     }
 
     private enum LayoutMetrics {

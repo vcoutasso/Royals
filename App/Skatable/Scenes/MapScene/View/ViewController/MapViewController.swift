@@ -5,6 +5,7 @@
 //  Created by Bruno Thuma on 27/08/21.
 //
 
+import SnapKit
 import UIKit
 
 final class MapViewController: UIViewController {
@@ -19,20 +20,12 @@ final class MapViewController: UIViewController {
 
     // MARK: - Overridden methods
 
-    override func loadView() {
-        view = mapView
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.addSubview(searchBar)
-        view.addSubview(addLocationButton)
-
+        setupHierarchy()
         setupConstraints()
-
-        locationAdapter.delegate = self
-        mapAdapter.delegate = self
+        setupDelegates()
 
         // TODO: this ugly. make pretty.
         #if DEBUG
@@ -44,7 +37,22 @@ final class MapViewController: UIViewController {
 
     // MARK: - Private methods
 
+    private func setupDelegates() {
+        locationAdapter.delegate = self
+        mapAdapter.delegate = self
+    }
+
+    private func setupHierarchy() {
+        view.addSubview(mapView)
+        view.addSubview(searchBar)
+        view.addSubview(addLocationButton)
+    }
+
     private func setupConstraints() {
+        mapView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
         searchBar.snp.makeConstraints { make in
             make.bottomMargin.equalToSuperview().offset(LayoutMetrics.searchBarBottomOffset)
             make.leading.equalToSuperview().offset(LayoutMetrics.searchBarLeadingOffset)
