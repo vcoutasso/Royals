@@ -8,6 +8,7 @@ target 'Skatable' do
   pod 'SwiftFormat/CLI'
   pod 'SwiftLint'
   pod 'SwiftGen'
+  pod 'SnapKit'
 
 end
 
