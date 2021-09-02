@@ -36,11 +36,21 @@ final class AddOptionView: UIButton {
 
     // MARK: - Overridden methods
 
-    override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
-        let titleRect = super.titleRect(forContentRect: contentRect)
-        let imageSize = currentImage?.size ?? .zero
-        let availableWidth = contentRect.width - imageEdgeInsets.right - imageSize.width - titleRect.width
-        return titleRect.offsetBy(dx: round(availableWidth / 2), dy: 0)
+    // Courtesy of stack overflow
+    // Inspired from https://stackoverflow.com/a/32779260
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        if let image = imageView?.image {
+            let imageLeftInset = LayoutMetrics.leadingImageOffset
+            let titleRect = titleRect(forContentRect: bounds)
+            let titleLeftInset = (bounds.width - titleRect.width - image.size.width + imageLeftInset) / 2
+
+            contentHorizontalAlignment = .left
+
+            imageEdgeInsets = UIEdgeInsets(top: 0, left: imageLeftInset, bottom: 0, right: 0)
+            titleEdgeInsets = UIEdgeInsets(top: 0, left: titleLeftInset, bottom: 0, right: 0)
+        }
     }
 
     // MARK: - Private methods
@@ -86,5 +96,6 @@ final class AddOptionView: UIButton {
         static let backgroundRectCornerRadius: CGFloat = 36
         static let iconFontSize: CGFloat = 24
         static let iconFontWeight: UIFont.Weight = .bold
+        static let leadingImageOffset: CGFloat = 20
     }
 }
