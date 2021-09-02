@@ -47,8 +47,8 @@ final class ViewController: UIViewController {
         tabBarItems
             .append(TabBarItem(
                 viewController: UIViewController(),
-                iconName: Strings.Names.Icons.add,
-                title: Strings.Localizable.Tabbar.Add.title
+                iconName: Strings.Names.Icons.publish,
+                title: Strings.Localizable.Tabbar.Publish.title
             ))
         tabBarItems
             .append(TabBarItem(
@@ -68,6 +68,9 @@ final class ViewController: UIViewController {
         tabBarViewController = UITabBarController()
         tabBarViewController.setViewControllers(tabBarItems.map { $0.viewController }, animated: false)
         tabBarViewController.modalPresentationStyle = .fullScreen
+
+        tabBarViewController.tabBar.barTintColor = Assets.Colors.darkSystemGray5.color
+        tabBarViewController.tabBar.isTranslucent = false
 
         tabBarViewController.tabBar.tintColor = Assets.Colors.yellow.color
         tabBarViewController.tabBar.unselectedItemTintColor = Assets.Colors.darkGray.color
