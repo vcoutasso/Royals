@@ -22,13 +22,9 @@ final class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.addSubview(mapView)
-        view.addSubview(searchBar)
-
+        setupHierarchy()
         setupConstraints()
-
-        locationAdapter.delegate = self
-        mapAdapter.delegate = self
+        setupDelegates()
 
         // TODO: this ugly. make pretty.
         #if DEBUG
@@ -39,6 +35,16 @@ final class MapViewController: UIViewController {
     }
 
     // MARK: - Private methods
+
+    private func setupDelegates() {
+        locationAdapter.delegate = self
+        mapAdapter.delegate = self
+    }
+
+    private func setupHierarchy() {
+        view.addSubview(mapView)
+        view.addSubview(searchBar)
+    }
 
     private func setupConstraints() {
         mapView.snp.makeConstraints { make in
