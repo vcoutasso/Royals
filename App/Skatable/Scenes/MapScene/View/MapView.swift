@@ -6,7 +6,6 @@
 //
 
 import MapKit
-import SnapKit
 
 final class MapView: MKMapView {
     // MARK: - Initialization
