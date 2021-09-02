@@ -14,6 +14,7 @@ final class MapViewController: UIViewController {
     private let mapAdapter: MapAdapter = .init()
 
     private lazy var mapView: MapView = .init(delegate: mapAdapter)
+    private lazy var searchBar: SearchBarView = .init()
 
     // MARK: - Overridden methods
 
@@ -24,6 +25,14 @@ final class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.addSubview(searchBar)
+
+        searchBar.snp.makeConstraints { make in
+            make.bottomMargin.equalToSuperview().offset(-30)
+            make.leading.equalToSuperview().offset(5)
+            make.trailing.equalToSuperview().offset(-5)
+        }
+
         locationAdapter.delegate = self
         mapAdapter.delegate = self
 
@@ -33,6 +42,14 @@ final class MapViewController: UIViewController {
             let pins = repository.pins()
             mapView.addPins(pins)
         #endif
+    }
+
+    // MARK: - Private methods
+
+    private func setupConstraints() {
+        searchBar.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 }
 
