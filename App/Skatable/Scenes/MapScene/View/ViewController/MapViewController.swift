@@ -16,6 +16,7 @@ final class MapViewController: UIViewController {
 
     private lazy var mapView: MapView = .init(delegate: mapAdapter)
     private lazy var searchBar: SearchBarView = .init()
+    private lazy var addLocationButton: MapButtonView = .init(iconName: "plus.circle.fill", action: {})
 
     // MARK: - Overridden methods
 
@@ -44,6 +45,7 @@ final class MapViewController: UIViewController {
     private func setupHierarchy() {
         view.addSubview(mapView)
         view.addSubview(searchBar)
+        view.addSubview(addLocationButton)
     }
 
     private func setupConstraints() {
@@ -56,12 +58,19 @@ final class MapViewController: UIViewController {
             make.leading.equalToSuperview().offset(LayoutMetrics.searchBarLeadingOffset)
             make.trailing.equalToSuperview().offset(LayoutMetrics.searchBarTrailingOffset)
         }
+
+        addLocationButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(LayoutMetrics.addButtonTrailingOffset)
+            make.topMargin.equalToSuperview().offset(LayoutMetrics.addButtonTopOffset)
+        }
     }
 
     private enum LayoutMetrics {
         static let searchBarBottomOffset: CGFloat = -30
         static let searchBarLeadingOffset: CGFloat = 5
         static let searchBarTrailingOffset: CGFloat = -5
+        static let addButtonTrailingOffset: CGFloat = -5
+        static let addButtonTopOffset: CGFloat = 15
     }
 }
 
