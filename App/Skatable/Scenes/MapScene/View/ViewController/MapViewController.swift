@@ -18,13 +18,10 @@ final class MapViewController: UIViewController {
 
     // MARK: - Overridden methods
 
-    override func loadView() {
-        view = mapView
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.addSubview(mapView)
         view.addSubview(searchBar)
 
         setupConstraints()
@@ -43,6 +40,10 @@ final class MapViewController: UIViewController {
     // MARK: - Private methods
 
     private func setupConstraints() {
+        mapView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
         searchBar.snp.makeConstraints { make in
             make.bottomMargin.equalToSuperview().offset(LayoutMetrics.searchBarBottomOffset)
             make.leading.equalToSuperview().offset(LayoutMetrics.searchBarLeadingOffset)
