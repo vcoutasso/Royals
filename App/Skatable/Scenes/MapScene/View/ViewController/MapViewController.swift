@@ -17,7 +17,10 @@ final class MapViewController: UIViewController {
     private lazy var mapView: MapView = .init(delegate: mapAdapter)
     private lazy var searchBar: SearchBarView = .init()
     private lazy var addButton: MapButtonView = .init(iconName: Strings.Names.Icons.add, action: {})
-    private lazy var locationButton: MapButtonView = .init(iconName: Strings.Names.Icons.location, action: {})
+    private lazy var locationButton: MapButtonView = .init(
+        iconName: Strings.Names.Icons.location,
+        action: willLocateUser
+    )
 
     // MARK: - Overridden methods
 
