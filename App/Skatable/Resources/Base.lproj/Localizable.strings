@@ -11,4 +11,6 @@
 "tabbar.leaderboard.title" = "Leaderboard";
 "tabbar.profile.title" = "Profile";
 
-"mapView.whereTo" = "Where are you going to skate today?";
+"mapView.searchBar.placeholder" = "Where are you going to skate today?";
+"mapView.addMenu.skateSpot.title" = "Add Spot";
+"mapView.addMenu.skateStopper.title" = "Add Stopper";

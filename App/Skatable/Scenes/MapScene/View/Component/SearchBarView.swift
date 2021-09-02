@@ -24,7 +24,7 @@ final class SearchBarView: UISearchBar, UISearchBarDelegate {
     // MARK: - Private methods
 
     private func setupView() {
-        placeholder = Strings.Localizable.MapView.whereTo
+        placeholder = Strings.Localizable.MapView.SearchBar.placeholder
 
         searchTextField.backgroundColor = Assets.Colors.darkSystemGray5.color
         searchTextField.textColor = Assets.Colors.darkSystemGray1.color

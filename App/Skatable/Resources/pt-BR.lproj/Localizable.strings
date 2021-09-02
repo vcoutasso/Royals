@@ -11,4 +11,6 @@
 "tabbar.leaderboard.title" = "Royals";
 "tabbar.profile.title" = "Perfil";
 
-"mapView.whereTo" = "Onde você vai skatar hoje?";
+"mapView.searchBar.placeholder" = "Onde você vai skatar hoje?";
+"mapView.addMenu.skateSpot.title" = "Adicionar Pico";
+"mapView.addMenu.skateStopper.title" = "Adicionar Stopper";

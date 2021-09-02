@@ -11,7 +11,6 @@ final class MapButtonView: UIButton {
     // MARK: - Private variables
 
     private let iconName: String
-    private var icon: UIImage?
     private var action: () -> Void
 
     // MARK: - Initialization
@@ -24,6 +23,8 @@ final class MapButtonView: UIButton {
 
         setupView()
         setupConstraints()
+
+        addTarget(self, action: #selector(tap), for: .touchUpInside)
     }
 
     @available(*, unavailable)
@@ -34,10 +35,10 @@ final class MapButtonView: UIButton {
     // MARK: - Private methods
 
     private func setupView() {
-        let font = UIFont.systemFont(ofSize: LayoutMetrics.iconFontSize, weight: .bold)
+        let font = UIFont.systemFont(ofSize: LayoutMetrics.iconFontSize, weight: LayoutMetrics.iconFontWeight)
         let configuration = UIImage.SymbolConfiguration(font: font)
 
-        icon = UIImage(systemName: iconName, withConfiguration: configuration)?
+        let icon = UIImage(systemName: iconName, withConfiguration: configuration)?
             .imageWithColor(color: Assets.Colors.white.color)
 
         backgroundColor = Assets.Colors.darkSystemGray4.color
@@ -60,8 +61,10 @@ final class MapButtonView: UIButton {
 
     private enum LayoutMetrics {
         private static let rectSize: Int = 45
+
         static let backgroundRectSize = CGSize(width: rectSize, height: rectSize)
         static let backgroundRectCornerRadius: CGFloat = 8
         static let iconFontSize: CGFloat = 20
+        static let iconFontWeight: UIFont.Weight = .bold
     }
 }

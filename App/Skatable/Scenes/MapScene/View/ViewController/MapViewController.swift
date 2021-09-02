@@ -16,8 +16,12 @@ final class MapViewController: UIViewController {
 
     private lazy var mapView: MapView = .init(delegate: mapAdapter)
     private lazy var searchBar: SearchBarView = .init()
-    private lazy var addButton: MapButtonView = .init(iconName: Strings.Names.Icons.add, action: {})
-    private lazy var locationButton: MapButtonView = .init(iconName: Strings.Names.Icons.location, action: {})
+
+    private lazy var addButton: MapButtonView = .init(iconName: Strings.Names.Icons.add, action: presentAddMenuModal)
+    private lazy var locationButton: MapButtonView = .init(
+        iconName: Strings.Names.Icons.location,
+        action: willLocateUser
+    )
 
     // MARK: - Overridden methods
 
@@ -57,8 +61,8 @@ final class MapViewController: UIViewController {
 
         searchBar.snp.makeConstraints { make in
             make.bottomMargin.equalToSuperview().offset(LayoutMetrics.searchBarBottomOffset)
-            make.leading.equalToSuperview().offset(LayoutMetrics.searchBarLeadingOffset)
-            make.trailing.equalToSuperview().offset(LayoutMetrics.trailingOffset)
+            make.leadingMargin.equalToSuperview().offset(LayoutMetrics.searchBarLeadingOffset)
+            make.trailingMargin.equalToSuperview().offset(LayoutMetrics.trailingOffset)
         }
 
         addButton.snp.makeConstraints { make in
@@ -71,6 +75,14 @@ final class MapViewController: UIViewController {
             make.trailingMargin.equalToSuperview().offset(LayoutMetrics.trailingOffset)
         }
     }
+
+    private func presentAddMenuModal() {
+        let menuVC = AddMenuViewController()
+        modalPresentationStyle = .overCurrentContext
+        present(menuVC, animated: true, completion: {})
+    }
+
+    // MARK: - Layout Metrics
 
     private enum LayoutMetrics {
         static let searchBarBottomOffset: CGFloat = -30
