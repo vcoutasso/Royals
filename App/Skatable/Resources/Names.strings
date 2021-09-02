@@ -8,6 +8,8 @@
 
 "icons.home" = "house";
 "icons.map" = "map";
-"icons.add" = "plus.diamond";
+"icons.publish" = "plus.diamond";
 "icons.leaderboard" = "crown";
 "icons.profile" = "person";
+"icons.location" = "location.fill";
+"icons.add" = "plus.circle.fill";

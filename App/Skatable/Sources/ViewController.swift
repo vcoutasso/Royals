@@ -47,8 +47,8 @@ final class ViewController: UIViewController {
         tabBarItems
             .append(TabBarItem(
                 viewController: UIViewController(),
-                iconName: Strings.Names.Icons.add,
-                title: Strings.Localizable.Tabbar.Add.title
+                iconName: Strings.Names.Icons.publish,
+                title: Strings.Localizable.Tabbar.Publish.title
             ))
         tabBarItems
             .append(TabBarItem(

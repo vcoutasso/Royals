@@ -7,7 +7,7 @@
 
 "tabbar.home.title" = "Home";
 "tabbar.map.title" = "Map";
-"tabbar.add.title" = "Publish";
+"tabbar.publish.title" = "Publish";
 "tabbar.leaderboard.title" = "Leaderboard";
 "tabbar.profile.title" = "Profile";
 
