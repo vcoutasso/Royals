@@ -5,7 +5,6 @@
 //  Created by Bruno Thuma on 27/08/21.
 //
 
-import MapKit
 import UIKit
 
 final class MapViewController: UIViewController {
