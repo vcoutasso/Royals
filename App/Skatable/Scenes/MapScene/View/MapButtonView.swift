@@ -12,7 +12,7 @@ class MapButtonView: UIButton {
     private var action: () -> Void
 
     init(iconName: String, action: @escaping (() -> Void)) {
-        icon = UIImage(systemName: iconName)!
+        self.icon = UIImage(systemName: iconName)!
 
         self.action = action
 
