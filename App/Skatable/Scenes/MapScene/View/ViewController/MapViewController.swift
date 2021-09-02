@@ -16,7 +16,8 @@ final class MapViewController: UIViewController {
 
     private lazy var mapView: MapView = .init(delegate: mapAdapter)
     private lazy var searchBar: SearchBarView = .init()
-    private lazy var addLocationButton: MapButtonView = .init(iconName: "plus.circle.fill", action: {})
+    private lazy var addButton: MapButtonView = .init(iconName: Strings.Names.Icons.add, action: {})
+    private lazy var locationButton: MapButtonView = .init(iconName: Strings.Names.Icons.location, action: {})
 
     // MARK: - Overridden methods
 
@@ -45,7 +46,8 @@ final class MapViewController: UIViewController {
     private func setupHierarchy() {
         view.addSubview(mapView)
         view.addSubview(searchBar)
-        view.addSubview(addLocationButton)
+        view.addSubview(addButton)
+        view.addSubview(locationButton)
     }
 
     private func setupConstraints() {
@@ -56,21 +58,26 @@ final class MapViewController: UIViewController {
         searchBar.snp.makeConstraints { make in
             make.bottomMargin.equalToSuperview().offset(LayoutMetrics.searchBarBottomOffset)
             make.leading.equalToSuperview().offset(LayoutMetrics.searchBarLeadingOffset)
-            make.trailing.equalToSuperview().offset(LayoutMetrics.searchBarTrailingOffset)
+            make.trailing.equalToSuperview().offset(LayoutMetrics.trailingOffset)
         }
 
-        addLocationButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(LayoutMetrics.addButtonTrailingOffset)
+        addButton.snp.makeConstraints { make in
             make.topMargin.equalToSuperview().offset(LayoutMetrics.addButtonTopOffset)
+            make.trailingMargin.equalToSuperview().offset(LayoutMetrics.trailingOffset)
+        }
+
+        locationButton.snp.makeConstraints { make in
+            make.top.equalTo(addButton.snp.bottom).offset(LayoutMetrics.buttonDistance)
+            make.trailingMargin.equalToSuperview().offset(LayoutMetrics.trailingOffset)
         }
     }
 
     private enum LayoutMetrics {
         static let searchBarBottomOffset: CGFloat = -30
         static let searchBarLeadingOffset: CGFloat = 5
-        static let searchBarTrailingOffset: CGFloat = -5
-        static let addButtonTrailingOffset: CGFloat = -5
+        static let trailingOffset: CGFloat = -5
         static let addButtonTopOffset: CGFloat = 15
+        static let buttonDistance: CGFloat = 5
     }
 }
 
