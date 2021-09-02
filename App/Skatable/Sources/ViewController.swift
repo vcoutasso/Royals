@@ -69,6 +69,9 @@ final class ViewController: UIViewController {
         tabBarViewController.setViewControllers(tabBarItems.map { $0.viewController }, animated: false)
         tabBarViewController.modalPresentationStyle = .fullScreen
 
+        tabBarViewController.tabBar.barTintColor = Assets.Colors.darkSystemGray5.color
+        tabBarViewController.tabBar.isTranslucent = false
+
         tabBarViewController.tabBar.tintColor = Assets.Colors.yellow.color
         tabBarViewController.tabBar.unselectedItemTintColor = Assets.Colors.darkGray.color
         // Start at map tab
