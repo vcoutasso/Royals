@@ -24,11 +24,18 @@ final class SearchBarView: UISearchBar, UISearchBarDelegate {
     // MARK: - Private methods
 
     private func setupView() {
-        searchBarStyle = .prominent
         placeholder = Strings.Localizable.MapView.whereTo
-        backgroundImage = UIImage()
-        isTranslucent = true
+
+        searchTextField.backgroundColor = Assets.Colors.darkSystemGray5.color
+        searchTextField.textColor = Assets.Colors.darkSystemGray1.color
+        searchTextField.leftView?.tintColor = Assets.Colors.darkSystemGray1.color
+
+        searchBarStyle = .minimal
+        tintColor = Assets.Colors.darkSystemGray1.color
+        barTintColor = Assets.Colors.darkSystemGray1.color
+
         delegate = self
+
         translatesAutoresizingMaskIntoConstraints = false
     }
 }
