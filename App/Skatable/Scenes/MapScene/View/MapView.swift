@@ -47,6 +47,7 @@ final class MapView: MKMapView {
         mapType = MKMapType.standard
         isZoomEnabled = true
         isScrollEnabled = true
+        showsCompass = false
         translatesAutoresizingMaskIntoConstraints = false
     }
 
