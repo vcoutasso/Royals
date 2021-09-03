@@ -9,6 +9,7 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    var appCoordinator: AppCoordinator?
 
     func scene(
         _ scene: UIScene,
@@ -18,10 +19,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Manually configure and attach the UIWindow `window` to the provided UIWindowScene `scene`
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = ViewController()
-        window.makeKeyAndVisible()
-        window.overrideUserInterfaceStyle = .dark
-        self.window = window
+        let navController = UINavigationController()
+
+        appCoordinator = .init(navigationController: navController)
+        appCoordinator?.start()
+
+        window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = navController
+        window?.makeKeyAndVisible()
+        window?.overrideUserInterfaceStyle = .dark
     }
 }
