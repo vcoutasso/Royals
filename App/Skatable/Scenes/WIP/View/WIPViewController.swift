@@ -34,6 +34,7 @@ class WIPViewController: UIViewController {
 
     private func setupConstraints() {
         imageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
             make.centerYWithinMargins.equalToSuperview()
         }
     }
