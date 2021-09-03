@@ -12,7 +12,7 @@ protocol AppCoordinatorProtocol: Coordinator {
     func showMainFlow()
 }
 
-class AppCoordinator: AppCoordinatorProtocol {
+final class AppCoordinator: AppCoordinatorProtocol {
     // MARK: - Public attributes
 
     var navigationController: UINavigationController
@@ -20,7 +20,7 @@ class AppCoordinator: AppCoordinatorProtocol {
 
     // MARK: - Initialization
 
-    init(navigationController: UINavigationController) {
+    required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.navigationController.setNavigationBarHidden(true, animated: false)
     }
@@ -32,7 +32,7 @@ class AppCoordinator: AppCoordinatorProtocol {
     }
 
     func showLoginFlow() {
-        // TODO: Show ogin scene until user logs in
+        // TODO: Show login scene until user logs in
         showMainFlow()
     }
 

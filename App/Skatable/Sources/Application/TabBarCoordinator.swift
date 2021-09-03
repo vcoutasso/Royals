@@ -7,7 +7,13 @@
 
 import UIKit
 
-class TabBarCoordinator: Coordinator {
+protocol TabBarCoordinatorProtocol: Coordinator {
+    var tabBarController: UITabBarController { get set }
+
+    func selectPage(_ page: TabBarPage)
+}
+
+final class TabBarCoordinator: TabBarCoordinatorProtocol {
     // MARK: - Public attributes
 
     var navigationController: UINavigationController
@@ -17,7 +23,7 @@ class TabBarCoordinator: Coordinator {
 
     // MARK: - Initialization
 
-    init(navigationController: UINavigationController) {
+    required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.navigationController.setNavigationBarHidden(true, animated: false)
     }
