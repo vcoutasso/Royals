@@ -5,6 +5,7 @@
 //  Created by Bruno Thuma on 27/08/21.
 //
 
+import MapKit
 import SnapKit
 import UIKit
 
@@ -14,7 +15,7 @@ final class MapViewController: UIViewController {
     private let locationAdapter: LocationAdapter = .init()
     private let mapAdapter: MapAdapter = .init()
 
-    private lazy var mapView: MapView = .init(delegate: mapAdapter)
+    private lazy var mapView: MKMapView = .init()
     private lazy var searchBar: SearchBarView = .init()
 
     private lazy var addButton: MapButtonView = .init(iconName: Strings.Names.Icons.add, action: presentAddMenuModal)
@@ -28,6 +29,7 @@ final class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupViews()
         setupHierarchy()
         setupConstraints()
         setupDelegates()
@@ -36,11 +38,20 @@ final class MapViewController: UIViewController {
         #if DEBUG
             let repository = MapPinAnnotationRepository()
             let pins = repository.pins()
-            mapView.addPins(pins)
+            mapView.addAnnotations(pins)
         #endif
     }
 
     // MARK: - Private methods
+
+    private func setupViews() {
+        mapView.mapType = MKMapType.standard
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = true
+        mapView.showsCompass = false
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        mapView.delegate = mapAdapter
+    }
 
     private func setupDelegates() {
         locationAdapter.delegate = self
@@ -85,6 +96,7 @@ final class MapViewController: UIViewController {
     // MARK: - Layout Metrics
 
     private enum LayoutMetrics {
+        static let centeringRegionRadius: CLLocationDistance = 1000
         static let searchBarBottomOffset: CGFloat = -30
         static let searchBarLeadingOffset: CGFloat = 5
         static let trailingOffset: CGFloat = -5
@@ -94,11 +106,15 @@ final class MapViewController: UIViewController {
 }
 
 extension MapViewController: LocationAdapterDelegate, MapAdapterDelegate {
-    func didLocateUser() { mapView.didLocateUser() }
+    func didLocateUser() { mapView.showsUserLocation = true }
 
     func willLocateUser() {
         guard let location = locationAdapter.currentLocation else { return }
 
-        mapView.centerMap(to: location)
+        mapView.setRegion(MKCoordinateRegion(
+            center: location.coordinate,
+            latitudinalMeters: LayoutMetrics.centeringRegionRadius,
+            longitudinalMeters: LayoutMetrics.centeringRegionRadius
+        ), animated: true)
     }
 }
