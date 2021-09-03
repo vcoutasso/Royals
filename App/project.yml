@@ -2,6 +2,7 @@ name: Skatable
 
 settings:
   DEVELOPMENT_TEAM: H7BM7N56V5
+  CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: true
 
 options:
   bundleIdPrefix: com.vcoutasso
@@ -21,4 +22,3 @@ targets:
       - name: SwiftGen
         script: |
           "${PODS_ROOT}/SwiftGen/bin/swiftgen" config run --config ../config/swiftgen.yml
-
