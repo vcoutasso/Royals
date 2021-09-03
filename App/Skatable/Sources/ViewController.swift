@@ -34,7 +34,7 @@ final class ViewController: UIViewController {
     private func setupTabBarItems() {
         tabBarItems
             .append(TabBarItem(
-                viewController: UIViewController(),
+                viewController: WIPViewController(),
                 iconName: Strings.Names.Icons.home,
                 title: Strings.Localizable.Tabbar.Home.title
             ))
@@ -46,19 +46,19 @@ final class ViewController: UIViewController {
             ))
         tabBarItems
             .append(TabBarItem(
-                viewController: UIViewController(),
+                viewController: WIPViewController(),
                 iconName: Strings.Names.Icons.publish,
                 title: Strings.Localizable.Tabbar.Publish.title
             ))
         tabBarItems
             .append(TabBarItem(
-                viewController: UIViewController(),
+                viewController: WIPViewController(),
                 iconName: Strings.Names.Icons.leaderboard,
                 title: Strings.Localizable.Tabbar.Leaderboard.title
             ))
         tabBarItems
             .append(TabBarItem(
-                viewController: UIViewController(),
+                viewController: WIPViewController(),
                 iconName: Strings.Names.Icons.profile,
                 title: Strings.Localizable.Tabbar.Profile.title
             ))

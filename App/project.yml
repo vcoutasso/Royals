@@ -6,13 +6,14 @@ settings:
 
 options:
   bundleIdPrefix: com.vcoutasso
-  deploymentTarget:
-    iOS: 13.0
 
 targets:
   Skatable:
     type: application
     platform: iOS
+    deploymentTarget: 13.0
+    settings:
+      TARGETED_DEVICE_FAMILY: 1
     sources:
       - path: Skatable
     preBuildScripts:
