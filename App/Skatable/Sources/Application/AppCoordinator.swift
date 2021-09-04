@@ -32,8 +32,10 @@ final class AppCoordinator: AppCoordinatorProtocol {
     }
 
     func showLoginFlow() {
-        // TODO: Show login scene until user logs in
-        showMainFlow()
+        let loginCoordinator = LoginCoordinator(navigationController: navigationController)
+        loginCoordinator.start()
+        childCoordinators.append(loginCoordinator)
+//        showMainFlow()
     }
 
     func showMainFlow() {
