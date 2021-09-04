@@ -5,10 +5,12 @@ target 'Skatable' do
   use_frameworks!
 
   # Pods for Skatable
+  pod 'SnapKit', :inhibit_warnings => true
   pod 'SwiftFormat/CLI'
   pod 'SwiftLint'
   pod 'SwiftGen'
-  pod 'SnapKit', :inhibit_warnings => true
+
+  pod 'Firebase/Analytics'
 
 end
 

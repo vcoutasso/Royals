@@ -97,3 +97,5 @@ Pods/
 .DS_Store
 
 **/Generated/*.swift
+
+GoogleService-Info.plist
