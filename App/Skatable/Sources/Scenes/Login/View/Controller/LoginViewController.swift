@@ -15,6 +15,8 @@ class LoginViewController: UIViewController {
     // Unhashed nonce.
     fileprivate var currentNonce: String?
 
+    let skelly: UIImageView = .init()
+    let textLabel: UILabel = .init()
     let appleButton: ASAuthorizationAppleIDButton = .init(type: .continue, style: .white)
 
     override func viewDidLoad() {
@@ -26,17 +28,42 @@ class LoginViewController: UIViewController {
     }
 
     private func setupViews() {
+        skelly.image = UIImage(asset: Assets.Images.loginSkelly)
+        skelly.translatesAutoresizingMaskIntoConstraints = false
+
+        textLabel.text = "PARÇA, É NOIX.\nPRONTO PRO ROLÊ?"
+        textLabel.textAlignment = .center
+        textLabel.lineBreakMode = .byWordWrapping
+        textLabel.numberOfLines = 0
+        textLabel.font = UIFont(font: Fonts.SpriteGraffiti.regular, size: 40)
+
         appleButton.translatesAutoresizingMaskIntoConstraints = false
+        appleButton.cornerRadius = 13
         appleButton.addTarget(self, action: #selector(startSignInWithAppleFlow), for: .touchUpInside)
     }
 
     func setupHierarchy() {
+        view.addSubview(textLabel)
+        view.addSubview(skelly)
         view.addSubview(appleButton)
     }
 
     func setupConstraints() {
+        skelly.snp.makeConstraints { make in
+            make.topMargin.equalToSuperview().offset(20)
+            make.centerXWithinMargins.equalToSuperview()
+        }
+        textLabel.snp.makeConstraints { make in
+            make.centerXWithinMargins.equalToSuperview()
+            make.topMargin.equalTo(skelly.snp.bottomMargin)
+            make.bottomMargin.equalTo(appleButton.snp.topMargin).offset(-20)
+        }
         appleButton.snp.makeConstraints { make in
-            make.centerWithinMargins.equalToSuperview()
+            make.topMargin.equalTo(textLabel.snp.bottomMargin).offset(20)
+            make.bottomMargin.equalToSuperview().offset(-40)
+            make.leftMargin.equalToSuperview().offset(45)
+            make.rightMargin.equalToSuperview().offset(-45)
+            make.centerXWithinMargins.equalToSuperview()
         }
     }
 
