@@ -10,7 +10,9 @@ target 'Skatable' do
   pod 'SnapKit'
 
   pod 'Firebase/Analytics'
+  pod 'Firebase/Firestore'
   pod 'Firebase/Auth'
+
 end
 
 post_install do |installer|

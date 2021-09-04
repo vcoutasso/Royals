@@ -5,7 +5,7 @@ settings:
   CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: true
 
 options:
-  bundleIdPrefix: com.vcoutasso
+  bundleIdPrefix: com.skatable
 
 targets:
   Skatable:
