@@ -11,8 +11,8 @@ import UIKit
 class LoginViewController: UIViewController {
     var didSendEventClosure: ((LoginViewController.Event) -> Void)?
 
-    private lazy var skelly: UIImageView = .init()
-    private lazy var textLabel: UILabel = .init()
+    private lazy var skellyImageView: UIImageView = .init()
+    private lazy var calloutLabel: UILabel = .init()
     private lazy var appleButton: ASAuthorizationAppleIDButton = .init(type: .default, style: .white)
 
     private lazy var appleLoginService: AppleLoginService = .init(contextProvider: self)
@@ -26,15 +26,16 @@ class LoginViewController: UIViewController {
     }
 
     private func setupViews() {
-        skelly.image = UIImage(asset: Assets.Images.loginSkelly)
-        skelly.translatesAutoresizingMaskIntoConstraints = false
+        skellyImageView.translatesAutoresizingMaskIntoConstraints = false
+        skellyImageView.image = UIImage(asset: Assets.Images.loginSkelly)
+        skellyImageView.contentMode = .scaleAspectFit
 
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.text = "PARÇA, É NOIX.\nPRONTO PRO ROLÊ?"
-        textLabel.textAlignment = .center
-        textLabel.lineBreakMode = .byWordWrapping
-        textLabel.numberOfLines = 0
-        textLabel.font = UIFont(font: Fonts.SpriteGraffiti.regular, size: LayoutMetrics.textFontSize)
+        calloutLabel.translatesAutoresizingMaskIntoConstraints = false
+        calloutLabel.text = Strings.Localizable.LoginScene.Callout.text
+        calloutLabel.textAlignment = .center
+        calloutLabel.lineBreakMode = .byWordWrapping
+        calloutLabel.numberOfLines = 0
+        calloutLabel.font = UIFont(font: Fonts.SpriteGraffiti.regular, size: LayoutMetrics.textFontSize)
 
         appleButton.translatesAutoresizingMaskIntoConstraints = false
         appleButton.cornerRadius = LayoutMetrics.loginButtonCornerRadius
@@ -42,46 +43,41 @@ class LoginViewController: UIViewController {
     }
 
     func setupHierarchy() {
-        view.addSubview(textLabel)
-        view.addSubview(skelly)
+        view.addSubview(calloutLabel)
+        view.addSubview(skellyImageView)
         view.addSubview(appleButton)
     }
 
     func setupConstraints() {
-        skelly.snp.makeConstraints { make in
+        skellyImageView.snp.makeConstraints { make in
             make.topMargin.equalToSuperview()
-                .offset(LayoutMetrics.skellyTopOffset)
+                .offset(LayoutMetrics.verticalPadding)
             make.centerXWithinMargins.equalToSuperview()
         }
-        textLabel.snp.makeConstraints { make in
+        calloutLabel.snp.makeConstraints { make in
+            make.top.equalTo(skellyImageView.snp.bottom)
             make.centerXWithinMargins.equalToSuperview()
-            make.topMargin.equalTo(skelly.snp.bottomMargin)
-            make.bottomMargin.equalTo(appleButton.snp.topMargin)
-                .offset(LayoutMetrics.textLabelBottomOffset)
         }
         appleButton.snp.makeConstraints { make in
-            make.topMargin.equalTo(textLabel.snp.bottomMargin)
-                .offset(LayoutMetrics.loginButtonTopOffset)
-            make.bottomMargin.equalToSuperview()
-                .offset(LayoutMetrics.loginButtonBottomOffset)
+            make.top.equalTo(calloutLabel.snp.bottom)
+                .offset(LayoutMetrics.verticalPadding)
             make.leftMargin.equalToSuperview()
-                .offset(LayoutMetrics.loginButtonHorizontalOffset)
+                .offset(LayoutMetrics.horizontalPadding)
             make.rightMargin.equalToSuperview()
-                .offset(-LayoutMetrics.loginButtonHorizontalOffset)
+                .offset(-LayoutMetrics.horizontalPadding)
             make.centerXWithinMargins.equalToSuperview()
+            make.height.equalTo(LayoutMetrics.loginButtonHeight)
         }
     }
 
     private enum LayoutMetrics {
-        static let skellyTopOffset: CGFloat = 20
-
         static let textFontSize: CGFloat = 40
-        static let textLabelBottomOffset: CGFloat = -20
 
+        static let loginButtonHeight: CGFloat = 50
         static let loginButtonCornerRadius: CGFloat = 13
-        static let loginButtonHorizontalOffset: CGFloat = 45
-        static let loginButtonTopOffset: CGFloat = 20
-        static let loginButtonBottomOffset: CGFloat = -40
+
+        static let verticalPadding: CGFloat = 30
+        static let horizontalPadding: CGFloat = 45
     }
 }
 
@@ -96,3 +92,22 @@ extension LoginViewController {
         case login
     }
 }
+
+#if DEBUG
+    import SwiftUI
+    struct LoginViewControllerPreview: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+                .previewDevice("iPhone 12")
+                .preferredColorScheme(.dark)
+        }
+
+        struct ContentView: UIViewControllerRepresentable {
+            func makeUIViewController(context: Context) -> UIViewController {
+                return LoginViewController()
+            }
+
+            func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+        }
+    }
+#endif

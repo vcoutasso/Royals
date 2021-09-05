@@ -14,6 +14,8 @@ class FirebaseLoginService {
         db.collection("User").document(uid).setData([
             "email": email,
             "uid": uid,
-        ]) { err in completion(err) }
+        ]) { err in
+            completion(err)
+        }
     }
 }

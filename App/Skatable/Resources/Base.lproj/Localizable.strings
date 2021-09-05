@@ -11,6 +11,8 @@
 "tabbar.leaderboard.title" = "Leaderboard";
 "tabbar.profile.title" = "Profile";
 
-"mapView.searchBar.placeholder" = "Where are you going to skate today?";
-"mapView.addMenu.skateSpot.title" = "Add Spot";
-"mapView.addMenu.skateStopper.title" = "Add Stopper";
+"mapScene.searchBar.placeholder" = "Where are you going to skate today?";
+"mapScene.addMenu.skateSpot.title" = "Add Spot";
+"mapScene.addMenu.skateStopper.title" = "Add Stopper";
+
+"loginScene.callout.text" = "PARÇA, É NOIX.\nPRONTO PRO ROLÊ?";
