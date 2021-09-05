@@ -16,10 +16,14 @@ protocol TabBarCoordinatorProtocol: Coordinator {
 final class TabBarCoordinator: TabBarCoordinatorProtocol {
     // MARK: - Public attributes
 
+    weak var finishDelegate: CoordinatorFinishDelegate?
+
     var navigationController: UINavigationController
     var tabBarController: UITabBarController = .init()
 
     var childCoordinators: [Coordinator] = []
+
+    var type: CoordinatorType { .tab }
 
     // MARK: - Initialization
 

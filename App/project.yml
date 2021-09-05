@@ -5,7 +5,7 @@ settings:
   CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: true
 
 options:
-  bundleIdPrefix: com.vcoutasso
+  bundleIdPrefix: com.skatable
 
 targets:
   Skatable:
@@ -14,6 +14,7 @@ targets:
     deploymentTarget: 13.0
     settings:
       TARGETED_DEVICE_FAMILY: 1
+      CODE_SIGN_ENTITLEMENTS: Skatable/Supporting-Files/Skatable.entitlements
     sources:
       - path: Skatable
     preBuildScripts:

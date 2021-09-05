@@ -11,6 +11,8 @@
 "tabbar.leaderboard.title" = "Royals";
 "tabbar.profile.title" = "Perfil";
 
-"mapView.searchBar.placeholder" = "Onde você vai skatar hoje?";
-"mapView.addMenu.skateSpot.title" = "Adicionar Pico";
-"mapView.addMenu.skateStopper.title" = "Adicionar Stopper";
+"mapScene.searchBar.placeholder" = "Onde você vai skatar hoje?";
+"mapScene.addMenu.skateSpot.title" = "Adicionar Pico";
+"mapScene.addMenu.skateStopper.title" = "Adicionar Stopper";
+
+"loginScene.callout.text" = "PARÇA, É NOIX.\nPRONTO PRO ROLÊ?";

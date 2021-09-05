@@ -64,10 +64,10 @@ final class AddOptionView: UIButton {
         switch type {
         case .skateSpot:
             icon = icon?.imageWithColor(color: Assets.Colors.green.color)
-            setTitle(Strings.Localizable.MapView.AddMenu.SkateSpot.title, for: .normal)
+            setTitle(Strings.Localizable.MapScene.AddMenu.SkateSpot.title, for: .normal)
         case .skateStopper:
             icon = icon?.imageWithColor(color: Assets.Colors.red.color)
-            setTitle(Strings.Localizable.MapView.AddMenu.SkateStopper.title, for: .normal)
+            setTitle(Strings.Localizable.MapScene.AddMenu.SkateStopper.title, for: .normal)
         }
 
         backgroundColor = Assets.Colors.darkSystemGray4.color
