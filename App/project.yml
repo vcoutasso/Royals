@@ -14,6 +14,7 @@ targets:
     deploymentTarget: 13.0
     settings:
       TARGETED_DEVICE_FAMILY: 1
+      CODE_SIGN_ENTITLEMENTS: Skatable/Supporting-Files/Skatable.entitlements
     sources:
       - path: Skatable
     preBuildScripts:
