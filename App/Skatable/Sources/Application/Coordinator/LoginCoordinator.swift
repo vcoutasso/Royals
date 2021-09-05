@@ -30,12 +30,6 @@ final class LoginCoordinator: LoginCoordinatorProtocol {
         self.navigationController.setNavigationBarHidden(true, animated: false)
     }
 
-    // MARK: - Deinitialization
-
-    deinit {
-        print("LoginCoordinator deinit")
-    }
-
     // MARK: - Public methods
 
     func start() {

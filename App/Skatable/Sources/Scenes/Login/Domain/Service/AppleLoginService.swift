@@ -7,16 +7,18 @@
 
 import AuthenticationServices
 import FirebaseAuth
-import FirebaseFirestore
 
 class AppleLoginService: NSObject {
     // Unhashed nonce.
     private var currentNonce: String?
 
-    weak var contextProvider: LoginViewController!
+    private var firebaseService: FirebaseLoginService
+
+    private weak var contextProvider: LoginViewController!
 
     init(contextProvider: LoginViewController) {
         self.contextProvider = contextProvider
+        self.firebaseService = .init()
     }
 
     @objc func start() {
@@ -72,18 +74,14 @@ extension AppleLoginService: ASAuthorizationControllerDelegate {
                 guard let uid = Auth.auth().currentUser?.uid else { return }
 
                 let email = user.email ?? ""
-                let db = Firestore.firestore()
 
-                db.collection("User").document(uid).setData([
-                    "email": email,
-                    "uid": uid,
-                ]) { err in
+                self.firebaseService.login(email: email, uid: uid, completion: { err in
                     if let err = err {
                         print("Error writing document: \(err)")
                     } else {
                         self.contextProvider.didSendEventClosure?(.login)
                     }
-                }
+                })
             }
         }
     }

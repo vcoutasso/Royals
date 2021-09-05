@@ -32,12 +32,6 @@ final class TabBarCoordinator: TabBarCoordinatorProtocol {
         self.navigationController.setNavigationBarHidden(true, animated: false)
     }
 
-    // MARK: - Deinitialization
-
-    deinit {
-        print("TabBarCoordinator deinit")
-    }
-
     // MARK: - Public methods
 
     func start() {
