@@ -15,8 +15,12 @@ protocol AppCoordinatorProtocol: Coordinator {
 final class AppCoordinator: AppCoordinatorProtocol {
     // MARK: - Public attributes
 
+    weak var finishDelegate: CoordinatorFinishDelegate?
+
     var navigationController: UINavigationController
     var childCoordinators = [Coordinator]()
+
+    var type: CoordinatorType { .app }
 
     // MARK: - Initialization
 
@@ -33,14 +37,34 @@ final class AppCoordinator: AppCoordinatorProtocol {
 
     func showLoginFlow() {
         let loginCoordinator = LoginCoordinator(navigationController: navigationController)
+        loginCoordinator.finishDelegate = self
         loginCoordinator.start()
         childCoordinators.append(loginCoordinator)
-//        showMainFlow()
     }
 
     func showMainFlow() {
         let tabBarCoordinator = TabBarCoordinator(navigationController: navigationController)
+        tabBarCoordinator.finishDelegate = self
         tabBarCoordinator.start()
         childCoordinators.append(tabBarCoordinator)
+    }
+}
+
+extension AppCoordinator: CoordinatorFinishDelegate {
+    func coordinatorDidFinish(childCoordinator: Coordinator) {
+        childCoordinators = childCoordinators.filter { $0.type != childCoordinator.type }
+
+        switch childCoordinator.type {
+        case .login:
+            navigationController.viewControllers.removeAll()
+
+            showMainFlow()
+        case .tab:
+            navigationController.viewControllers.removeAll()
+
+            showLoginFlow()
+        default:
+            break
+        }
     }
 }

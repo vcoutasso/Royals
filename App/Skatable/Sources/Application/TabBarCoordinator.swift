@@ -16,16 +16,26 @@ protocol TabBarCoordinatorProtocol: Coordinator {
 final class TabBarCoordinator: TabBarCoordinatorProtocol {
     // MARK: - Public attributes
 
+    weak var finishDelegate: CoordinatorFinishDelegate?
+
     var navigationController: UINavigationController
     var tabBarController: UITabBarController = .init()
 
     var childCoordinators: [Coordinator] = []
+
+    var type: CoordinatorType { .tab }
 
     // MARK: - Initialization
 
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.navigationController.setNavigationBarHidden(true, animated: false)
+    }
+
+    // MARK: - Deinitialization
+
+    deinit {
+        print("TabBarCoordinator deinit")
     }
 
     // MARK: - Public methods

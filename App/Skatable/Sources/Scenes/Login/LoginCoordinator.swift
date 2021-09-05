@@ -7,19 +7,33 @@
 
 import UIKit
 
-final class LoginCoordinator: Coordinator {
+protocol LoginCoordinatorProtocol: Coordinator {
+    func showLoginViewController()
+}
+
+final class LoginCoordinator: LoginCoordinatorProtocol {
     // MARK: - Public attributes
+
+    weak var finishDelegate: CoordinatorFinishDelegate?
 
     var navigationController: UINavigationController
     var loginController: UIViewController = .init()
 
     var childCoordinators: [Coordinator] = []
 
+    var type: CoordinatorType { .login }
+
     // MARK: - Initialization
 
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.navigationController.setNavigationBarHidden(true, animated: false)
+    }
+
+    // MARK: - Deinitialization
+
+    deinit {
+        print("LoginCoordinator deinit")
     }
 
     // MARK: - Public methods
@@ -30,9 +44,11 @@ final class LoginCoordinator: Coordinator {
 
     // MARK: - Private methods
 
-    private func showLoginViewController() {
+    func showLoginViewController() {
         let loginVC: LoginViewController = .init()
-
+        loginVC.didSendEventClosure = { [weak self] _ in
+            self?.finish()
+        }
         navigationController.pushViewController(loginVC, animated: true)
     }
 }
