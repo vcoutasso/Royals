@@ -32,6 +32,7 @@ class LoginViewController: UIViewController {
         skelly.image = UIImage(asset: Assets.Images.loginSkelly)
         skelly.translatesAutoresizingMaskIntoConstraints = false
 
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "PARÇA, É NOIX.\nPRONTO PRO ROLÊ?"
         textLabel.textAlignment = .center
         textLabel.lineBreakMode = .byWordWrapping
@@ -51,19 +52,25 @@ class LoginViewController: UIViewController {
 
     func setupConstraints() {
         skelly.snp.makeConstraints { make in
-            make.topMargin.equalToSuperview().offset(20)
+            make.topMargin.equalToSuperview()
+                .offset(LayoutMetrics.skellyTopOffset)
             make.centerXWithinMargins.equalToSuperview()
         }
         textLabel.snp.makeConstraints { make in
             make.centerXWithinMargins.equalToSuperview()
             make.topMargin.equalTo(skelly.snp.bottomMargin)
-            make.bottomMargin.equalTo(appleButton.snp.topMargin).offset(-20)
+            make.bottomMargin.equalTo(appleButton.snp.topMargin)
+                .offset(LayoutMetrics.textLabelBottomOffset)
         }
         appleButton.snp.makeConstraints { make in
-            make.topMargin.equalTo(textLabel.snp.bottomMargin).offset(20)
-            make.bottomMargin.equalToSuperview().offset(-40)
-            make.leftMargin.equalToSuperview().offset(45)
-            make.rightMargin.equalToSuperview().offset(-45)
+            make.topMargin.equalTo(textLabel.snp.bottomMargin)
+                .offset(LayoutMetrics.loginButtonTopOffset)
+            make.bottomMargin.equalToSuperview()
+                .offset(LayoutMetrics.loginButtonBottomOffset)
+            make.leftMargin.equalToSuperview()
+                .offset(LayoutMetrics.loginButtonHorizontalOffset)
+            make.rightMargin.equalToSuperview()
+                .offset(-LayoutMetrics.loginButtonHorizontalOffset)
             make.centerXWithinMargins.equalToSuperview()
         }
     }
@@ -81,6 +88,14 @@ class LoginViewController: UIViewController {
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
+    }
+
+    private enum LayoutMetrics {
+        static let skellyTopOffset: CGFloat = 20
+        static let textLabelBottomOffset: CGFloat = -20
+        static let loginButtonHorizontalOffset: CGFloat = 45
+        static let loginButtonTopOffset: CGFloat = 20
+        static let loginButtonBottomOffset: CGFloat = -40
     }
 }
 
