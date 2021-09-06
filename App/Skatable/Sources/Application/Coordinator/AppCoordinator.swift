@@ -32,7 +32,11 @@ final class AppCoordinator: AppCoordinatorProtocol {
     // MARK: - Public methods
 
     func start() {
-        showMainFlow()
+        if retrieveCredentials() != nil {
+            showMainFlow()
+        } else {
+            showLoginFlow()
+        }
     }
 
     func showLoginFlow() {
@@ -47,6 +51,15 @@ final class AppCoordinator: AppCoordinatorProtocol {
         tabBarCoordinator.finishDelegate = self
         tabBarCoordinator.start()
         childCoordinators.append(tabBarCoordinator)
+    }
+
+    private func retrieveCredentials() -> String? {
+        guard let data = UserDefaults.standard.value(forKey: Strings.Names.Keys.uid) as? String
+        else {
+            print("could not find User Credentials for key \(Strings.Names.Keys.uid)")
+            return nil
+        }
+        return data
     }
 }
 

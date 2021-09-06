@@ -16,3 +16,5 @@
 
 "icons.skateSpot" = "cone.fill";
 "icons.skateStopper" = "xmark.octagon.fill";
+
+"keys.uid" = "uid";
