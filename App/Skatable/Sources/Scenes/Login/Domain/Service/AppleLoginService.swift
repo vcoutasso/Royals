@@ -69,6 +69,8 @@ extension AppleLoginService: ASAuthorizationControllerDelegate {
                 guard let user = authResult?.user else { return }
                 guard let uid = Auth.auth().currentUser?.uid else { return }
 
+                self.saveCredentials(userCredentials: uid)
+
                 let email = user.email ?? ""
 
                 self.firebaseService.login(email: email, uid: uid, completion: { err in
@@ -82,8 +84,12 @@ extension AppleLoginService: ASAuthorizationControllerDelegate {
         }
     }
 
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    func authorizationController(controller _: ASAuthorizationController, didCompleteWithError error: Error) {
         // Handle error.
         print("Sign in with Apple errored: \(error)")
+    }
+
+    private func saveCredentials(userCredentials: String) {
+        UserDefaults.standard.set(userCredentials, forKey: Strings.Names.Keys.uid)
     }
 }
