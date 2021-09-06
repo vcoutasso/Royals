@@ -18,7 +18,7 @@ class AppleLoginService: NSObject {
 
     init(contextProvider: LoginViewController) {
         self.contextProvider = contextProvider
-        firebaseService = .init()
+        self.firebaseService = .init()
     }
 
     @objc func start() {
