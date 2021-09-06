@@ -18,10 +18,11 @@ class AppleLoginService: NSObject {
 
     init(contextProvider: LoginViewController) {
         self.contextProvider = contextProvider
-        self.firebaseService = .init()
+        firebaseService = .init()
     }
 
     @objc func start() {
+        saveCredentials(userCredentials: "slaIrmao")
         startSignInWithAppleFlow()
     }
 
@@ -44,7 +45,7 @@ class AppleLoginService: NSObject {
 @available(iOS 13.0, *)
 extension AppleLoginService: ASAuthorizationControllerDelegate {
     func authorizationController(
-        controller: ASAuthorizationController,
+        controller _: ASAuthorizationController,
         didCompleteWithAuthorization authorization: ASAuthorization
     ) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
@@ -73,6 +74,8 @@ extension AppleLoginService: ASAuthorizationControllerDelegate {
                 guard let user = authResult?.user else { return }
                 guard let uid = Auth.auth().currentUser?.uid else { return }
 
+                self.saveCredentials(userCredentials: uid)
+
                 let email = user.email ?? ""
 
                 self.firebaseService.login(email: email, uid: uid, completion: { err in
@@ -86,8 +89,12 @@ extension AppleLoginService: ASAuthorizationControllerDelegate {
         }
     }
 
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    func authorizationController(controller _: ASAuthorizationController, didCompleteWithError error: Error) {
         // Handle error.
         print("Sign in with Apple errored: \(error)")
+    }
+
+    private func saveCredentials(userCredentials: String) {
+        UserDefaults.standard.set(userCredentials, forKey: Strings.Names.Keys.uid)
     }
 }
