@@ -42,6 +42,36 @@ final class MapViewController: UIViewController {
         #endif
     }
 
+    func openSearchBar() {
+        let openSearchBarBottomConstraint = (view.layoutMargins.top - mapView.frame.height)
+            + LayoutMetrics.searchBarOpenBottomOffset
+        UIView.animate(
+            withDuration: LayoutMetrics.searchBarInteractionAnimationDuration,
+            delay: 0,
+            options: [.curveLinear]
+        ) { [weak self] in
+            guard let self = self else { return }
+            self.searchBar.snp.updateConstraints { make in
+                make.bottomMargin.equalTo(openSearchBarBottomConstraint)
+            }
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    func closeSearchBar() {
+        UIView.animate(
+            withDuration: LayoutMetrics.searchBarInteractionAnimationDuration,
+            delay: 0,
+            options: [.curveLinear]
+        ) { [weak self] in
+            guard let self = self else { return }
+            self.searchBar.snp.updateConstraints { make in
+                make.bottomMargin.equalTo(LayoutMetrics.searchBarClosedBottomOffset)
+            }
+            self.view.layoutIfNeeded()
+        }
+    }
+
     // MARK: - Private methods
 
     private func setupViews() {
@@ -56,13 +86,14 @@ final class MapViewController: UIViewController {
     private func setupDelegates() {
         locationAdapter.delegate = self
         mapAdapter.delegate = self
+        searchBar.delegate = self
     }
 
     private func setupHierarchy() {
         view.addSubview(mapView)
-        view.addSubview(searchBar)
         view.addSubview(addButton)
         view.addSubview(locationButton)
+        view.addSubview(searchBar)
     }
 
     private func setupConstraints() {
@@ -71,19 +102,26 @@ final class MapViewController: UIViewController {
         }
 
         searchBar.snp.makeConstraints { make in
-            make.bottomMargin.equalToSuperview().offset(LayoutMetrics.searchBarBottomOffset)
-            make.leadingMargin.equalToSuperview().offset(LayoutMetrics.searchBarLeadingOffset)
-            make.trailingMargin.equalToSuperview().offset(LayoutMetrics.trailingOffset)
+            make.bottomMargin.equalToSuperview()
+                .offset(LayoutMetrics.searchBarClosedBottomOffset)
+            make.leadingMargin.equalToSuperview()
+                .offset(LayoutMetrics.searchBarLeadingOffset)
+            make.trailingMargin.equalToSuperview()
+                .offset(LayoutMetrics.trailingOffset)
         }
 
         addButton.snp.makeConstraints { make in
-            make.topMargin.equalToSuperview().offset(LayoutMetrics.addButtonTopOffset)
-            make.trailingMargin.equalToSuperview().offset(LayoutMetrics.trailingOffset)
+            make.topMargin.equalToSuperview()
+                .offset(LayoutMetrics.addButtonTopOffset)
+            make.trailingMargin.equalToSuperview()
+                .offset(LayoutMetrics.trailingOffset)
         }
 
         locationButton.snp.makeConstraints { make in
-            make.top.equalTo(addButton.snp.bottom).offset(LayoutMetrics.buttonDistance)
-            make.trailingMargin.equalToSuperview().offset(LayoutMetrics.trailingOffset)
+            make.top.equalTo(addButton.snp.bottom)
+                .offset(LayoutMetrics.buttonDistance)
+            make.trailingMargin.equalToSuperview()
+                .offset(LayoutMetrics.trailingOffset)
         }
     }
 
@@ -97,8 +135,10 @@ final class MapViewController: UIViewController {
 
     private enum LayoutMetrics {
         static let centeringRegionRadius: CLLocationDistance = 1000
-        static let searchBarBottomOffset: CGFloat = -30
+        static let searchBarClosedBottomOffset: CGFloat = -30
+        static let searchBarOpenBottomOffset: CGFloat = 30
         static let searchBarLeadingOffset: CGFloat = 5
+        static let searchBarInteractionAnimationDuration: TimeInterval = 0.2
         static let trailingOffset: CGFloat = -5
         static let addButtonTopOffset: CGFloat = 15
         static let buttonDistance: CGFloat = 5
@@ -116,5 +156,20 @@ extension MapViewController: LocationAdapterDelegate, MapAdapterDelegate {
             latitudinalMeters: LayoutMetrics.centeringRegionRadius,
             longitudinalMeters: LayoutMetrics.centeringRegionRadius
         ), animated: true)
+    }
+}
+
+extension MapViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        closeSearchBar()
+    }
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        openSearchBar()
     }
 }

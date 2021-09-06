@@ -32,7 +32,7 @@ final class AppCoordinator: AppCoordinatorProtocol {
     // MARK: - Public methods
 
     func start() {
-        showLoginFlow()
+        showMainFlow()
     }
 
     func showLoginFlow() {
