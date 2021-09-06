@@ -13,16 +13,12 @@ final class AddMenuViewController: UIViewController {
     private var spotButtonAction: (() -> Void)?
     private var stopperButtonAction: (() -> Void)?
 
-    private lazy var skateSpotButton: AddOptionView = .init(
-        iconName: Strings.Names.Icons.skateSpot,
-        type: .skateSpot,
-        action: {}
-    )
-    private lazy var skateStopperButton: AddOptionView = .init(
-        iconName: Strings.Names.Icons.skateStopper,
-        type: .skateStopper,
-        action: {}
-    )
+    private lazy var skateSpotButton: AddOptionView = .init(iconName: Strings.Names.Icons.skateSpot,
+                                                            type: .skateSpot,
+                                                            action: {})
+    private lazy var skateStopperButton: AddOptionView = .init(iconName: Strings.Names.Icons.skateStopper,
+                                                               type: .skateStopper,
+                                                               action: {})
 
     private lazy var optionsStack: UIStackView = .init(arrangedSubviews: [
         skateSpotButton,
