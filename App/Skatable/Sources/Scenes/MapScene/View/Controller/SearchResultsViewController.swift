@@ -11,21 +11,47 @@ import UIKit
 class SearchResultsViewController: UITableViewController {
     // MARK: - Overridden methods
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
-        tableView.setAndLayoutTableHeaderView(header: SearchResultsHeaderView()) { make in
-            make.top.equalToSuperview()
+        let header = SearchResultsHeaderView()
+
+        tableView.setAndLayoutTableHeaderView(header: header) { make in
+            make.topMargin.equalToSuperview()
                 .offset(LayoutMetrics.topHeaderOffset)
             make.leading.equalToSuperview()
                 .offset(LayoutMetrics.leadingOffset)
         }
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = SearchResultsCellView()
+        cell.configure(spotName: "Pico Sei lá Meu", address: "Rua das Pitangas, Batel, Curitiba")
+        return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
     // MARK: - Layout Metrics
 
     private enum LayoutMetrics {
-        static let topHeaderOffset: CGFloat = 30
+        static let topHeaderOffset: CGFloat = -30
         static let leadingOffset: CGFloat = 20
     }
 }
