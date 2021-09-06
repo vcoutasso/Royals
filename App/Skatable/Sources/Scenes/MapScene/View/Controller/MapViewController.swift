@@ -18,8 +18,8 @@ final class MapViewController: UIViewController {
     private lazy var mapView: MKMapView = .init()
     private lazy var searchBar: SearchBarView = .init()
     private lazy var searchBarContainerView: UIView = .init(frame: .zero)
-    private lazy var searchController: UISearchController =
-        .init(searchResultsController: SearchResultsViewController())
+    private lazy var searchResultsController: SearchResultsViewController = .init()
+    private lazy var searchController: UISearchController = .init(searchResultsController: searchResultsController)
 
     private lazy var addButton: MapButtonView = .init(iconName: Strings.Names.Icons.add, action: presentAddMenuModal)
     private lazy var locationButton: MapButtonView = .init(iconName: Strings.Names.Icons.location,
@@ -88,7 +88,7 @@ final class MapViewController: UIViewController {
     // MARK: - Private methods
 
     private func setupViews() {
-//        definesPresentationContext = true
+        definesPresentationContext = true
 
         mapView.mapType = MKMapType.standard
         mapView.isZoomEnabled = true
