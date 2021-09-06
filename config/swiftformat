@@ -12,7 +12,7 @@
 # rules
 --ranges no-space
 --maxwidth 120
---wraparguments before-first
+--wraparguments after-first
 --closingparen balanced
 --wrapcollections before-first
 --self init-only
