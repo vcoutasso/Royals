@@ -11,11 +11,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var appCoordinator: AppCoordinator?
 
-    func scene(
-        _ scene: UIScene,
-        willConnectTo _: UISceneSession,
-        options _: UIScene.ConnectionOptions
-    ) {
+    func scene(_ scene: UIScene,
+               willConnectTo _: UISceneSession,
+               options _: UIScene.ConnectionOptions) {
         // Manually configure and attach the UIWindow `window` to the provided UIWindowScene `scene`
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
