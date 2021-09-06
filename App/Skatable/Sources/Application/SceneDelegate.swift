@@ -25,6 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = navController
         window?.overrideUserInterfaceStyle = .dark
+        window?.tintColor = Assets.Colors.yellow.color
         window?.makeKeyAndVisible()
     }
 }
