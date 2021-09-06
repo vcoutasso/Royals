@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SearchBarView: UISearchBar, UISearchBarDelegate {
+final class SearchBarView: UISearchBar {
     // MARK: - Initialization
 
     init() {
@@ -37,5 +37,11 @@ final class SearchBarView: UISearchBar, UISearchBarDelegate {
         delegate = self
 
         translatesAutoresizingMaskIntoConstraints = false
+    }
+}
+
+extension SearchBarView: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
     }
 }
