@@ -18,7 +18,8 @@ final class MapViewController: UIViewController {
     private lazy var mapView: MKMapView = .init()
     private lazy var searchBar: SearchBarView = .init()
     private lazy var searchBarContainerView: UIView = .init(frame: .zero)
-    private lazy var searchController: UISearchController = .init(searchResultsController: UITableViewController())
+    private lazy var searchController: UISearchController =
+        .init(searchResultsController: SearchResultsViewController())
 
     private lazy var addButton: MapButtonView = .init(iconName: Strings.Names.Icons.add, action: presentAddMenuModal)
     private lazy var locationButton: MapButtonView = .init(iconName: Strings.Names.Icons.location,
