@@ -63,6 +63,7 @@ final class MapViewController: UIViewController {
                            self.view.layoutIfNeeded()
                        }, completion: { finished in
                            if finished {
+                               self.searchController.searchBar.searchBarStyle = .default
                                self.isPresentingResults = true
                                self.present(self.searchController, animated: true)
                                self.searchController.isActive = true
@@ -71,6 +72,7 @@ final class MapViewController: UIViewController {
     }
 
     private func closeSearchBar() {
+        searchController.searchBar.searchBarStyle = .minimal
         UIView.animate(withDuration: LayoutMetrics.searchBarInteractionAnimationDuration,
                        delay: 0,
                        options: [.curveLinear]) { [weak self] in
@@ -98,14 +100,14 @@ final class MapViewController: UIViewController {
         mapView.delegate = mapAdapter
 
         searchController.modalPresentationStyle = .formSheet
-        searchController.searchBar.alpha = 0
 
+        searchController.searchBar.alpha = 0
         searchController.searchBar.placeholder = Strings.Localizable.MapScene.SearchBar.placeholder
         searchController.searchBar.searchTextField.backgroundColor = Assets.Colors.darkSystemGray5.color
         searchController.searchBar.searchTextField.textColor = Assets.Colors.darkSystemGray1.color
         searchController.searchBar.searchTextField.leftView?.tintColor = Assets.Colors.darkSystemGray1.color
         searchController.searchBar.searchBarStyle = .minimal
-        searchController.searchBar.barTintColor = Assets.Colors.darkSystemGray1.color
+        searchController.searchBar.barTintColor = .black
     }
 
     private func setupDelegates() {
@@ -139,7 +141,7 @@ final class MapViewController: UIViewController {
         }
 
         searchBar.snp.makeConstraints { make in
-            make.edges.equalTo(searchBarContainerView.snp.edges)
+            make.edges.equalToSuperview()
         }
 
         addButton.snp.makeConstraints { make in
@@ -170,7 +172,7 @@ final class MapViewController: UIViewController {
         static let searchBarClosedBottomOffset: CGFloat = -30
         static let searchBarOpenBottomOffset: CGFloat = 30
         static let searchBarLeadingOffset: CGFloat = 5
-        static let searchBarInteractionAnimationDuration: TimeInterval = 0.25
+        static let searchBarInteractionAnimationDuration: TimeInterval = 0.3
         static let trailingOffset: CGFloat = -5
         static let addButtonTopOffset: CGFloat = 15
         static let buttonDistance: CGFloat = 5
