@@ -18,7 +18,7 @@ final class MapViewController: UIViewController {
     private lazy var mapView: MKMapView = .init()
     private lazy var searchBar: SearchBarView = .init()
     private lazy var searchBarContainerView: UIView = .init(frame: .zero)
-    private lazy var searchResultsController: SearchResultsViewController = .init()
+    private var searchResultsController: SearchResultsViewController?
     private lazy var addButton: MapButtonView = .init(iconName: Strings.Names.Icons.add, action: presentAddMenuModal)
     private lazy var locationButton: MapButtonView = .init(iconName: Strings.Names.Icons.location,
                                                            action: willLocateUser)
@@ -43,6 +43,23 @@ final class MapViewController: UIViewController {
         #endif
     }
 
+    private func openSearchResultsView() {
+        if let results = searchResultsController {
+            view.addSubview(results.view)
+            results.view.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+                make.top.equalTo(navigationController!.navigationBar.snp.bottom)
+            }
+        }
+    }
+
+    private func closeSearchResultsView() {
+        if let results = searchResultsController {
+            results.view.removeFromSuperview()
+            searchResultsController = nil
+        }
+    }
+
     private func openSearchBar() {
         let openSearchBarBottomConstraint = (view.layoutMargins.top - mapView.frame.height)
             + LayoutMetrics.searchBarOpenBottomOffset
@@ -60,14 +77,19 @@ final class MapViewController: UIViewController {
                            self.searchBar.showsCancelButton = true
 
                            self.view.layoutIfNeeded()
-                       }, completion: { finished in
+                       }, completion: { [weak self] finished in
                            if finished {
+                               guard let self = self else { return }
                                self.navigationItem.titleView = self.searchBar
+                               self.searchResultsController = .init()
+                               self.openSearchResultsView()
                            }
                        })
     }
 
     private func closeSearchBar() {
+        closeSearchResultsView()
+
         searchBar.text = ""
 
         navigationItem.titleView = nil
@@ -97,6 +119,8 @@ final class MapViewController: UIViewController {
     // MARK: - Private methods
 
     private func setupViews() {
+        definesPresentationContext = true
+
         mapView.mapType = MKMapType.standard
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
