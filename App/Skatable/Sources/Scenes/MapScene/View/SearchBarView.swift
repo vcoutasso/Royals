@@ -31,7 +31,6 @@ final class SearchBarView: UISearchBar {
         searchTextField.leftView?.tintColor = Assets.Colors.darkSystemGray1.color
 
         searchBarStyle = .minimal
-        tintColor = Assets.Colors.darkSystemGray1.color
         barTintColor = Assets.Colors.darkSystemGray1.color
 
         delegate = self

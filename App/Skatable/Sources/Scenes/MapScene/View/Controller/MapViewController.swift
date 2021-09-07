@@ -19,8 +19,6 @@ final class MapViewController: UIViewController {
     private lazy var searchBar: SearchBarView = .init()
     private lazy var searchBarContainerView: UIView = .init(frame: .zero)
     private lazy var searchResultsController: SearchResultsViewController = .init()
-    private lazy var searchController: UISearchController = .init(searchResultsController: searchResultsController)
-
     private lazy var addButton: MapButtonView = .init(iconName: Strings.Names.Icons.add, action: presentAddMenuModal)
     private lazy var locationButton: MapButtonView = .init(iconName: Strings.Names.Icons.location,
                                                            action: willLocateUser)
@@ -57,64 +55,60 @@ final class MapViewController: UIViewController {
                            self.searchBarContainerView.snp.updateConstraints { make in
                                make.bottomMargin.equalTo(openSearchBarBottomConstraint)
                            }
-                           self.searchBar.alpha = 0
-                           self.searchController.searchBar.alpha = 1
+
+                           self.navigationController?.setNavigationBarHidden(false, animated: true)
+                           self.searchBar.showsCancelButton = true
 
                            self.view.layoutIfNeeded()
                        }, completion: { finished in
                            if finished {
-                               self.searchController.searchBar.searchBarStyle = .default
-                               self.isPresentingResults = true
-                               self.present(self.searchController, animated: true)
-                               self.searchController.isActive = true
+                               self.navigationItem.titleView = self.searchBar
                            }
                        })
     }
 
     private func closeSearchBar() {
-        searchController.searchBar.searchBarStyle = .minimal
+        searchBar.text = ""
+
+        navigationItem.titleView = nil
+        navigationController?.setNavigationBarHidden(true, animated: true)
+
+        searchBarContainerView.addSubview(searchBar)
+        searchBar.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
         UIView.animate(withDuration: LayoutMetrics.searchBarInteractionAnimationDuration,
                        delay: 0,
-                       options: [.curveLinear]) { [weak self] in
-            guard let self = self else { return }
-            self.searchBarContainerView.snp.updateConstraints { make in
-                make.bottomMargin.equalTo(LayoutMetrics.searchBarClosedBottomOffset)
-            }
-            self.searchBar.alpha = 1
-            self.searchController.searchBar.alpha = 0
+                       options: [.curveLinear],
+                       animations: { [weak self] in
+                           guard let self = self else { return }
+                           self.searchBarContainerView.snp.updateConstraints { make in
+                               make.bottomMargin.equalTo(LayoutMetrics.searchBarClosedBottomOffset)
+                           }
+                           self.searchBar.showsCancelButton = false
 
-            self.view.layoutIfNeeded()
-        }
+                           self.view.layoutIfNeeded()
+                       }, completion: { finished in
+                           if finished {}
+                       })
     }
 
     // MARK: - Private methods
 
     private func setupViews() {
-        definesPresentationContext = true
-
         mapView.mapType = MKMapType.standard
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
         mapView.showsCompass = false
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.delegate = mapAdapter
-
-        searchController.modalPresentationStyle = .formSheet
-
-        searchController.searchBar.alpha = 0
-        searchController.searchBar.placeholder = Strings.Localizable.MapScene.SearchBar.placeholder
-        searchController.searchBar.searchTextField.backgroundColor = Assets.Colors.darkSystemGray5.color
-        searchController.searchBar.searchTextField.textColor = Assets.Colors.darkSystemGray1.color
-        searchController.searchBar.searchTextField.leftView?.tintColor = Assets.Colors.darkSystemGray1.color
-        searchController.searchBar.searchBarStyle = .minimal
-        searchController.searchBar.barTintColor = .black
     }
 
     private func setupDelegates() {
         locationAdapter.delegate = self
         mapAdapter.delegate = self
         searchBar.delegate = self
-        searchController.delegate = self
     }
 
     private func setupHierarchy() {
@@ -123,7 +117,6 @@ final class MapViewController: UIViewController {
         view.addSubview(locationButton)
         view.addSubview(searchBarContainerView)
         searchBarContainerView.addSubview(searchBar)
-        searchBarContainerView.addSubview(searchController.searchBar)
     }
 
     private func setupConstraints() {
@@ -172,7 +165,7 @@ final class MapViewController: UIViewController {
         static let searchBarClosedBottomOffset: CGFloat = -30
         static let searchBarOpenBottomOffset: CGFloat = 30
         static let searchBarLeadingOffset: CGFloat = 5
-        static let searchBarInteractionAnimationDuration: TimeInterval = 0.3
+        static let searchBarInteractionAnimationDuration: TimeInterval = 0.2
         static let trailingOffset: CGFloat = -5
         static let addButtonTopOffset: CGFloat = 15
         static let buttonDistance: CGFloat = 5
@@ -192,31 +185,19 @@ extension MapViewController: LocationAdapterDelegate, MapAdapterDelegate {
 }
 
 extension MapViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
     }
 
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        if !isPresentingResults {
-            searchBar.text = ""
-            closeSearchBar()
-        }
-    }
-
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        if !isPresentingResults {
-            openSearchBar()
-        }
-    }
-}
-
-extension MapViewController: UISearchControllerDelegate {
-    func didPresentSearchController(_ searchController: UISearchController) {
-        searchController.searchBar.becomeFirstResponder()
+        openSearchBar()
     }
 
-    func didDismissSearchController(_ searchController: UISearchController) {
-        isPresentingResults = false
-        searchBar.endEditing(true)
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        closeSearchBar()
     }
 }
