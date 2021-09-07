@@ -3,20 +3,24 @@ excluded:
     - ../App/Pods
 disabled_rules:
     - trailing_comma
+    - trailing_whitespace
     - identifier_name
+opt_in_rules:
+    - yoda_condition
+    - unused_import
 custom_rules:
   swiftgen_assets:
     name: "SwiftGen Assets"
     regex: '(UIImage|UIColor)(\.init)?\(named: ?"?.+"?(, ?in:.+?, ?compatibleWith:.+?)?\)|#imageLiteral\(resourceName: ?".+"\)'
     message: "Use Assets.Images.<asset> instead"
-    severity: error
+    severity: warning
   swiftgen_colors:
     name: "SwiftGen Colors"
     regex: '(UIColor(\.init)?|#colorLiteral)\(((red|displayP3Red):.+?,green:.+?,blue:.+?,alpha:.+?)|(white:.+?,alpha:.+?)|(hue:.+?,saturation:.+?,brightness:.+?,alpha:.+?)\)'
     message: "Use Assets.Colors.<color> instead"
-    severity: error
+    severity: warning
   swiftgen_strings:
     name: "SwiftGen Strings"
     regex: 'NSLocalizedString'
-    message: "Use Strings.key instead"
-    severity: error
+    message: "Use Strings.<string> instead"
+    severity: warning

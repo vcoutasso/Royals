@@ -13,19 +13,23 @@ class SearchResultsViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        let header = SearchResultsHeaderView()
-
-        tableView.setAndLayoutTableHeaderView(header: header) { make in
-            make.topMargin.equalToSuperview()
-                .offset(LayoutMetrics.topHeaderOffset)
-            make.leading.equalToSuperview()
-                .offset(LayoutMetrics.leadingOffset)
-        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = SearchResultsHeaderView()
+
+        tableView.setAndLayoutTableHeaderView(header: header) { make in
+            make.top.equalToSuperview()
+                .offset(LayoutMetrics.topHeaderOffset)
+            make.leading.equalToSuperview()
+                .offset(LayoutMetrics.leadingOffset)
+        }
+
+        return header
     }
 
     // MARK: - Table view data source
@@ -35,7 +39,7 @@ class SearchResultsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        10
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,7 +55,7 @@ class SearchResultsViewController: UITableViewController {
     // MARK: - Layout Metrics
 
     private enum LayoutMetrics {
-        static let topHeaderOffset: CGFloat = -30
+        static let topHeaderOffset: CGFloat = 30
         static let leadingOffset: CGFloat = 20
     }
 }

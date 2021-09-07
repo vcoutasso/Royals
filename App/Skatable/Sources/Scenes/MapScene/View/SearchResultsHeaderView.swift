@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchResultsHeaderView: UIStackView {
+final class SearchResultsHeaderView: UIStackView {
     // MARK: - Initialization
 
     init() {
@@ -41,6 +41,7 @@ class SearchResultsHeaderView: UIStackView {
 
         addArrangedSubview(viewTitleLabel)
         addArrangedSubview(subtitleItem)
+
         self.axis = .vertical
         self.alignment = .leading
         self.spacing = LayoutMetrics.stackViewSpacing
