@@ -18,12 +18,10 @@ final class MapViewController: UIViewController {
     private lazy var mapView: MKMapView = .init()
     private lazy var searchBar: SearchBarView = .init()
     private lazy var searchBarContainerView: UIView = .init(frame: .zero)
-    private var searchResultsController: SearchResultsViewController?
     private lazy var addButton: MapButtonView = .init(iconName: Strings.Names.Icons.add, action: presentAddMenuModal)
     private lazy var locationButton: MapButtonView = .init(iconName: Strings.Names.Icons.location,
                                                            action: willLocateUser)
-
-    private var isPresentingResults: Bool = false
+    private var searchResultsController: SearchResultsViewController?
 
     // MARK: - Overridden methods
 
@@ -43,20 +41,30 @@ final class MapViewController: UIViewController {
         #endif
     }
 
+    // MARK: - Private methods
+
     private func openSearchResultsView() {
         if let results = searchResultsController {
-            view.addSubview(results.view)
-            results.view.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
-                make.top.equalTo(navigationController!.navigationBar.snp.bottom)
+            UIView.animate(withDuration: LayoutMetrics.resultsViewAnimationDuration) { [weak self] in
+                guard let self = self else { return }
+
+                self.view.addSubview(results.view)
+                results.view.snp.makeConstraints { make in
+                    make.edges.equalToSuperview()
+                    make.top.equalTo(self.navigationController!.navigationBar.snp.bottom)
+                }
             }
         }
     }
 
     private func closeSearchResultsView() {
         if let results = searchResultsController {
-            results.view.removeFromSuperview()
-            searchResultsController = nil
+            UIView.animate(withDuration: LayoutMetrics.resultsViewAnimationDuration) { [weak self] in
+                guard let self = self else { return }
+
+                results.view.removeFromSuperview()
+                self.searchResultsController = nil
+            }
         }
     }
 
@@ -186,6 +194,7 @@ final class MapViewController: UIViewController {
 
     private enum LayoutMetrics {
         static let centeringRegionRadius: CLLocationDistance = 1000
+        static let resultsViewAnimationDuration: TimeInterval = 0.2
         static let searchBarClosedBottomOffset: CGFloat = -30
         static let searchBarOpenBottomOffset: CGFloat = 30
         static let searchBarLeadingOffset: CGFloat = 5
@@ -210,10 +219,12 @@ extension MapViewController: LocationAdapterDelegate, MapAdapterDelegate {
 
 extension MapViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.endEditing(true)
+//        searchBar.endEditing(true)
+        closeSearchBar()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // TODO: Update search results
         searchBar.endEditing(true)
     }
 
