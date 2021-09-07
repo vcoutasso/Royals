@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchResultsCellView: UITableViewCell {
+final class SearchResultsCellView: UITableViewCell {
     // MARK: - Public attributes
 
     private var title: UILabel {
