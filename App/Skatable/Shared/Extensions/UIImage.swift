@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIImage {
-    // Reference: https://stackoverflow.com/a/37158317
+    // From https://stackoverflow.com/a/37158317
     func imageWithColor(color: UIColor) -> UIImage? {
         var image = withRenderingMode(.alwaysTemplate)
         UIGraphicsBeginImageContextWithOptions(size, false, scale)

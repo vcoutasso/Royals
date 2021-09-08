@@ -8,9 +8,11 @@
 import MapKit
 
 final class MapAdapter: NSObject, MKMapViewDelegate {
-    // MARK: - Public variables
+    // MARK: - Public attributes
 
     weak var delegate: MapAdapterDelegate?
+
+    var currentSelection: MapPinAnnotation?
 
     // MARK: - Public methods
 
@@ -44,19 +46,24 @@ final class MapAdapter: NSObject, MKMapViewDelegate {
 
             // Set custom image for custom pins
             if let mapPin = annotationView.annotation as? MapPinAnnotation {
-                annotationView.image = mapPin.image
+                annotationView.image = mapPin.imageView.image
             }
         }
 
         return annotationView
     }
 
-    // TODO: This needs a smoother transition. Also, pretty sure just one annotation should be selected at a time
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let mapPin = view.annotation as? MapPinAnnotation {
-            // REVIEW: how this is done
-            mapPin.isSelected.toggle()
-            view.image = mapPin.image
+            mapPin.isSelected = true
+            view.image = mapPin.imageView.image
+        }
+    }
+
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        if let mapPin = view.annotation as? MapPinAnnotation {
+            mapPin.isSelected = false
+            view.image = mapPin.imageView.image
         }
     }
 }
