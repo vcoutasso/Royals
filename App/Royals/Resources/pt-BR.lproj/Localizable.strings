@@ -18,3 +18,6 @@
 
 "loginScene.callout.text" = "PARÇA, É NOIX.\nPRONTO PRO ROLÊ?";
 "mapScene.searchResults.title" = "Picos";
+
+
+"profileScene.logoutButton.title" = "Logout";
