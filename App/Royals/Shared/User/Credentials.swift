@@ -1,6 +1,6 @@
 //
 //  Credentials.swift
-//  Skatable
+//  Royals
 //
 //  Created by Vinícius Couto on 09/09/21.
 //

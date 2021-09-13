@@ -35,7 +35,6 @@ final class AppCoordinator: AppCoordinatorProtocol {
         if retrieveUserCredentials() != nil {
             showMainFlow()
         } else {
-            UserDefaults.standard.set("vcoutasso", forKey: Strings.Names.Keys.uid)
             showLoginFlow()
         }
     }

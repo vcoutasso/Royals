@@ -1,6 +1,6 @@
 //
 //  ProfileViewController.swift
-//  Skatable
+//  Royals
 //
 //  Created by Vinícius Couto on 09/09/21.
 //
@@ -8,6 +8,10 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    // MARK: - Public attributes
+
+    var didSendEventClosure: ((ProfileViewController.Event) -> Void)?
+
     // MARK: - Private attributes
 
     private lazy var logoutButton: UIButton = {
@@ -42,5 +46,12 @@ class ProfileViewController: UIViewController {
 
     @objc private func logoutButtonTapped() {
         resetUserCredentials()
+        didSendEventClosure?(.logout)
+    }
+}
+
+extension ProfileViewController {
+    enum Event {
+        case logout
     }
 }

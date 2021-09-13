@@ -50,7 +50,6 @@ final class TabBarCoordinator: TabBarCoordinatorProtocol {
     // MARK: - Private methods
 
     private func prepareTabBarController(withTabControllers tabControllers: [UIViewController]) {
-//        tabBarController.delegate = self
         tabBarController.setViewControllers(tabControllers, animated: true)
 
         tabBarController.modalPresentationStyle = .fullScreen
@@ -91,6 +90,14 @@ final class TabBarCoordinator: TabBarCoordinatorProtocol {
             navController.pushViewController(leaderboardVC, animated: true)
         case .profile:
             let profileVC = ProfileViewController()
+
+            profileVC.didSendEventClosure = { [weak self] event in
+                switch event {
+                case .logout:
+                    self?.finish()
+                }
+            }
+
             navController.pushViewController(profileVC, animated: true)
         }
 
