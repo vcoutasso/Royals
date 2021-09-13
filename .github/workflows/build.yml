@@ -27,4 +27,4 @@ jobs:
         run: make generate
 
       - name: Build project
-        run: xcodebuild -workspace App/Skatable.xcworkspace -scheme Skatable -destination platform\=iOS\ Simulator,OS\=14.5,name\=iPhone\ 12 build | xcpretty && exit ${PIPESTATUS[0]}
+        run: xcodebuild -workspace App/Royals.xcworkspace -scheme Royals -destination platform\=iOS\ Simulator,OS\=14.5,name\=iPhone\ 12 build | xcpretty && exit ${PIPESTATUS[0]}
