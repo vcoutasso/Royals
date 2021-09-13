@@ -1,22 +1,22 @@
-name: Skatable
+name: Royals
 
 settings:
   DEVELOPMENT_TEAM: H7BM7N56V5
   CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: true
 
 options:
-  bundleIdPrefix: com.skatable
+  bundleIdPrefix: com.royals
 
 targets:
-  Skatable:
+  Royals:
     type: application
     platform: iOS
     deploymentTarget: 13.0
     settings:
       TARGETED_DEVICE_FAMILY: 1
-      CODE_SIGN_ENTITLEMENTS: Skatable/Supporting-Files/Skatable.entitlements
+      CODE_SIGN_ENTITLEMENTS: Royals/Supporting-Files/Royals.entitlements
     sources:
-      - path: Skatable
+      - path: Royals
     preBuildScripts:
       - name: SwiftLint
         script: |

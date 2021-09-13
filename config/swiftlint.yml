@@ -1,5 +1,5 @@
 excluded:
-    - ../App/Skatable/Resources/
+    - ../App/Royals/Resources/
     - ../App/Pods
 disabled_rules:
     - trailing_comma
