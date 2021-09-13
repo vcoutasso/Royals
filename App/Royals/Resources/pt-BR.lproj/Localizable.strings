@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  Royals
+
+  Created by Vinícius Couto on 25/08/21.
+*/
+
+"tabbar.home.title" = "Feed";
+"tabbar.map.title" = "Mapa";
+"tabbar.publish.title" = "Publicar";
+"tabbar.leaderboard.title" = "Royals";
+"tabbar.profile.title" = "Perfil";
+
+"mapScene.searchBar.placeholder" = "Onde você vai skatar hoje?";
+"mapScene.addMenu.skateSpot.title" = "Adicionar Pico";
+"mapScene.addMenu.skateStopper.title" = "Adicionar Stopper";
+"mapScene.searchResults.subtitle" = "Proximo à localização atual";
+
+"loginScene.callout.text" = "PARÇA, É NOIX.\nPRONTO PRO ROLÊ?";
+"mapScene.searchResults.title" = "Picos";

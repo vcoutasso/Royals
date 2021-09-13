@@ -1,5 +1,5 @@
-input_dir: ../App/Skatable/Resources/
-output_dir: ../App/Skatable/Resources/Generated/
+input_dir: ../App/Royals/Resources/
+output_dir: ../App/Royals/Resources/Generated/
 strings:
   inputs: 
     - Base.lproj

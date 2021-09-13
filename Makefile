@@ -9,12 +9,12 @@ generate:
 	@ (cd App; xcodegen -c && pod install)
 
 open:
-	@ open App/Skatable.xcworkspace
+	@ open App/Royals.xcworkspace
 
 clean:
 	@ echo "\033[1;37mCleaning up project files\033[0m"
-	@ rm -rf App/Skatable.xc* App/Pods
-	@ find App/Skatable/Resources/Generated ! -name '.gitkeep' -type f -exec rm -f {} +
+	@ rm -rf App/Royals.xc* App/Pods
+	@ find App/Royals/Resources/Generated ! -name '.gitkeep' -type f -exec rm -f {} +
 
 PRE_COMMIT=.git/hooks/pre-commit
 hooks:

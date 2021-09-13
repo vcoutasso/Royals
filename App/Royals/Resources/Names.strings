@@ -1,0 +1,20 @@
+/* 
+  Names.strings
+  Royals
+
+  Created by Vinícius Couto on 31/08/21.
+  
+*/
+
+"icons.home" = "house";
+"icons.map" = "map";
+"icons.publish" = "plus.diamond";
+"icons.leaderboard" = "crown";
+"icons.profile" = "person";
+"icons.location" = "location.fill";
+"icons.add" = "plus.circle.fill";
+
+"icons.skateSpot" = "cone.fill";
+"icons.skateStopper" = "xmark.octagon.fill";
+
+"keys.uid" = "uid";
