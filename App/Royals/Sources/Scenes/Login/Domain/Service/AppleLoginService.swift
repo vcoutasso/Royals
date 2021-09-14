@@ -31,7 +31,7 @@ class AppleLoginService: NSObject {
         currentNonce = nonce
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.email]
+        request.requestedScopes = [.email, .fullName]
         request.nonce = sha256(nonce)
 
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
@@ -69,11 +69,10 @@ extension AppleLoginService: ASAuthorizationControllerDelegate {
                 guard let user = authResult?.user else { return }
                 guard let uid = Auth.auth().currentUser?.uid else { return }
 
-                saveUserCredentials(userCredentials: uid)
-
                 let email = user.email ?? ""
+                let displayName = user.displayName ?? ""
 
-                self.firebaseService.login(email: email, uid: uid, completion: { err in
+                self.firebaseService.login(email: email, displayName: displayName, uid: uid, completion: { err in
                     if let err = err {
                         print("Error writing document: \(err)")
                     } else {

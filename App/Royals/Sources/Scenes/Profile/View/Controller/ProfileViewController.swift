@@ -5,6 +5,7 @@
 //  Created by Vinícius Couto on 09/09/21.
 //
 
+import FirebaseAuth
 import UIKit
 
 class ProfileViewController: UIViewController {
@@ -45,7 +46,8 @@ class ProfileViewController: UIViewController {
     }
 
     @objc private func logoutButtonTapped() {
-        resetUserCredentials()
+        try? Auth.auth().signOut()
+
         didSendEventClosure?(.logout)
     }
 }

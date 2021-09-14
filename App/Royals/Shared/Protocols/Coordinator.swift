@@ -8,7 +8,6 @@
 import UIKit
 
 // Inspired from https://somevitalyz123.medium.com/coordinator-pattern-with-tab-bar-controller-33e08d39d7d
-
 protocol Coordinator: AnyObject {
     var finishDelegate: CoordinatorFinishDelegate? { get set }
 
