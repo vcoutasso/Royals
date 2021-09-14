@@ -15,6 +15,8 @@ class ProfileViewController: UIViewController {
 
     // MARK: - Private attributes
 
+    private lazy var userCard = CardView.userCard(name: "")
+
     private lazy var logoutButton: UIButton = {
         let btn = UIButton()
 
@@ -36,10 +38,19 @@ class ProfileViewController: UIViewController {
     // MARK: - Private methods
 
     private func setupHierarchy() {
+        view.addSubview(userCard)
         view.addSubview(logoutButton)
     }
 
     private func setupConstraints() {
+        userCard.snp.makeConstraints { make in
+            make.topMargin.equalToSuperview()
+                .offset(20)
+            make.height.equalTo(LayoutMetrics.userCardHeight)
+            make.width.equalTo(LayoutMetrics.userCardWidth)
+            make.centerX.equalToSuperview()
+        }
+
         logoutButton.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
@@ -49,6 +60,13 @@ class ProfileViewController: UIViewController {
         try? Auth.auth().signOut()
 
         didSendEventClosure?(.logout)
+    }
+
+    // MARK: - Layout Metrics
+
+    private enum LayoutMetrics {
+        static let userCardWidth: CGFloat = 340
+        static let userCardHeight: CGFloat = 180
     }
 }
 
