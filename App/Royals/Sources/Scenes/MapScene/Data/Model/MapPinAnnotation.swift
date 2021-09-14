@@ -31,7 +31,7 @@ class MapPinAnnotation: NSObject, MKAnnotation {
     // MARK: - Lazy variables
 
     lazy var imageView: UIImageView = {
-        let asset = (self.type == .skateSpot) ? Assets.Images.skateSpot : Assets.Images.skateStopper
+        let asset = (self.type == .skateSpot) ? Assets.Images.skateSpotIcon : Assets.Images.skateStopperIcon
 
         return UIImageView(image: UIImage(asset: asset)!.imageWithColor(color: unselectedColor))
     }()

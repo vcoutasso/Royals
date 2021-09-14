@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "sk8-spot.png",
+      "filename" : "skate-spot.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "sk8-spot@2x.png",
+      "filename" : "skate-spot@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "sk8-spot@3x.png",
+      "filename" : "skate-spot@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
