@@ -8,12 +8,12 @@
 import FirebaseFirestore
 
 class FirebaseLoginService {
-    func login(email: String, uid: String, completion: @escaping ((Error?) -> Void)) {
+    func login(email: String, displayName: String, uid: String, completion: @escaping ((Error?) -> Void)) {
         let db = Firestore.firestore()
 
-        db.collection("User").document(uid).setData([
-            "email": email,
-            "uid": uid,
+        db.collection(Strings.Names.Firestore.userCollection).document(uid).setData([
+            Strings.Names.Firestore.Users.email: email,
+            Strings.Names.Firestore.Users.displayName: displayName,
         ]) { err in
             completion(err)
         }
