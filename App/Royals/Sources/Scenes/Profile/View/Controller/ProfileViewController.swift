@@ -15,10 +15,12 @@ class ProfileViewController: UIViewController {
 
     // MARK: - Private attributes
 
+    private lazy var userCard: UserCardView = .init()
+    private lazy var highlightsCard: HighlightsCardView = .init()
+
     private lazy var logoutButton: UIButton = {
         let btn = UIButton()
 
-        btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle(Strings.Localizable.ProfileScene.LogoutButton.title, for: .normal)
         btn.setTitleColor(Assets.Colors.red.color, for: .normal)
         btn.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
@@ -36,12 +38,30 @@ class ProfileViewController: UIViewController {
     // MARK: - Private methods
 
     private func setupHierarchy() {
+        view.addSubview(userCard)
         view.addSubview(logoutButton)
+        view.addSubview(highlightsCard)
     }
 
     private func setupConstraints() {
+        userCard.snp.makeConstraints { make in
+            make.top.equalTo(view.layoutMarginsGuide.snp.top)
+                .offset(LayoutMetrics.cardVerticalPadding)
+            make.width.equalTo(LayoutMetrics.userCardWidth)
+            make.height.equalTo(LayoutMetrics.userCardHeight)
+            make.centerX.equalToSuperview()
+        }
+
         logoutButton.snp.makeConstraints { make in
             make.center.equalToSuperview()
+        }
+
+        highlightsCard.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.width.equalTo(LayoutMetrics.highlightsCardWidth)
+            make.height.equalTo(LayoutMetrics.highlightsCardHeight)
+            make.top.equalTo(userCard.snp.bottom)
+                .offset(LayoutMetrics.cardVerticalPadding)
         }
     }
 
@@ -49,6 +69,16 @@ class ProfileViewController: UIViewController {
         try? Auth.auth().signOut()
 
         didSendEventClosure?(.logout)
+    }
+
+    // MARK: - Layout Metrics
+
+    private enum LayoutMetrics {
+        static let cardVerticalPadding: CGFloat = 20
+        static let userCardWidth: CGFloat = 340
+        static let userCardHeight: CGFloat = 180
+        static let highlightsCardWidth: CGFloat = userCardWidth
+        static let highlightsCardHeight: CGFloat = 145
     }
 }
 
