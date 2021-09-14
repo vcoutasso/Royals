@@ -69,7 +69,7 @@ extension AppleLoginService: ASAuthorizationControllerDelegate {
                 guard let user = authResult?.user else { return }
                 guard let uid = Auth.auth().currentUser?.uid else { return }
 
-                saveUserCredentials(userCredentials: uid)
+//                saveUserCredentials(userCredentials: uid)
 
                 let email = user.email ?? ""
 

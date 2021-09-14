@@ -5,6 +5,7 @@
 //  Created by Vinícius Couto on 03/09/21.
 //
 
+import FirebaseAuth
 import UIKit
 
 protocol AppCoordinatorProtocol: Coordinator {
@@ -32,7 +33,7 @@ final class AppCoordinator: AppCoordinatorProtocol {
     // MARK: - Public methods
 
     func start() {
-        if retrieveUserCredentials() != nil {
+        if Auth.auth().currentUser != nil {
             showMainFlow()
         } else {
             showLoginFlow()
