@@ -15,7 +15,7 @@ class ProfileViewController: UIViewController {
 
     // MARK: - Private attributes
 
-    private lazy var userCard = CardView.userCard(name: "")
+    private lazy var userCard: UserCardView = .init()
 
     private lazy var logoutButton: UIButton = {
         let btn = UIButton()
