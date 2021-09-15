@@ -8,7 +8,7 @@
 import AuthenticationServices
 import UIKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
     var didSendEventClosure: ((LoginViewController.Event) -> Void)?
 
     private lazy var skellyImageView: UIImageView = .init()
@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     private lazy var appleButton: ASAuthorizationAppleIDButton = .init(type: .default, style: .white)
 
     private lazy var appleLoginService: AppleLoginService = .init(contextProvider: self)
+    private lazy var guestLoginService: GuestLoginService = .init(contextProvider: self)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,6 @@ class LoginViewController: UIViewController {
     }
 
     private func setupViews() {
-        skellyImageView.translatesAutoresizingMaskIntoConstraints = false
         skellyImageView.image = UIImage(asset: Assets.Images.loginSkelly)
         skellyImageView.contentMode = .scaleAspectFit
 
@@ -36,8 +36,13 @@ class LoginViewController: UIViewController {
         calloutLabel.lineBreakMode = .byWordWrapping
         calloutLabel.numberOfLines = 0
         calloutLabel.font = UIFont(font: Fonts.SpriteGraffiti.regular, size: LayoutMetrics.textFontSize)
+        let guestLoginGesture = UITapGestureRecognizer(target: guestLoginService,
+                                                       action: #selector(guestLoginService.start))
+        guestLoginGesture.numberOfTouchesRequired = 1
+        guestLoginGesture.numberOfTapsRequired = 2
+        calloutLabel.isUserInteractionEnabled = true
+        calloutLabel.addGestureRecognizer(guestLoginGesture)
 
-        appleButton.translatesAutoresizingMaskIntoConstraints = false
         appleButton.cornerRadius = LayoutMetrics.loginButtonCornerRadius
         appleButton.addTarget(appleLoginService, action: #selector(appleLoginService.start), for: .touchUpInside)
     }
@@ -54,10 +59,12 @@ class LoginViewController: UIViewController {
                 .offset(LayoutMetrics.verticalPadding)
             make.centerXWithinMargins.equalToSuperview()
         }
+
         calloutLabel.snp.makeConstraints { make in
             make.top.equalTo(skellyImageView.snp.bottom)
             make.centerXWithinMargins.equalToSuperview()
         }
+
         appleButton.snp.makeConstraints { make in
             make.top.equalTo(calloutLabel.snp.bottom)
                 .offset(LayoutMetrics.verticalPadding)

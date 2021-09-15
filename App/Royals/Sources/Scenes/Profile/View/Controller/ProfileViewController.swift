@@ -53,7 +53,8 @@ class ProfileViewController: UIViewController {
         }
 
         logoutButton.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
 
         highlightsCard.snp.makeConstraints { make in

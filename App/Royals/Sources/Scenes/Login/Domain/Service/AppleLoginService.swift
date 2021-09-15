@@ -8,17 +8,16 @@
 import AuthenticationServices
 import FirebaseAuth
 
-class AppleLoginService: NSObject {
+final class AppleLoginService: NSObject {
     // Unhashed nonce.
     private var currentNonce: String?
 
-    private var firebaseService: FirebaseLoginService
+    private var firebaseService: FirebaseLoginService = .init()
 
     private weak var contextProvider: LoginViewController!
 
     init(contextProvider: LoginViewController) {
         self.contextProvider = contextProvider
-        self.firebaseService = .init()
     }
 
     @objc func start() {
@@ -72,13 +71,13 @@ extension AppleLoginService: ASAuthorizationControllerDelegate {
                 let email = user.email ?? ""
                 let displayName = user.displayName ?? ""
 
-                self.firebaseService.login(email: email, displayName: displayName, uid: uid, completion: { err in
+                self.firebaseService.login(email: email, displayName: displayName, uid: uid) { err in
                     if let err = err {
                         print("Error writing document: \(err)")
                     } else {
                         self.contextProvider.didSendEventClosure?(.login)
                     }
-                })
+                }
             }
         }
     }

@@ -7,7 +7,7 @@
 
 import FirebaseFirestore
 
-class FirebaseLoginService {
+final class FirebaseLoginService {
     func login(email: String, displayName: String, uid: String, completion: @escaping ((Error?) -> Void)) {
         let db = Firestore.firestore()
 
