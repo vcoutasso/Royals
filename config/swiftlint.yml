@@ -1,5 +1,5 @@
 excluded:
-    - ../App/Skatable/Resources/
+    - ../App/Royals/Resources/
     - ../App/Pods
 disabled_rules:
     - trailing_comma
@@ -8,6 +8,8 @@ disabled_rules:
 opt_in_rules:
     - yoda_condition
     - unused_import
+force_cast:
+  severity: warning
 custom_rules:
   swiftgen_assets:
     name: "SwiftGen Assets"

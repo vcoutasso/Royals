@@ -2,8 +2,8 @@ platform :ios, '13.0'
 use_frameworks!
 inhibit_all_warnings!
 
-target 'Skatable' do
-  # Pods for Skatable
+target 'Royals' do
+  # Pods for Royals
   pod 'SwiftFormat/CLI'
   pod 'SwiftLint'
   pod 'SwiftGen'
