@@ -18,3 +18,11 @@
 "icons.skateStopper" = "xmark.octagon.fill";
 
 "keys.uid" = "uid";
+
+"icons.star" = "star.fill";
+"icons.houseFill" = "house.fill";
+"icons.houseCircle" = "house.circle.fill";
+"icons.starCircle" = "star.circle.fill";
+"icons.houseCircle" = "house.circle.fill";
+"icons.exclamationMark" = "exclamationmark.circle.fill";
+"icons.xMark" = "xmark.octagon.fill";
