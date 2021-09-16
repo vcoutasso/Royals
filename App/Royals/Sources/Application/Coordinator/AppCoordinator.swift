@@ -33,7 +33,7 @@ final class AppCoordinator: AppCoordinatorProtocol {
     // MARK: - Public methods
 
     func start() {
-        if Auth.auth().currentUser != nil {
+        if CurrentUser.shared.user != nil {
             showMainFlow()
         } else {
             showLoginFlow()

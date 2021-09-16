@@ -12,7 +12,6 @@ final class GuestLoginService: NSObject {
     // MARK: - Private attributes
 
     private weak var contextProvider: LoginViewController!
-    private var firebaseService: FirebaseLoginService = .init()
 
     // MARK: - Initialization
 
@@ -23,15 +22,11 @@ final class GuestLoginService: NSObject {
     // MARK: - Public methods
 
     @objc func start() {
-        Auth.auth().signInAnonymously { authResult, error in
+        Auth.auth().signInAnonymously { _, error in
             if error != nil {
                 print(error?.localizedDescription ?? "")
                 return
             }
-
-            guard let user = authResult?.user else { return }
-            let isAnonymous = user.isAnonymous
-            let uid = user.uid
 
             self.contextProvider.didSendEventClosure?(.login)
         }
