@@ -15,6 +15,8 @@ final class MapViewController: UIViewController {
     private let locationAdapter: LocationAdapter = .init()
     private let mapAdapter: MapAdapter = .init()
 
+    private var selectedLocType: MapPinType?
+
     private lazy var mapView: MKMapView = .init()
     private lazy var searchBar: SearchBarView = .init()
     private lazy var searchBarContainerView: UIView = .init(frame: .zero)
@@ -187,7 +189,15 @@ final class MapViewController: UIViewController {
     private func presentAddMenuModal() {
         let menuVC = AddMenuViewController()
         modalPresentationStyle = .overCurrentContext
+        menuVC.modalDelegate = self
         present(menuVC, animated: true, completion: {})
+    }
+
+    private func presentAddLocationModal(_ selectedLocationType: MapPinType) {
+        let menuVC: AddLocationFormsController = .init(locationType: selectedLocationType)
+
+        modalPresentationStyle = .overCurrentContext
+        present(menuVC, animated: true)
     }
 
     // MARK: - Layout Metrics
@@ -234,5 +244,12 @@ extension MapViewController: UISearchBarDelegate {
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         closeSearchBar()
+    }
+}
+
+extension MapViewController: ModalViewControllerDelegate {
+    func sendValue(selectedType: MapPinType) {
+        selectedLocType = selectedType
+        presentAddLocationModal(selectedType)
     }
 }

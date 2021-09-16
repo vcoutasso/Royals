@@ -15,6 +15,15 @@
 "mapScene.addMenu.skateSpot.title" = "Adicionar Pico";
 "mapScene.addMenu.skateStopper.title" = "Adicionar Stopper";
 "mapScene.searchResults.subtitle" = "Proximo à localização atual";
+"mapScene.addLocationForm.title1" = "Adicione um ";
+"mapScene.addLocationForm.title2" = " que você conheça";
+"mapScene.addLocationForm.name" = "Nome";
+"mapScene.addLocationForm.namePlaceholder" = "Nome do lugar";
+"mapScene.addLocationForm.location" = "Localização";
+"mapScene.addLocationForm.locationPlaceholder" = "Insira a localização";
+"mapScene.addLocationForm.locationHint" = "Mova o mapa para a localização correta";
+"mapScene.addLocationForm.photos" = "Adicione fotos do local";
+"mapScene.addLocationForm.description" = "Adicione uma escrição do local";
 
 "loginScene.callout.text" = "PARÇA, É NOIX.\nPRONTO PRO ROLÊ?";
 "mapScene.searchResults.title" = "Picos";
