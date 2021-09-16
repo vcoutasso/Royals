@@ -9,9 +9,9 @@ import MapKit
 import SnapKit
 import UIKit
 
-final class MapViewController: UIViewController {
-    // MARK: - Private variables
+final class MapViewController: UIViewController, ModalViewControllerDelegate {
 
+    // MARK: - Private variables
     private let locationAdapter: LocationAdapter = .init()
     private let mapAdapter: MapAdapter = .init()
 
@@ -39,6 +39,12 @@ final class MapViewController: UIViewController {
             let pins = repository.pins()
             mapView.addAnnotations(pins)
         #endif
+    }
+
+    // MARK: - Public methods
+
+    func sendValue(selectedType: MapPinType) {
+        presentAddLocationModal(selectedType)
     }
 
     // MARK: - Private methods
@@ -186,6 +192,22 @@ final class MapViewController: UIViewController {
 
     private func presentAddMenuModal() {
         let menuVC = AddMenuViewController()
+        modalPresentationStyle = .overCurrentContext
+        menuVC.modalDelegate = self
+        present(menuVC, animated: true, completion: {})
+        
+    }
+    
+    private func presentAddLocationModal(_ selectedLocationType: MapPinType) {
+        let menuVC: AddLocationFormsController = {
+            switch selectedLocationType {
+            case .skateSpot:
+                return AddLocationFormsController().presentSpot()
+            case .skateStopper:
+                return AddLocationFormsController().presentStopper()
+            }
+        }()
+        
         modalPresentationStyle = .overCurrentContext
         present(menuVC, animated: true, completion: {})
     }

@@ -15,15 +15,18 @@ final class AddMenuViewController: UIViewController {
 
     private lazy var skateSpotButton: AddOptionView = .init(iconName: Strings.Names.Icons.skateSpot,
                                                             type: .skateSpot,
-                                                            action: {})
+                                                            action: skateSpotButtonTap)
     private lazy var skateStopperButton: AddOptionView = .init(iconName: Strings.Names.Icons.skateStopper,
                                                                type: .skateStopper,
-                                                               action: {})
+                                                               action: skateStopperButtonTap)
 
     private lazy var optionsStack: UIStackView = .init(arrangedSubviews: [
         skateSpotButton,
         skateStopperButton,
     ])
+
+    // MARK: - Public variables
+    weak var modalDelegate: ModalViewControllerDelegate?
 
     // MARK: - Public methods
 
@@ -60,15 +63,19 @@ final class AddMenuViewController: UIViewController {
     }
 
     @objc private func skateSpotButtonTap() {
-        guard let action = spotButtonAction else { return }
-
-        action()
+//        guard let action = spotButtonAction else { return }
+//
+//        action()
+        modalDelegate?.sendValue(selectedType: .skateSpot)
+        self.dismiss(animated: true, completion: nil)
     }
 
     @objc private func skateStopperButtonTap() {
-        guard let action = stopperButtonAction else { return }
-
-        action()
+//        guard let action = stopperButtonAction else { return }
+//
+//        action()
+        modalDelegate?.sendValue(selectedType: .skateStopper)
+        self.dismiss(animated: true, completion: nil)
     }
 
     // MARK: - Layout Metrics

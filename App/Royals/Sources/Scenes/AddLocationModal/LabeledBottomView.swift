@@ -36,6 +36,7 @@ class LabeledBottomView: UIView {
         let iconsConfig = UIImage.SymbolConfiguration(pointSize: LayoutMetrics.iconsFontSize)
 
         label.font = LayoutMetrics.labelsFont
+        label.textColor = Assets.Colors.white.color
 
         icon.preferredSymbolConfiguration = iconsConfig
         icon.image!.withTintColor(Assets.Colors.black.color)

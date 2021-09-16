@@ -42,7 +42,8 @@ class MultiatributedLabelView: UILabel {
         ]
         let generalAttributes: [NSAttributedString.Key: Any]
         generalAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24,
-                                                                            weight: .semibold)]
+                                                                            weight: .semibold),
+                             NSAttributedString.Key.foregroundColor: Assets.Colors.white.color, ]
 
         firstMString = NSMutableAttributedString(string: firstText,
                                                  attributes: generalAttributes)

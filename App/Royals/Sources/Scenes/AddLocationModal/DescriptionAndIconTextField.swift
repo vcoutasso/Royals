@@ -48,6 +48,7 @@ class DescriptionAndIconTextField: UITextField {
 
         descriptionLabel.text = descriptionText
         descriptionLabel.font = LayoutMetrics.labelsFont
+        descriptionLabel.textColor = Assets.Colors.white.color
 
         icon.image!.withTintColor(Assets.Colors.black.color)
         icon.image!.withRenderingMode(.alwaysTemplate)

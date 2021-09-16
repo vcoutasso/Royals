@@ -135,3 +135,4 @@ class AddLocationFormView: UIView {
         static let iconsFontSize: CGFloat = 12
     }
 }
+
