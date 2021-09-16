@@ -15,7 +15,6 @@ class LabeledBottomView: UIView {
     var bottomView: UIView
 
     init(iconName: String, labelText: String, theme: UIColor) {
-
         if let image = UIImage(systemName: iconName) {
             self.icon = UIImageView(image: image)
         } else {

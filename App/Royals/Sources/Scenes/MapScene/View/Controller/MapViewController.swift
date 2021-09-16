@@ -14,7 +14,7 @@ final class MapViewController: UIViewController {
 
     private let locationAdapter: LocationAdapter = .init()
     private let mapAdapter: MapAdapter = .init()
-    
+
     private var selectedLocType: MapPinType?
 
     private lazy var mapView: MKMapView = .init()
@@ -249,7 +249,7 @@ extension MapViewController: UISearchBarDelegate {
 
 extension MapViewController: ModalViewControllerDelegate {
     func sendValue(selectedType: MapPinType) {
-        self.selectedLocType = selectedType
+        selectedLocType = selectedType
         presentAddLocationModal(selectedType)
     }
 }

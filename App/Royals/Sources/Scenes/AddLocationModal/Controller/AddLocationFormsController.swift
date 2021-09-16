@@ -14,6 +14,7 @@ class AddLocationFormsController: UIViewController {
 //    weak var modalDelegate: ModalViewControllerDelegate?
 
     // MARK: - Private variables
+
     private var locationType: MapPinType
 
     private lazy var mapView: MKMapView = .init()
@@ -25,6 +26,7 @@ class AddLocationFormsController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -35,7 +37,7 @@ class AddLocationFormsController: UIViewController {
 
     private func setupViews() {
         view = AddLocationFormView(theme: locationType)
-        
+
 //        mapView.mapType = MKMapType.standard
 //        mapView.isZoomEnabled = true
 //        mapView.isScrollEnabled = true
