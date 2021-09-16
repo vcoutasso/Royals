@@ -12,6 +12,7 @@ target 'Royals' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Firestore'
   pod 'Firebase/Auth'
+  pod 'FirebaseFirestoreSwift', '~> 8.6.0-beta'
 
 end
 
