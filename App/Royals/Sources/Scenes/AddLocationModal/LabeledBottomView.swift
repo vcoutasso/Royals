@@ -15,9 +15,15 @@ class LabeledBottomView: UIView {
     var bottomView: UIView
 
     init(iconName: String, labelText: String, theme: UIColor) {
+
+        if let image = UIImage(systemName: iconName) {
+            self.icon = UIImageView(image: image)
+        } else {
+            self.icon = UIImageView(image: UIImage(systemName: "questionmark"))
+        }
+
         self.theme = theme
         self.label = UILabel(frame: .zero)
-        self.icon = UIImageView(image: UIImage(systemName: iconName))
         self.hStack = UIStackView(frame: .zero)
         self.bottomView = UIView()
 

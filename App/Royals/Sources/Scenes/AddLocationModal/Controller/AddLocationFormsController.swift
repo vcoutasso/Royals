@@ -11,19 +11,31 @@ import UIKit
 class AddLocationFormsController: UIViewController {
     // MARK: - Public variables
 
-    weak var modalDelegate: ModalViewControllerDelegate?
+//    weak var modalDelegate: ModalViewControllerDelegate?
 
     // MARK: - Private variables
+    private var locationType: MapPinType
 
     private lazy var mapView: MKMapView = .init()
     private let mapAdapter: MapAdapter = .init()
+
+    init(locationType: MapPinType) {
+        self.locationType = locationType
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func loadView() {
         setupViews()
     }
 
     private func setupViews() {
-        print("setting up views")
+        view = AddLocationFormView(theme: locationType)
+        
 //        mapView.mapType = MKMapType.standard
 //        mapView.isZoomEnabled = true
 //        mapView.isScrollEnabled = true
@@ -31,23 +43,11 @@ class AddLocationFormsController: UIViewController {
 //        mapView.translatesAutoresizingMaskIntoConstraints = false
 //        mapView.delegate = mapAdapter
     }
-
-    // MARK: - Public Methods
-
-    func presentSpot() -> AddLocationFormsController {
-        view = AddLocationFormView(theme: .skateSpot)
-        return self
-    }
-
-    func presentStopper() -> AddLocationFormsController {
-        view = AddLocationFormView(theme: .skateStopper)
-        return self
-    }
 }
 
 #if canImport(SwiftUI) && DEBUG
     import SwiftUI
-    struct SwiftLeeViewRepresentable: UIViewRepresentable {
+    struct FormViewRepresentable: UIViewRepresentable {
         func makeUIView(context: Context) -> UIView {
             return AddLocationFormView(theme: .skateSpot)
         }
@@ -55,10 +55,10 @@ class AddLocationFormsController: UIViewController {
         func updateUIView(_ view: UIView, context: Context) {}
     }
 
-    @available(iOS 14.0, *)
+    @available(iOS 13.0, *)
     struct JonasBrothersPreview: PreviewProvider {
         static var previews: some View {
-            SwiftLeeViewRepresentable()
+            FormViewRepresentable()
         }
     }
 #endif

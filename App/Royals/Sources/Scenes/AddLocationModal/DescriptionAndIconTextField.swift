@@ -24,7 +24,12 @@ class DescriptionAndIconTextField: UITextField {
             }
         }()
 
-        self.icon = UIImageView(image: UIImage(systemName: iconName))
+        if let image = UIImage(systemName: iconName) {
+            self.icon = UIImageView(image: image)
+        } else {
+            self.icon = UIImageView(image: UIImage(systemName: "questionmark"))
+        }
+
         self.descriptionLabel = UILabel(frame: .zero)
         self.iconStack = UIStackView(frame: .zero)
         self.descriptionText = descriptionLabelText

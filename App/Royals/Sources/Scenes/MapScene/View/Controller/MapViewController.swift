@@ -9,11 +9,13 @@ import MapKit
 import SnapKit
 import UIKit
 
-final class MapViewController: UIViewController, ModalViewControllerDelegate {
+final class MapViewController: UIViewController {
     // MARK: - Private variables
 
     private let locationAdapter: LocationAdapter = .init()
     private let mapAdapter: MapAdapter = .init()
+    
+    private var selectedLocType: MapPinType?
 
     private lazy var mapView: MKMapView = .init()
     private lazy var searchBar: SearchBarView = .init()
@@ -39,12 +41,6 @@ final class MapViewController: UIViewController, ModalViewControllerDelegate {
             let pins = repository.pins()
             mapView.addAnnotations(pins)
         #endif
-    }
-
-    // MARK: - Public methods
-
-    func sendValue(selectedType: MapPinType) {
-        presentAddLocationModal(selectedType)
     }
 
     // MARK: - Private methods
@@ -198,17 +194,10 @@ final class MapViewController: UIViewController, ModalViewControllerDelegate {
     }
 
     private func presentAddLocationModal(_ selectedLocationType: MapPinType) {
-        let menuVC: AddLocationFormsController = {
-            switch selectedLocationType {
-            case .skateSpot:
-                return AddLocationFormsController().presentSpot()
-            case .skateStopper:
-                return AddLocationFormsController().presentStopper()
-            }
-        }()
+        let menuVC: AddLocationFormsController = .init(locationType: selectedLocationType)
 
         modalPresentationStyle = .overCurrentContext
-        present(menuVC, animated: true, completion: {})
+        present(menuVC, animated: true)
     }
 
     // MARK: - Layout Metrics
@@ -255,5 +244,12 @@ extension MapViewController: UISearchBarDelegate {
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         closeSearchBar()
+    }
+}
+
+extension MapViewController: ModalViewControllerDelegate {
+    func sendValue(selectedType: MapPinType) {
+        self.selectedLocType = selectedType
+        presentAddLocationModal(selectedType)
     }
 }
