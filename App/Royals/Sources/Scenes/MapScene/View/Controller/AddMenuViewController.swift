@@ -26,6 +26,7 @@ final class AddMenuViewController: UIViewController {
     ])
 
     // MARK: - Public variables
+
     weak var modalDelegate: ModalViewControllerDelegate?
 
     // MARK: - Public methods
@@ -67,7 +68,7 @@ final class AddMenuViewController: UIViewController {
 //
 //        action()
         modalDelegate?.sendValue(selectedType: .skateSpot)
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
     @objc private func skateStopperButtonTap() {
@@ -75,7 +76,7 @@ final class AddMenuViewController: UIViewController {
 //
 //        action()
         modalDelegate?.sendValue(selectedType: .skateStopper)
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
     // MARK: - Layout Metrics
