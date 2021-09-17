@@ -16,6 +16,15 @@
 "mapScene.addMenu.skateStopper.title" = "Add Stopper";
 "mapScene.searchResults.title" = "Spots";
 "mapScene.searchResults.subtitle" = "Close to current location";
+"mapScene.addLocationForm.title1" = "Add a new ";
+"mapScene.addLocationForm.title2" = " that you know";
+"mapScene.addLocationForm.name" = "Name";
+"mapScene.addLocationForm.namePlaceholder" = "Name the place";
+"mapScene.addLocationForm.location" = "Location";
+"mapScene.addLocationForm.locationPlaceholder" = "Insert Location";
+"mapScene.addLocationForm.locationHint" = "Drag the map to position the pin on the correct location";
+"mapScene.addLocationForm.photos" = "Add photos to the location";
+"mapScene.addLocationForm.description" = "Add a description to the location";
 
 "loginScene.callout.text" = "PARÇA, É NOIX.\nPRONTO PRO ROLÊ?";
 
