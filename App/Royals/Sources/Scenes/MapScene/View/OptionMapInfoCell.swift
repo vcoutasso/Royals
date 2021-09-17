@@ -14,7 +14,7 @@ final class OptionMapInfoCell: UITableViewCell {
 
     private var icon = UIImageView()
 
-    private var option = UIStackView()
+    private var type: MapPinType?
 
     static let cellId = "OptionCell"
 
@@ -22,9 +22,11 @@ final class OptionMapInfoCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(option)
+        addSubview(button)
+        addSubview(icon)
         configure()
         setupConstraints()
+        backgroundColor = Assets.Colors.darkSystemGray5.color
     }
 
     @available(*, unavailable)
@@ -37,27 +39,39 @@ final class OptionMapInfoCell: UITableViewCell {
     func set(option: Option) {
         button.setTitle(option.nameButton, for: .normal)
         icon.image = option.icon
+        type = option.type
+
+        switch type {
+        case .skateSpot:
+            button.setTitleColor(Assets.Colors.green.color, for: .normal)
+            icon.tintColor = Assets.Colors.green.color
+        case .skateStopper:
+            button.setTitleColor(Assets.Colors.red.color, for: .normal)
+            icon.tintColor = Assets.Colors.red.color
+        default: break
+        }
     }
 
     func configure() {
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: LayoutMetrics.buttonFontSize, weight: .semibold)
-        button.setTitleColor(Assets.Colors.green.color, for: .normal)
+        button.contentHorizontalAlignment = .leading
 
-        icon.translatesAutoresizingMaskIntoConstraints = false
-
-        option = UIStackView(arrangedSubviews: [button, icon])
-
-        option.axis = .horizontal
-        option.alignment = .leading
-        option.distribution = .fill
+        icon.contentMode = .scaleAspectFit
     }
 
     private func setupConstraints() {
-        option.snp.makeConstraints { make in
-//            make.top.equalToSuperview().offset(509)
-//            make.leading.equalToSuperview().offset(15)
-            make.edges.equalToSuperview()
+        button.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(5)
+            make.bottom.equalToSuperview().offset(-5)
+            make.leading.equalToSuperview().offset(15)
+            make.trailing.equalTo(icon).offset(-15)
+        }
+
+        icon.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(5)
+            make.bottom.equalToSuperview().offset(-5)
+            make.width.equalTo(30)
+            make.trailing.equalToSuperview().offset(-15)
         }
     }
 

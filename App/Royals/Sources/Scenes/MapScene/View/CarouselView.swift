@@ -39,7 +39,7 @@ class CarouselView: UIView, UICollectionViewDelegate {
 
     private enum LayoutMetrics {
         static let leadingCarosel: CGFloat = 15
-        static let heightCarosel: CGFloat = 170
+        static let heightCarosel: CGFloat = 150
     }
 }
 
@@ -60,8 +60,10 @@ private extension CarouselView {
         carouselCollectionView.collectionViewLayout = carouselLayout
         addSubview(carouselCollectionView)
         carouselCollectionView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(LayoutMetrics.leadingCarosel)
-            make.trailing.equalToSuperview().inset(-LayoutMetrics.leadingCarosel)
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(LayoutMetrics.heightCarosel)
         }
     }

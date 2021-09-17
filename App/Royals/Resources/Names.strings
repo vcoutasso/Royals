@@ -22,6 +22,7 @@
 "icons.xMark" = "xmark.octagon.fill";
 "icons.skateSpot" = "cone.fill";
 "icons.skateStopper" = "xmark.octagon.fill";
+"icons.heartCircle" = "heart.circle.fill";
 
 "keys.uid" = "uid";
 

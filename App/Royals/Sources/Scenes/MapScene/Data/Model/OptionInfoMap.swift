@@ -10,4 +10,5 @@ import UIKit
 struct Option {
     var nameButton: String
     var icon: UIImage
+    var type: MapPinType
 }
