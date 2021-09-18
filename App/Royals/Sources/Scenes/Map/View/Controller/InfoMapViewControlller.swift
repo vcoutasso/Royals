@@ -12,7 +12,7 @@ final class InfoMapViewController: UIViewController {
 
     private var separator: SeparatorView = .init(frame: CGRect(x: .zero, y: .zero, width: 347, height: 2))
 
-    // pq to passando as imagens aqui???????????
+    // TODO: Review image handling
     private lazy var spotInfo: SpotInfoMapView =
         .init(type: .skateSpot,
               title: "Ambiental",
