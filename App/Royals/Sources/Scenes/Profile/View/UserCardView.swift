@@ -20,11 +20,12 @@ class UserCardView: UIView {
         let normalIcon = icon?.imageWithColor(color: Assets.Colors.black.color)
         let highlightedIcon = icon?.imageWithColor(color: Assets.Colors.darkSystemGray3.color)
 
+        let backgroundImage = UIImage(systemName: Strings.Names.Icons.squareFill)
+
         let button = UIButton()
-        button.backgroundColor = Assets.Colors.yellow.color
-        button.layer.cornerRadius = LayoutMetrics.settingsButtonCornerRadius
+        // FIXME: Background image does not seem to fill the frame rect
+        button.setBackgroundImage(backgroundImage, for: .normal)
         button.setImage(normalIcon, for: .normal)
-        button.setImage(highlightedIcon, for: .highlighted)
 
         return button
     }()
