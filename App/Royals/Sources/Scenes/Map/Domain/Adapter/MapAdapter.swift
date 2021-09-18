@@ -20,37 +20,42 @@ final class MapAdapter: NSObject, MKMapViewDelegate {
         delegate?.willLocateUser()
     }
 
+    // Inspiration from https://stackoverflow.com/a/41342800
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        // Don't want to show a custom image if the annotation is the user's location.
-        guard !(annotation is MKUserLocation) else {
+        if let annotation = annotation as? MKUserLocation {
+            let pin = mapView.view(for: annotation) as? MKPinAnnotationView
+                ?? MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
+            pin.image = UIImage(asset: Assets.Images.userLocationMarker)
+
+            return pin
+        } else if let annotation = annotation as? MapPinAnnotation {
+            let annotationIdentifier = annotation.type.rawValue
+            var annotationView: MKAnnotationView?
+
+            if let dequeuedAnnotationView = mapView
+                .dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) {
+                annotationView = dequeuedAnnotationView
+                annotationView?.annotation = annotation
+            } else {
+                let av = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+                av.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+                annotationView = av
+            }
+
+            // Configure custom annotation view
+            if let annotationView = annotationView {
+                annotationView.canShowCallout = false
+
+                // Set custom image for custom pins
+                if let mapPin = annotationView.annotation as? MapPinAnnotation {
+                    annotationView.image = mapPin.imageView.image
+                }
+            }
+
+            return annotationView
+        } else {
             return nil
         }
-
-        // Better to make this class property
-        let annotationIdentifier = "AnnotationIdentifier"
-
-        var annotationView: MKAnnotationView?
-
-        if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) {
-            annotationView = dequeuedAnnotationView
-            annotationView?.annotation = annotation
-        } else {
-            let av = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
-            av.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            annotationView = av
-        }
-
-        // Configure annotation view
-        if let annotationView = annotationView {
-            annotationView.canShowCallout = false
-
-            // Set custom image for custom pins
-            if let mapPin = annotationView.annotation as? MapPinAnnotation {
-                annotationView.image = mapPin.imageView.image
-            }
-        }
-
-        return annotationView
     }
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
