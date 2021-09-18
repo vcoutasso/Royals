@@ -7,9 +7,10 @@
 
 import UIKit
 
-// FIXME: Star icon
 class HighlightsCardView: UIView {
     // MARK: - Private attributes
+
+    private var starAttachment = NSTextAttachment(image: UIImage(systemName: Strings.Names.Icons.star)!)
 
     private lazy var spotImage: UIImageView = {
         UIImageView(image: UIImage(asset: Assets.Images.skateSpot))
@@ -25,8 +26,10 @@ class HighlightsCardView: UIView {
         title.font = .systemFont(ofSize: LayoutMetrics.descriptionFontSize, weight: .light)
         title.textColor = Assets.Colors.lightGray.color
 
+        let descriptionText = NSMutableAttributedString(attachment: starAttachment)
+        descriptionText.append(NSAttributedString(string: " " + "Pista Skate Ambiental"))
         let description = UILabel()
-        description.text = "􀋃 Pista Skate Ambiental"
+        description.attributedText = descriptionText
         description.font = .systemFont(ofSize: LayoutMetrics.descriptionFontSize, weight: .semibold)
         description.textColor = Assets.Colors.lightGray.color
 
@@ -44,8 +47,10 @@ class HighlightsCardView: UIView {
         title.font = .systemFont(ofSize: LayoutMetrics.descriptionFontSize, weight: .light)
         title.textColor = Assets.Colors.lightGray.color
 
+        let descriptionText = NSMutableAttributedString(attachment: starAttachment)
+        descriptionText.append(NSAttributedString(string: " " + "360 Ollie"))
         let description = UILabel()
-        description.text = "􀋃 360 Ollie"
+        description.attributedText = descriptionText
         description.font = .systemFont(ofSize: LayoutMetrics.descriptionFontSize, weight: .semibold)
         description.textColor = Assets.Colors.lightGray.color
 
