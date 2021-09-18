@@ -10,15 +10,15 @@ import UIKit
 
 class AddLocationFormsController: UIViewController {
     // MARK: - User Input Variables
-    
+
     private var lastKnownLocation: CLLocation?
-    
+
     // MARK: - Private variables
 
     private var locationType: MapPinType
 
     private var formsView: AddLocationFormView
-    
+
     private let locationAdapter: LocationAdapter = .init()
     private let mapAdapter: MapAdapter = .init()
 
@@ -41,14 +41,12 @@ class AddLocationFormsController: UIViewController {
     override func loadView() {
         setupViews()
     }
-    
+
     override func viewDidLoad() {
-        formsView.mapView.setRegion(
-            MKCoordinateRegion(
-                center: lastKnownLocation!.coordinate,
-                latitudinalMeters: LayoutMetrics.centeringRegionRadius,
-                longitudinalMeters: LayoutMetrics.centeringRegionRadius),
-            animated: true)
+        formsView.mapView.setRegion(MKCoordinateRegion(center: lastKnownLocation!.coordinate,
+                                                       latitudinalMeters: LayoutMetrics.centeringRegionRadius,
+                                                       longitudinalMeters: LayoutMetrics.centeringRegionRadius),
+                                    animated: true)
 
         formsView.mapView.showsUserLocation = true
     }

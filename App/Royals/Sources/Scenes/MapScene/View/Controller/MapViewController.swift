@@ -24,6 +24,7 @@ final class MapViewController: UIViewController {
     private var searchResultsController: SearchResultsViewController?
 
     private weak var userLocationDelegate: UserLocationDelegate?
+
     // MARK: - Overridden methods
 
     override func viewDidLoad() {
@@ -196,7 +197,7 @@ final class MapViewController: UIViewController {
 
     private func presentAddLocationModal(_ selectedLocationType: MapPinType) {
         let locationVC: AddLocationFormsController = .init(locationType: selectedLocationType)
-        
+
         if let lastKnownLocation = getUserLocation() {
             locationVC.setLastKnownLocation(lastKnownLocation)
         } else {
