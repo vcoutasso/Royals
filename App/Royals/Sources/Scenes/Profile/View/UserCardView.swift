@@ -15,17 +15,14 @@ class UserCardView: UIView {
         let font = UIFont.systemFont(ofSize: LayoutMetrics.buttonIconFontSize, weight: .bold)
         let configuration = UIImage.SymbolConfiguration(font: font)
 
-        let icon = UIImage(systemName: Strings.Names.Icons.settings, withConfiguration: configuration)
-
-        let normalIcon = icon?.imageWithColor(color: Assets.Colors.black.color)
-        let highlightedIcon = icon?.imageWithColor(color: Assets.Colors.darkSystemGray3.color)
-
+        let icon = UIImage(systemName: Strings.Names.Icons.settings, withConfiguration: configuration)?
+            .imageWithColor(color: Assets.Colors.darkSystemGray5.color)
         let backgroundImage = UIImage(systemName: Strings.Names.Icons.squareFill)
 
         let button = UIButton()
         // FIXME: Background image does not seem to fill the frame rect
         button.setBackgroundImage(backgroundImage, for: .normal)
-        button.setImage(normalIcon, for: .normal)
+        button.setImage(icon, for: .normal)
 
         return button
     }()
