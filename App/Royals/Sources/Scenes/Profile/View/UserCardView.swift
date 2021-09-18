@@ -12,17 +12,21 @@ class UserCardView: UIView {
 
     // TODO: Add button tapped target
     private lazy var settingsButton: UIButton = {
-        let settings = UIButton()
-        let configuration = UIImage.SymbolConfiguration(pointSize: LayoutMetrics.buttonIconFontSize, weight: .bold)
+        let font = UIFont.systemFont(ofSize: LayoutMetrics.buttonIconFontSize, weight: .bold)
+        let configuration = UIImage.SymbolConfiguration(font: font)
 
-        settings.backgroundColor = Assets.Colors.yellow.color
-        settings.layer.cornerRadius = LayoutMetrics.settingsButtonCornerRadius
-        // FIXME: Button not glowing properly when highlighted
-        settings.setImage(UIImage(systemName: Strings.Names.Icons.settings, withConfiguration: configuration),
-                          for: .normal)
-        settings.tintColor = .black
+        let icon = UIImage(systemName: Strings.Names.Icons.settings, withConfiguration: configuration)
 
-        return settings
+        let normalIcon = icon?.imageWithColor(color: Assets.Colors.black.color)
+        let highlightedIcon = icon?.imageWithColor(color: Assets.Colors.darkSystemGray3.color)
+
+        let button = UIButton()
+        button.backgroundColor = Assets.Colors.yellow.color
+        button.layer.cornerRadius = LayoutMetrics.settingsButtonCornerRadius
+        button.setImage(normalIcon, for: .normal)
+        button.setImage(highlightedIcon, for: .highlighted)
+
+        return button
     }()
 
     private lazy var profilePicture: UIImageView = {
