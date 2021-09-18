@@ -11,12 +11,12 @@ import UIKit
 class AddLocationFormView: UIView {
     private var theme: UIColor
     private var title: MultiatributedLabelView
-    private var nameTextField: UITextField
-    private var locationTextField: LocationTextField
+    private var nameTextField: DescriptionAndIconTextField
+    private var locationTextField: DescriptionAndIconTextField
     private var photosField: LabeledBottomView
     private var descriptionField: LabeledBottomView
 
-    var mapBottomView: UIView
+    var mapView: MKMapView
 
     init(theme: MapPinType) {
         self.theme = {
@@ -30,16 +30,19 @@ class AddLocationFormView: UIView {
 
         self.title = MultiatributedLabelView(theme: theme)
 
-        self.nameTextField = DescriptionAndIconTextField(iconName: Strings.Names.Icons.nameField,
-                                                         descriptionLabelText: Strings.Localizable.MapScene
-                                                             .AddLocationForm.name,
-                                                         placeholderText: Strings.Localizable.MapScene.AddLocationForm
-                                                             .namePlaceholder,
-                                                         theme: theme)
+        self.nameTextField = DescriptionAndIconTextField(
+            iconName: Strings.Names.Icons.nameField,
+            descriptionLabelText: Strings.Localizable.MapScene.AddLocationForm.name,
+            placeholderText: Strings.Localizable.MapScene.AddLocationForm.namePlaceholder,
+            theme: theme)
 
-        self.locationTextField = LocationTextField(theme: theme)
+        self.locationTextField = DescriptionAndIconTextField(
+            iconName: Strings.Names.Icons.location,
+            descriptionLabelText: Strings.Localizable.MapScene.AddLocationForm.location,
+            placeholderText: Strings.Localizable.MapScene.AddLocationForm.locationPlaceholder,
+            theme: theme)
 
-        self.mapBottomView = UIView()
+        self.mapView = MKMapView()
 
         self.photosField = LabeledBottomView(iconName: Strings.Names.Icons.photo,
                                              labelText: Strings.Localizable.MapScene.AddLocationForm.photos,
@@ -66,17 +69,24 @@ class AddLocationFormView: UIView {
     private func setupViews() {
         title.textAlignment = .left
         title.numberOfLines = -1
+        
+        locationTextField.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        locationTextField.layer.cornerRadius = LayoutMetrics.generalCornerRadius
 
-        mapBottomView.backgroundColor = Assets.Colors.darkSystemGray5.color
-        mapBottomView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        mapBottomView.layer.cornerRadius = LayoutMetrics.generalCornerRadius
+        mapView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        mapView.layer.cornerRadius = LayoutMetrics.generalCornerRadius
+        
+        mapView.mapType = MKMapType.standard
+        mapView.isZoomEnabled = false
+        mapView.isScrollEnabled = true
+        mapView.showsCompass = false
     }
 
     private func setupHierarchy() {
         addSubview(title)
         addSubview(nameTextField)
         addSubview(locationTextField)
-        addSubview(mapBottomView)
+        addSubview(mapView)
         addSubview(photosField)
         addSubview(descriptionField)
     }
@@ -97,19 +107,20 @@ class AddLocationFormView: UIView {
 
         locationTextField.snp.makeConstraints { make in
             make.top.equalTo(nameTextField.snp_bottomMargin).offset(LayoutMetrics.titleToNameTopPadding)
+            make.height.equalTo(42)
             make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
             make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
         }
 
-        mapBottomView.snp.makeConstraints { make in
-            make.top.equalTo(locationTextField.snp_bottomMargin).offset(42)
+        mapView.snp.makeConstraints { make in
+            make.top.equalTo(locationTextField.snp_bottomMargin)
             make.height.equalTo(100)
             make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
             make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
         }
 
         photosField.snp.makeConstraints { make in
-            make.top.equalTo(mapBottomView.snp_bottomMargin).offset(LayoutMetrics.titleToNameTopPadding)
+            make.top.equalTo(mapView.snp_bottomMargin).offset(LayoutMetrics.titleToNameTopPadding)
             make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
             make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
         }
@@ -121,6 +132,7 @@ class AddLocationFormView: UIView {
         }
     }
 
+    // TODO: All *Location*View.swift have LayoutMetrics, maybe define a public enum
     private enum LayoutMetrics {
         static let textFontSize: CGFloat = 25
         static let labelsFont = UIFont.systemFont(ofSize: 16)

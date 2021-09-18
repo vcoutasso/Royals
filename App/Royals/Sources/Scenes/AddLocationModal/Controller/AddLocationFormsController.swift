@@ -9,19 +9,23 @@ import MapKit
 import UIKit
 
 class AddLocationFormsController: UIViewController {
-    // MARK: - Public variables
-
-//    weak var modalDelegate: ModalViewControllerDelegate?
-
+    // MARK: - User Input Variables
+    
     // MARK: - Private variables
 
     private var locationType: MapPinType
 
+    private var formsView: AddLocationFormView
+
     private lazy var mapView: MKMapView = .init()
+    private let locationAdapter: LocationAdapter = .init()
     private let mapAdapter: MapAdapter = .init()
+
+    // MARK: - Constructor
 
     init(locationType: MapPinType) {
         self.locationType = locationType
+        self.formsView = AddLocationFormView(theme: locationType)
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -31,19 +35,43 @@ class AddLocationFormsController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Overridden Methods
+
     override func loadView() {
         setupViews()
+        setupDelegates()
     }
 
-    private func setupViews() {
-        view = AddLocationFormView(theme: locationType)
+    // MARK: - Private Methods
 
-//        mapView.mapType = MKMapType.standard
-//        mapView.isZoomEnabled = true
-//        mapView.isScrollEnabled = true
-//        mapView.showsCompass = false
-//        mapView.translatesAutoresizingMaskIntoConstraints = false
-//        mapView.delegate = mapAdapter
+    private func setupViews() {
+        formsView.mapView.delegate = mapAdapter
+
+        // TODO: Homework, is this good implementation?
+        view = formsView
+    }
+
+    private func setupDelegates() {
+        locationAdapter.delegate = self
+        mapAdapter.delegate = self
+    }
+
+    // MARK: - Layout Metrics
+
+    private enum LayoutMetrics {
+        static let centeringRegionRadius: CLLocationDistance = 1000
+    }
+}
+
+extension AddLocationFormsController: LocationAdapterDelegate, MapAdapterDelegate {
+    func didLocateUser() { mapView.showsUserLocation = true }
+
+    func willLocateUser() {
+        guard let location = locationAdapter.currentLocation else { return }
+
+        mapView.setRegion(MKCoordinateRegion(center: location.coordinate,
+                                             latitudinalMeters: LayoutMetrics.centeringRegionRadius,
+                                             longitudinalMeters: LayoutMetrics.centeringRegionRadius), animated: true)
     }
 }
 
