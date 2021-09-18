@@ -10,7 +10,7 @@ import UIKit
 
 class AddLocationFormsController: UIViewController {
     // MARK: - User Input Variables
-    
+
     // MARK: - Private variables
 
     private var locationType: MapPinType

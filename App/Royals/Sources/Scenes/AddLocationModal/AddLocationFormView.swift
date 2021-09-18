@@ -30,17 +30,19 @@ class AddLocationFormView: UIView {
 
         self.title = MultiatributedLabelView(theme: theme)
 
-        self.nameTextField = DescriptionAndIconTextField(
-            iconName: Strings.Names.Icons.nameField,
-            descriptionLabelText: Strings.Localizable.MapScene.AddLocationForm.name,
-            placeholderText: Strings.Localizable.MapScene.AddLocationForm.namePlaceholder,
-            theme: theme)
+        self.nameTextField = DescriptionAndIconTextField(iconName: Strings.Names.Icons.nameField,
+                                                         descriptionLabelText: Strings.Localizable.MapScene
+                                                             .AddLocationForm.name,
+                                                         placeholderText: Strings.Localizable.MapScene.AddLocationForm
+                                                             .namePlaceholder,
+                                                         theme: theme)
 
-        self.locationTextField = DescriptionAndIconTextField(
-            iconName: Strings.Names.Icons.location,
-            descriptionLabelText: Strings.Localizable.MapScene.AddLocationForm.location,
-            placeholderText: Strings.Localizable.MapScene.AddLocationForm.locationPlaceholder,
-            theme: theme)
+        self.locationTextField = DescriptionAndIconTextField(iconName: Strings.Names.Icons.location,
+                                                             descriptionLabelText: Strings.Localizable.MapScene
+                                                                 .AddLocationForm.location,
+                                                             placeholderText: Strings.Localizable.MapScene
+                                                                 .AddLocationForm.locationPlaceholder,
+                                                             theme: theme)
 
         self.mapView = MKMapView()
 
@@ -69,13 +71,13 @@ class AddLocationFormView: UIView {
     private func setupViews() {
         title.textAlignment = .left
         title.numberOfLines = -1
-        
+
         locationTextField.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         locationTextField.layer.cornerRadius = LayoutMetrics.generalCornerRadius
 
         mapView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         mapView.layer.cornerRadius = LayoutMetrics.generalCornerRadius
-        
+
         mapView.mapType = MKMapType.standard
         mapView.isZoomEnabled = false
         mapView.isScrollEnabled = true
