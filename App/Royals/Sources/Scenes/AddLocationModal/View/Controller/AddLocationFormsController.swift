@@ -11,6 +11,8 @@ import UIKit
 class AddLocationFormsController: UIViewController {
     // MARK: - User Input Variables
     
+    private var lastKnownLocation: CLLocation?
+    
     // MARK: - Private variables
 
     private var locationType: MapPinType
@@ -38,11 +40,17 @@ class AddLocationFormsController: UIViewController {
 
     override func loadView() {
         setupViews()
-        setupDelegates()
     }
     
     override func viewDidLoad() {
-        willLocateUser()
+        formsView.mapView.setRegion(
+            MKCoordinateRegion(
+                center: lastKnownLocation!.coordinate,
+                latitudinalMeters: LayoutMetrics.centeringRegionRadius,
+                longitudinalMeters: LayoutMetrics.centeringRegionRadius),
+            animated: true)
+
+        formsView.mapView.showsUserLocation = true
     }
 
     // MARK: - Private Methods
@@ -54,11 +62,6 @@ class AddLocationFormsController: UIViewController {
         view = formsView
     }
 
-    private func setupDelegates() {
-        locationAdapter.delegate = self
-        mapAdapter.delegate = self
-    }
-
     // MARK: - Layout Metrics
 
     private enum LayoutMetrics {
@@ -66,17 +69,9 @@ class AddLocationFormsController: UIViewController {
     }
 }
 
-extension AddLocationFormsController: LocationAdapterDelegate, MapAdapterDelegate {
-    func didLocateUser() { formsView.mapView.showsUserLocation = true }
-
-    func willLocateUser() {
-        guard let location = locationAdapter.currentLocation else { return }
-
-        formsView.mapView.setRegion(MKCoordinateRegion(center: location.coordinate,
-                                             latitudinalMeters: LayoutMetrics.centeringRegionRadius,
-                                             longitudinalMeters: LayoutMetrics.centeringRegionRadius), animated: true)
-        
-        print(location.coordinate.latitude)
+extension AddLocationFormsController: UserLocationDelegate {
+    func setLastKnownLocation(_ location: CLLocation) {
+        lastKnownLocation = location
     }
 }
 

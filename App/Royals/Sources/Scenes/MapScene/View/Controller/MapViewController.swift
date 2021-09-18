@@ -15,8 +15,6 @@ final class MapViewController: UIViewController {
     private let locationAdapter: LocationAdapter = .init()
     private let mapAdapter: MapAdapter = .init()
 
-    private var selectedLocType: MapPinType?
-
     private lazy var mapView: MKMapView = .init()
     private lazy var searchBar: SearchBarView = .init()
     private lazy var searchBarContainerView: UIView = .init(frame: .zero)
@@ -25,6 +23,7 @@ final class MapViewController: UIViewController {
                                                            action: willLocateUser)
     private var searchResultsController: SearchResultsViewController?
 
+    private weak var userLocationDelegate: UserLocationDelegate?
     // MARK: - Overridden methods
 
     override func viewDidLoad() {
@@ -186,6 +185,8 @@ final class MapViewController: UIViewController {
         }
     }
 
+    // MARK: - Present child modals methods
+
     private func presentAddMenuModal() {
         let menuVC = AddMenuViewController()
         modalPresentationStyle = .overCurrentContext
@@ -194,10 +195,16 @@ final class MapViewController: UIViewController {
     }
 
     private func presentAddLocationModal(_ selectedLocationType: MapPinType) {
-        let menuVC: AddLocationFormsController = .init(locationType: selectedLocationType)
+        let locationVC: AddLocationFormsController = .init(locationType: selectedLocationType)
+        
+        if let lastKnownLocation = getUserLocation() {
+            locationVC.setLastKnownLocation(lastKnownLocation)
+        } else {
+            fatalError("could not update users last known location")
+        }
 
         modalPresentationStyle = .overCurrentContext
-        present(menuVC, animated: true)
+        present(locationVC, animated: true)
     }
 
     // MARK: - Layout Metrics
@@ -225,6 +232,12 @@ extension MapViewController: LocationAdapterDelegate, MapAdapterDelegate {
                                              latitudinalMeters: LayoutMetrics.centeringRegionRadius,
                                              longitudinalMeters: LayoutMetrics.centeringRegionRadius), animated: true)
     }
+
+    func getUserLocation() -> CLLocation? {
+        guard let location = locationAdapter.currentLocation else { return nil }
+
+        return location
+    }
 }
 
 extension MapViewController: UISearchBarDelegate {
@@ -249,7 +262,6 @@ extension MapViewController: UISearchBarDelegate {
 
 extension MapViewController: ModalViewControllerDelegate {
     func sendValue(selectedType: MapPinType) {
-        selectedLocType = selectedType
         presentAddLocationModal(selectedType)
     }
 }

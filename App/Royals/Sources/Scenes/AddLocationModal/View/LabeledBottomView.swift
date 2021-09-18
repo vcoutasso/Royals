@@ -46,6 +46,7 @@ class LabeledBottomView: UIView {
         icon.preferredSymbolConfiguration = iconsConfig
         icon.image!.withTintColor(Assets.Colors.black.color)
         icon.image!.withRenderingMode(.alwaysTemplate)
+        icon.contentMode = .scaleAspectFit
         icon.tintColor = UIColor.black
         icon.backgroundColor = theme
         icon.layer.cornerRadius = 5
@@ -87,7 +88,7 @@ class LabeledBottomView: UIView {
 
         bottomView.snp.makeConstraints { make in
             make.top.equalTo(hStack.snp_bottomMargin)
-            make.height.equalTo(100)
+            make.height.equalTo(120)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
@@ -109,6 +110,6 @@ class LabeledBottomView: UIView {
 
         static let titleToNameTopPadding: CGFloat = 50
 
-        static let iconsFontSize: CGFloat = 12
+        static let iconsFontSize: CGFloat = 5
     }
 }
