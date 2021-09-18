@@ -60,7 +60,7 @@ class DescriptionAndIconTextField: UITextField {
         icon.tintColor = UIColor.black
         icon.backgroundColor = themeColor
         icon.contentMode = .scaleAspectFit
-        icon.layer.cornerRadius = 5
+        icon.layer.cornerRadius = LayoutMetrics.iconCornerRadius
         icon.preferredSymbolConfiguration = iconsConfig
 
         iconStack = UIStackView(arrangedSubviews: [icon, descriptionLabel])
@@ -98,6 +98,7 @@ class DescriptionAndIconTextField: UITextField {
         static let titleToNameTopPadding: CGFloat = 50
 
         static let iconsFontSize: CGFloat = 12
+        static let iconCornerRadius: CGFloat = 5
         
         static let stackSpacing: CGFloat = 10
         

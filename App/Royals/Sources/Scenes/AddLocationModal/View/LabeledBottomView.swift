@@ -49,7 +49,7 @@ class LabeledBottomView: UIView {
         icon.contentMode = .scaleAspectFit
         icon.tintColor = UIColor.black
         icon.backgroundColor = theme
-        icon.layer.cornerRadius = 5
+        icon.layer.cornerRadius = LayoutMetrics.iconCornerRadius
 
         hStack = UIStackView(arrangedSubviews: [icon, label])
         hStack.axis = .horizontal
@@ -81,13 +81,13 @@ class LabeledBottomView: UIView {
 
         hStack.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.height.equalTo(42)
+            make.height.equalTo(stackHeight)
             make.leading.trailing.equalToSuperview()
         }
 
         bottomView.snp.makeConstraints { make in
             make.top.equalTo(hStack.snp_bottomMargin)
-            make.height.equalTo(120)
+            make.height.equalTo(LayoutMetrics.bottomViewHeight)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
@@ -101,8 +101,12 @@ class LabeledBottomView: UIView {
     private enum LayoutMetrics {
         static let textFontSize: CGFloat = 25
         static let labelsFont = UIFont.systemFont(ofSize: 16)
+        
+        static let stackHeight: CGFloat = 42
+        static let bottomViewHeight: CGFloat = 120
 
         static let generalCornerRadius: CGFloat = 8
+        static let iconCornerRadius: CGFloat = 5
 
         static let generalTopPadding: CGFloat = 20
         static let generalHorizontalPadding: CGFloat = 20

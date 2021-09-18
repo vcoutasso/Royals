@@ -43,10 +43,12 @@ class AddLocationFormsController: UIViewController {
     }
 
     override func viewDidLoad() {
-        formsView.mapView.setRegion(MKCoordinateRegion(center: lastKnownLocation!.coordinate,
-                                                       latitudinalMeters: LayoutMetrics.centeringRegionRadius,
-                                                       longitudinalMeters: LayoutMetrics.centeringRegionRadius),
-                                    animated: true)
+        formsView.mapView.setRegion(
+            MKCoordinateRegion(
+                center: lastKnownLocation!.coordinate,
+                latitudinalMeters: LayoutMetrics.centeringRegionRadius,
+                longitudinalMeters: LayoutMetrics.centeringRegionRadius),
+            animated: true)
 
         formsView.mapView.showsUserLocation = true
     }
