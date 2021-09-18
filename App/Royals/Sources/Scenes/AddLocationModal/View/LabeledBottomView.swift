@@ -57,6 +57,7 @@ class LabeledBottomView: UIView {
         hStack.backgroundColor = Assets.Colors.darkSystemGray5.color
         hStack.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         hStack.layer.cornerRadius = LayoutMetrics.generalCornerRadius
+        hStack.spacing = LayoutMetrics.stackSpacing
 
         bottomView.backgroundColor = Assets.Colors.darkSystemGray5.color
         bottomView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
@@ -70,20 +71,18 @@ class LabeledBottomView: UIView {
 
     private func setupConstraints() {
         icon.snp.makeConstraints { make in
-            make.size.equalTo(22)
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(5)
+            make.size.equalTo(LayoutMetrics.iconFrameSize)
+            make.leading.equalToSuperview().inset(LayoutMetrics.stackInset)
         }
-
-        label.snp.makeConstraints { make in
-            make.leading.equalTo(icon.snp_trailingMargin).offset(5)
+        
+        icon.snp.makeConstraints { make in
+            make.size.equalTo(LayoutMetrics.iconFrameSize)
         }
 
         hStack.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.height.equalTo(42)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
 
         bottomView.snp.makeConstraints { make in
@@ -111,5 +110,11 @@ class LabeledBottomView: UIView {
         static let titleToNameTopPadding: CGFloat = 50
 
         static let iconsFontSize: CGFloat = 5
+        
+        static let stackSpacing: CGFloat = 10
+        
+        static let iconFrameSize: CGFloat = 22
+        
+        static let stackInset: CGFloat = 10
     }
 }
