@@ -16,8 +16,7 @@ class AddLocationFormsController: UIViewController {
     private var locationType: MapPinType
 
     private var formsView: AddLocationFormView
-
-    private lazy var mapView: MKMapView = .init()
+    
     private let locationAdapter: LocationAdapter = .init()
     private let mapAdapter: MapAdapter = .init()
 
@@ -41,6 +40,10 @@ class AddLocationFormsController: UIViewController {
         setupViews()
         setupDelegates()
     }
+    
+    override func viewDidLoad() {
+        willLocateUser()
+    }
 
     // MARK: - Private Methods
 
@@ -59,19 +62,21 @@ class AddLocationFormsController: UIViewController {
     // MARK: - Layout Metrics
 
     private enum LayoutMetrics {
-        static let centeringRegionRadius: CLLocationDistance = 1000
+        static let centeringRegionRadius: CLLocationDistance = 500
     }
 }
 
 extension AddLocationFormsController: LocationAdapterDelegate, MapAdapterDelegate {
-    func didLocateUser() { mapView.showsUserLocation = true }
+    func didLocateUser() { formsView.mapView.showsUserLocation = true }
 
     func willLocateUser() {
         guard let location = locationAdapter.currentLocation else { return }
 
-        mapView.setRegion(MKCoordinateRegion(center: location.coordinate,
+        formsView.mapView.setRegion(MKCoordinateRegion(center: location.coordinate,
                                              latitudinalMeters: LayoutMetrics.centeringRegionRadius,
                                              longitudinalMeters: LayoutMetrics.centeringRegionRadius), animated: true)
+        
+        print(location.coordinate.latitude)
     }
 }
 

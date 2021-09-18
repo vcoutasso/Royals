@@ -77,7 +77,7 @@ class AddLocationFormView: UIView {
         mapView.layer.cornerRadius = LayoutMetrics.generalCornerRadius
         
         mapView.mapType = MKMapType.standard
-        mapView.isZoomEnabled = false
+        mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
         mapView.showsCompass = false
     }
@@ -113,7 +113,7 @@ class AddLocationFormView: UIView {
         }
 
         mapView.snp.makeConstraints { make in
-            make.top.equalTo(locationTextField.snp_bottomMargin)
+            make.topMargin.equalTo(locationTextField.snp_bottomMargin)
             make.height.equalTo(100)
             make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
             make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
