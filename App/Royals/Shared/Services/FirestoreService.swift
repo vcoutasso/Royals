@@ -13,7 +13,9 @@ final class FirestoreService {
     func login() {
         if let user = CurrentUser.shared.user, let uid = user.id {
             do {
-                try db.collection(Strings.Names.Firestore.userCollection).document(uid).setData(from: user)
+                try db.collection(Strings.Names.Firestore.userCollection)
+                    .document(uid)
+                    .setData(from: user)
             } catch {
                 print(error)
             }

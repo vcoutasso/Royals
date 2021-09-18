@@ -58,8 +58,8 @@ extension AppleLoginService: ASAuthorizationControllerDelegate {
                                                       idToken: idTokenString,
                                                       rawNonce: nonce)
             Auth.auth().signIn(with: credential) { _, error in
-                if error != nil {
-                    print(error?.localizedDescription ?? "")
+                if let error = error {
+                    print(error.localizedDescription)
                     return
                 }
 

@@ -24,14 +24,14 @@ final class GuestLoginService: NSObject {
     @objc func start() {
         Auth.auth().signInAnonymously { _, error in
             if let error = error {
-                // FIXME: Proper error handling. Anonymous login should work offline
-                if error
-                    .localizedDescription !=
+                if error.localizedDescription !=
                     "Network error (such as timeout, interrupted connection or unreachable host) has occurred." {
                     print(error.localizedDescription)
                     return
                 }
             }
+
+            try? Auth.auth().signOut()
 
             self.contextProvider.didSendEventClosure?(.login)
         }

@@ -8,7 +8,7 @@
 import FirebaseAuth
 import FirebaseFirestore
 
-/// Singleton current user class
+/// Current user singleton
 class CurrentUser {
     static var shared: CurrentUser = .init()
 
@@ -16,23 +16,33 @@ class CurrentUser {
 
     private let changeListener: AuthStateDidChangeListenerHandle = Auth.auth()
         .addStateDidChangeListener { _, user in
-            guard let user = user else {
-                CurrentUser.shared.user = nil
-                return
-            }
-
-            CurrentUser.shared.authDidChange(user)
+            CurrentUser.shared.stateDidChange(with: user)
         }
 
-    private let authDidChange: (User) -> Void = { user in
-        CurrentUser.shared.user = AppUser(id: user.uid,
-                                          handle: user.displayName ?? "",
-                                          user: String(user.uid.prefix(6)),
-                                          email: user.email ?? "",
-                                          isAnonymous: user.isAnonymous)
+    // MARK: - Private methdos
+
+    private func stateDidChange(with user: User?) {
+        guard let user = user else {
+            CurrentUser.shared.user = .init()
+            return
+        }
+
+        CurrentUser.shared.user = instantiateAppUser(with: user)
 
         FirestoreService().login()
     }
 
-    private init() {}
+    private func instantiateAppUser(with user: User) -> AppUser {
+        .init(id: user.uid,
+              handle: user.displayName ?? "",
+              username: "@" + String(user.uid.prefix(6)),
+              email: user.email ?? "",
+              isAnonymous: user.isAnonymous)
+    }
+
+    private init() {
+        guard let currentUser = Auth.auth().currentUser else { return }
+
+        self.user = instantiateAppUser(with: currentUser)
+    }
 }
