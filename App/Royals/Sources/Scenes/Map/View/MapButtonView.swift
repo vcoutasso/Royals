@@ -23,8 +23,6 @@ final class MapButtonView: UIButton {
 
         setupView()
         setupConstraints()
-
-        addTarget(self, action: #selector(tap), for: .touchUpInside)
     }
 
     @available(*, unavailable)
@@ -43,8 +41,9 @@ final class MapButtonView: UIButton {
 
         backgroundColor = Assets.Colors.darkSystemGray4.color
         setImage(icon, for: .normal)
-        target(forAction: #selector(tap), withSender: nil)
         layer.cornerRadius = LayoutMetrics.backgroundRectCornerRadius
+
+        addTarget(self, action: #selector(tap), for: .touchUpInside)
     }
 
     private func setupConstraints() {

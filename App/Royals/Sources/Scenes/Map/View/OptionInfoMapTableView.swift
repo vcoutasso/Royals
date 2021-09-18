@@ -75,10 +75,10 @@ extension OptionInfoMapTableView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: OptionMapInfoCell.cellId) as! OptionMapInfoCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: OptionMapInfoCell.cellId) as? OptionMapInfoCell
         let option = listOptions[indexPath.row]
-        cell.set(option: option)
-        return cell
+        cell?.set(option: option)
+        return cell!
     }
 }
 
