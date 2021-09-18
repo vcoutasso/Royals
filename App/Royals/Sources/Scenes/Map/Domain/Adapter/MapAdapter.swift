@@ -23,12 +23,14 @@ final class MapAdapter: NSObject, MKMapViewDelegate {
     // Inspiration from https://stackoverflow.com/a/41342800
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? MKUserLocation {
+            // User location annotation
             let pin = mapView.view(for: annotation) as? MKPinAnnotationView
                 ?? MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
             pin.image = UIImage(asset: Assets.Images.userLocationMarker)
 
             return pin
         } else if let annotation = annotation as? MapPinAnnotation {
+            // Spots annotation
             let annotationIdentifier = annotation.type.rawValue
             var annotationView: MKAnnotationView?
 
@@ -42,11 +44,9 @@ final class MapAdapter: NSObject, MKMapViewDelegate {
                 annotationView = av
             }
 
-            // Configure custom annotation view
             if let annotationView = annotationView {
                 annotationView.canShowCallout = false
 
-                // Set custom image for custom pins
                 if let mapPin = annotationView.annotation as? MapPinAnnotation {
                     annotationView.image = mapPin.imageView.image
                 }
