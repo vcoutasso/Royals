@@ -29,3 +29,5 @@
 "loginScene.callout.text" = "PARÇA, É NOIX.\nPRONTO PRO ROLÊ?";
 
 "profileScene.logoutButton.title" = "Logout";
+
+"userModel.fallbackData.handle" = "Anonymous";

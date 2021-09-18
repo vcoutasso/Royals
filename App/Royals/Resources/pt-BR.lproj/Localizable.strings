@@ -30,3 +30,5 @@
 
 
 "profileScene.logoutButton.title" = "Logout";
+
+"userModel.fallbackData.handle" = "Anônimo";

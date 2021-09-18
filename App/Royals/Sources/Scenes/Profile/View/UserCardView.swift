@@ -34,12 +34,12 @@ class UserCardView: UIView {
 
     private lazy var userInfo: UIStackView = {
         let userHandle = UILabel()
-        userHandle.text = "Username"
+        userHandle.text = CurrentUser.shared.user?.handle
         userHandle.font = UIFont.systemFont(ofSize: LayoutMetrics.userHandleFontSize, weight: .semibold)
         userHandle.textColor = Assets.Colors.lightGray.color
 
         let username = UILabel()
-        username.text = "@user"
+        username.text = CurrentUser.shared.user?.username
         username.font = UIFont.systemFont(ofSize: LayoutMetrics.usernameFontSize, weight: .light)
         username.textColor = Assets.Colors.lightGray.color
 
@@ -138,7 +138,7 @@ class UserCardView: UIView {
         }
     }
 
-    // MARK: - Laayout Metrics
+    // MARK: - Layout Metrics
 
     private enum LayoutMetrics {
         private static let rectSize: CGFloat = 32
