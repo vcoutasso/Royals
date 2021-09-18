@@ -74,7 +74,7 @@ class LabeledBottomView: UIView {
             make.size.equalTo(LayoutMetrics.iconFrameSize)
             make.leading.equalToSuperview().inset(LayoutMetrics.stackInset)
         }
-        
+
         icon.snp.makeConstraints { make in
             make.size.equalTo(LayoutMetrics.iconFrameSize)
         }
@@ -110,11 +110,11 @@ class LabeledBottomView: UIView {
         static let titleToNameTopPadding: CGFloat = 50
 
         static let iconsFontSize: CGFloat = 5
-        
+
         static let stackSpacing: CGFloat = 10
-        
+
         static let iconFrameSize: CGFloat = 22
-        
+
         static let stackInset: CGFloat = 10
     }
 }

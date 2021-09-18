@@ -98,11 +98,11 @@ class DescriptionAndIconTextField: UITextField {
         static let titleToNameTopPadding: CGFloat = 50
 
         static let iconsFontSize: CGFloat = 12
-        
+
         static let stackSpacing: CGFloat = 10
-        
+
         static let iconFrameSize: CGFloat = 22
-        
+
         static let stackInset: CGFloat = 10
     }
 }
