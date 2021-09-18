@@ -81,7 +81,7 @@ class LabeledBottomView: UIView {
 
         hStack.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.height.equalTo(stackHeight)
+            make.height.equalTo(LayoutMetrics.stackHeight)
             make.leading.trailing.equalToSuperview()
         }
 
