@@ -8,6 +8,7 @@ disabled_rules:
 opt_in_rules:
     - yoda_condition
     - unused_import
+    - unavailable_function
 force_cast:
   severity: warning
 custom_rules:
