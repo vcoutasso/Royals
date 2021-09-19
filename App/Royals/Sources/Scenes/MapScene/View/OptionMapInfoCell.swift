@@ -10,7 +10,15 @@ import UIKit
 final class OptionMapInfoCell: UITableViewCell {
     // MARK: - Public attributes
 
+    // TODO: fazer as funcoes de cada botao
     private var button = UIButton()
+    private var button1 = UIButton()
+    private var button2 = UIButton()
+    private var button3 = UIButton()
+    private var button4 = UIButton()
+
+    private var button5 = UIButton()
+    private var button6 = UIButton()
 
     private var icon = UIImageView()
 
@@ -38,6 +46,7 @@ final class OptionMapInfoCell: UITableViewCell {
 
     func set(option: Option) {
         button.setTitle(option.nameButton, for: .normal)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         icon.image = option.icon
         type = option.type
 
@@ -52,6 +61,16 @@ final class OptionMapInfoCell: UITableViewCell {
         }
     }
 
+    @objc private func buttonTapped() {
+        let alert = UIAlertController(title: "Favoritado", message: "Ambiental foi adicionado aos seus Picos favoritos",
+                                      preferredStyle: UIAlertController.Style.alert)
+
+        // add the actions (buttons)
+        alert.addAction(UIAlertAction(title: "Cancelar", style: UIAlertAction.Style.default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: nil))
+        print("usuario fez signup")
+    }
+
     func configure() {
         button.titleLabel?.font = UIFont.systemFont(ofSize: LayoutMetrics.buttonFontSize, weight: .semibold)
         button.contentHorizontalAlignment = .leading
@@ -61,17 +80,17 @@ final class OptionMapInfoCell: UITableViewCell {
 
     private func setupConstraints() {
         button.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(5)
-            make.bottom.equalToSuperview().offset(-5)
-            make.leading.equalToSuperview().offset(15)
-            make.trailing.equalTo(icon).offset(-15)
+            make.top.equalToSuperview().offset(LayoutMetrics.top)
+            make.bottom.equalToSuperview().offset(LayoutMetrics.bottom)
+            make.leading.equalToSuperview().offset(LayoutMetrics.leading)
+            make.trailing.equalTo(icon).offset(LayoutMetrics.trailing)
         }
 
         icon.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(5)
-            make.bottom.equalToSuperview().offset(-5)
-            make.width.equalTo(30)
-            make.trailing.equalToSuperview().offset(-15)
+            make.top.equalToSuperview().offset(LayoutMetrics.top)
+            make.bottom.equalToSuperview().offset(LayoutMetrics.bottom)
+            make.width.equalTo(LayoutMetrics.widthIcon)
+            make.trailing.equalToSuperview().offset(LayoutMetrics.trailing)
         }
     }
 
@@ -80,5 +99,10 @@ final class OptionMapInfoCell: UITableViewCell {
     private enum LayoutMetrics {
         static let buttonFontSize: CGFloat = 14
         static let imageToTextDistance: CGFloat = 44
+        static let top: CGFloat = 5
+        static let bottom: CGFloat = -5
+        static let leading: CGFloat = 15
+        static let trailing: CGFloat = -15
+        static let widthIcon: CGFloat = 30
     }
 }

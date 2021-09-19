@@ -28,6 +28,8 @@
 "icons.location" = "pin";
 "icons.photo" = "photo";
 "icons.skateSpotFilless" = "cone";
+"icons.mappinPont" = "mappin.and.ellipse";
+"icons.star" = "star";
 
 "keys.uid" = "uid";
 

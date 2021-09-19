@@ -15,4 +15,12 @@ extension UIImageView {
         layer.cornerRadius = frame.height / 2
         clipsToBounds = true
     }
+
+    func makeRoundedProfile() {
+        layer.borderWidth = 1
+        layer.masksToBounds = false
+        layer.borderColor = UIColor.clear.cgColor
+        clipsToBounds = true
+        layer.cornerRadius = frame.size.height / 2
+    }
 }
