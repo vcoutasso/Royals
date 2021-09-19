@@ -12,7 +12,6 @@ class LabeledBottomView: UIView {
     private var icon: UIImageView
     private var label: UILabel
     private var hStack: UIStackView
-    var bottomView: UIView
 
     init(iconName: String, labelText: String, theme: UIColor) {
         if let image = UIImage(systemName: iconName) {
@@ -24,7 +23,6 @@ class LabeledBottomView: UIView {
         self.theme = theme
         self.label = UILabel(frame: .zero)
         self.hStack = UIStackView(frame: .zero)
-        self.bottomView = UIView()
 
         super.init(frame: .zero)
 
@@ -58,15 +56,10 @@ class LabeledBottomView: UIView {
         hStack.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         hStack.layer.cornerRadius = LayoutMetrics.generalCornerRadius
         hStack.spacing = LayoutMetrics.stackSpacing
-
-        bottomView.backgroundColor = Assets.Colors.darkSystemGray5.color
-        bottomView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        bottomView.layer.cornerRadius = LayoutMetrics.generalCornerRadius
     }
 
     private func setupHierarchy() {
         addSubview(hStack)
-        addSubview(bottomView)
     }
 
     private func setupConstraints() {
@@ -74,22 +67,10 @@ class LabeledBottomView: UIView {
             make.size.equalTo(LayoutMetrics.iconFrameSize)
             make.leading.equalToSuperview().inset(LayoutMetrics.stackInset)
         }
-        
-        icon.snp.makeConstraints { make in
-            make.size.equalTo(LayoutMetrics.iconFrameSize)
-        }
 
         hStack.snp.makeConstraints { make in
-            make.top.equalToSuperview()
             make.height.equalTo(LayoutMetrics.stackHeight)
             make.leading.trailing.equalToSuperview()
-        }
-
-        bottomView.snp.makeConstraints { make in
-            make.top.equalTo(hStack.snp_bottomMargin)
-            make.height.equalTo(LayoutMetrics.bottomViewHeight)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
         }
     }
 

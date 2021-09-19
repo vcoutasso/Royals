@@ -201,6 +201,7 @@ final class MapViewController: UIViewController {
         if let lastKnownLocation = getUserLocation() {
             locationVC.setLastKnownLocation(lastKnownLocation)
         } else {
+            // FIXME: avoid this
             fatalError("could not update users last known location")
         }
 

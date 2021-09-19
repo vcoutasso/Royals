@@ -69,7 +69,6 @@ class DescriptionAndIconTextField: UITextField {
         iconStack.spacing = LayoutMetrics.stackSpacing
 
         placeholder = placeholderText
-        text = Strings.Localizable.MapScene.AddLocationForm.namePlaceholder
         backgroundColor = Assets.Colors.darkSystemGray5.color
         textColor = Assets.Colors.darkGray.color
         leftViewMode = .always
