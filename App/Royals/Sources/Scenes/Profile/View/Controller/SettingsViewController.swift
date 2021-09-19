@@ -53,7 +53,6 @@ final class SettingsViewController: UIViewController {
 
         let stack = UIStackView(arrangedSubviews: [setting, description])
         stack.axis = .vertical
-//        stack.alignment = .leading
         stack.spacing = LayoutMetrics.descriptionVerticalSpacing
 
         return stack
@@ -90,7 +89,18 @@ final class SettingsViewController: UIViewController {
     // MARK: - Private methods
 
     @objc private func doneButtonTapped() {
-        print("opaa")
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            CurrentUser.shared.updateUserData(handle: self.editUserHandleStack.getTextFieldText(),
+                                              username: self.editUsernameStack.getTextFieldText())
+
+            // FIXME: This is hideous to look at, needs fixing ASAP
+            let profileVC = self.navigationController?.viewControllers.first { $0 is ProfileViewController }
+            if let vc = profileVC as? ProfileViewController {
+                // FIXME: User card view is not updated to reflect new data
+                vc.didSendEventClosure?(.profile)
+            }
+        }
     }
 
     private func setupView() {

@@ -95,6 +95,7 @@ final class TabBarCoordinator: TabBarCoordinatorProtocol {
                 switch event {
                 case .profile:
                     navController.setNavigationBarHidden(true, animated: true)
+                    navController.popToViewController(profileVC, animated: true)
                 case .logout:
                     self?.finish()
                 case .settings:

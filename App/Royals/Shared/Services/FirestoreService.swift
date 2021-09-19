@@ -10,7 +10,7 @@ import FirebaseFirestore
 final class FirestoreService {
     private let db = Firestore.firestore()
 
-    func login() {
+    func saveUserCredentials() {
         if let user = CurrentUser.shared.user, let uid = user.id {
             do {
                 try db.collection(Strings.Names.Firestore.userCollection)
@@ -18,6 +18,32 @@ final class FirestoreService {
                     .setData(from: user)
             } catch {
                 print(error)
+            }
+        }
+    }
+
+    func getUserCredentials(with uid: String?) {
+        db.collection(Strings.Names.Firestore.userCollection).getDocuments { querySnapshot, error in
+            guard let documents = querySnapshot?.documents else {
+                print("Could not fetch users")
+                return
+            }
+
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+
+            let users = documents.compactMap { documentSnapshot -> AppUser? in
+                do {
+                    return try documentSnapshot.data(as: AppUser.self)
+                } catch {
+                    return nil
+                }
+            }
+
+            if let currentUser = users.filter({ $0.id == uid }).first {
+                CurrentUser.shared.setAppUser(currentUser)
             }
         }
     }
