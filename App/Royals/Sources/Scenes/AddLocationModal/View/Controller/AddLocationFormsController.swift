@@ -26,7 +26,6 @@ class AddLocationFormsController: UIViewController {
 
     init(locationType: MapPinType) {
         self.locationType = locationType
-        
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -39,7 +38,7 @@ class AddLocationFormsController: UIViewController {
     // MARK: - Overridden Methods
 
     override func loadView() {
-        self.formsView = AddLocationFormView(theme: locationType) { [weak self] in
+        formsView = AddLocationFormView(theme: locationType) { [weak self] in
             self?.registerLocation()
         }
         setupViews()
@@ -62,26 +61,26 @@ class AddLocationFormsController: UIViewController {
         // TODO: Homework, is this good implementation?
         view = formsView
     }
-    
+
     private func registerLocation() {
         let id: String = randomNonceString()
         let name: String = formsView.getName()
         let location: CLLocation = formsView.getLocation()
         let description: String = formsView.getDescription()
-        
+
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
-        
+
         var streetName: String = ""
         var city: String = ""
         var neighborhood: String = ""
-        
-        CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
+
+        CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
             guard error == nil else {
                 print("reverse geodcode fail: \(error!.localizedDescription)")
                 return
             }
-        
+
             if let firstPlacemark = placemarks?.first {
                 streetName = firstPlacemark.thoroughfare ?? ""
                 city = firstPlacemark.locality ?? ""
@@ -89,17 +88,16 @@ class AddLocationFormsController: UIViewController {
             }
         }
 
-        FirestoreService().addLocation(
-            LocationData(id: id,
-                         name: name,
-                         latitude: latitude,
-                         longitude: longitude,
-                         street: streetName,
-                         city: city,
-                         neighborhood: neighborhood,
-                         description: description))
+        FirestoreService().addLocation(LocationData(id: id,
+                                                    name: name,
+                                                    latitude: latitude,
+                                                    longitude: longitude,
+                                                    street: streetName,
+                                                    city: city,
+                                                    neighborhood: neighborhood,
+                                                    description: description))
 
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
     // MARK: - Layout Metrics
