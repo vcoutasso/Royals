@@ -27,3 +27,5 @@
 "firestore.userCollection" = "users";
 "firestore.users.displayName" = "display_name";
 "firestore.users.email" = "email";
+"firestore.locationCollection" = "locations";
+

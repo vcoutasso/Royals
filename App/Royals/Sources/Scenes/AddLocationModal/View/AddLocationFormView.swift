@@ -10,6 +10,8 @@ import UIKit
 
 class AddLocationFormView: UIView {
     private var theme: UIColor
+    private var addLocationButton: UIButton
+    private var addLocationButtonAction: () -> Void
     private var title: MultiatributedLabelView
     private var nameTextField: DescriptionAndIconTextField
     private var locationTextField: DescriptionAndIconTextField
@@ -22,7 +24,7 @@ class AddLocationFormView: UIView {
     
     // MARK: - Contructor
 
-    init(theme: MapPinType) {
+    init(theme: MapPinType, createAction: @escaping () -> Void) {
         self.theme = {
             switch theme {
             case .skateSpot:
@@ -31,22 +33,24 @@ class AddLocationFormView: UIView {
                 return Assets.Colors.red.color
             }
         }()
+        
+        self.addLocationButtonAction = addLocationButtonAction
+        
+        self.addLocationButton = UIButton(type: .system)
 
         self.title = MultiatributedLabelView(theme: theme)
 
-        self.nameTextField = DescriptionAndIconTextField(iconName: Strings.Names.Icons.nameField,
-                                                         descriptionLabelText: Strings.Localizable.MapScene
-                                                             .AddLocationForm.name,
-                                                         placeholderText: Strings.Localizable.MapScene.AddLocationForm
-                                                             .namePlaceholder,
-                                                         theme: theme)
+        self.nameTextField = DescriptionAndIconTextField(
+            iconName: Strings.Names.Icons.nameField,
+            descriptionLabelText: Strings.Localizable.MapScene.AddLocationForm.name,
+            placeholderText: Strings.Localizable.MapScene.AddLocationForm.namePlaceholder,
+            theme: theme)
 
-        self.locationTextField = DescriptionAndIconTextField(iconName: Strings.Names.Icons.location,
-                                                             descriptionLabelText: Strings.Localizable.MapScene
-                                                                 .AddLocationForm.location,
-                                                             placeholderText: Strings.Localizable.MapScene
-                                                                 .AddLocationForm.locationPlaceholder,
-                                                             theme: theme)
+        self.locationTextField = DescriptionAndIconTextField(
+            iconName: Strings.Names.Icons.location,
+            descriptionLabelText: Strings.Localizable.MapScene.AddLocationForm.location,
+            placeholderText: Strings.Localizable.MapScene.AddLocationForm.locationPlaceholder,
+            theme: theme)
 
         self.mapView = MKMapView()
 
@@ -56,9 +60,10 @@ class AddLocationFormView: UIView {
 
         self.photosCarrousselView = UIView()
         
-        self.descriptionField = LabeledBottomView(iconName: Strings.Names.Icons.skateSpotFilless,
-                                                  labelText: Strings.Localizable.MapScene.AddLocationForm.description,
-                                                  theme: self.theme)
+        self.descriptionField = LabeledBottomView(
+            iconName: Strings.Names.Icons.skateSpotFilless,
+            labelText: Strings.Localizable.MapScene.AddLocationForm.description,
+            theme: self.theme)
 
         self.descriptionTextView = UITextView()
 
@@ -75,21 +80,29 @@ class AddLocationFormView: UIView {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Public methods
-    
-    func retriveInfo() -> [String: Any] {
-        var results: [String: Any] = [:]
-        
-        results["name"] = nameTextField.text
-        results["location"] = mapView.userLocation.location
-        
-        return results
+
+    func getName() -> String {
+        return nameTextField.text ?? ""
     }
-    
+
+    func getLocation() -> CLLocation {
+        return mapView.userLocation.location!
+    }
+
+    func getDescription() -> String {
+        return descriptionTextView.text ?? ""
+    }
+
     // MARK: - Private methods
 
     private func setupViews() {
+        
+        addLocationButton.setTitle("Criar", for: .normal)
+        addLocationButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+        addLocationButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        
         title.textAlignment = .left
         title.numberOfLines = -1
 
@@ -116,6 +129,7 @@ class AddLocationFormView: UIView {
     }
 
     private func setupHierarchy() {
+        addSubview(addLocationButton)
         addSubview(title)
         addSubview(nameTextField)
         addSubview(locationTextField)
@@ -127,6 +141,11 @@ class AddLocationFormView: UIView {
     }
 
     private func setupConstraints() {
+        addLocationButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(5)
+            make.trailing.equalToSuperview().offset(-5)
+        }
+        
         title.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(LayoutMetrics.generalTopPadding)
             make.leading.trailing.equalToSuperview().inset(LayoutMetrics.generalHorizontalPadding)
@@ -171,6 +190,10 @@ class AddLocationFormView: UIView {
             make.leading.trailing.equalToSuperview().inset(LayoutMetrics.generalHorizontalPadding)
             make.height.equalTo(120)
         }
+    }
+    
+    @objc private func buttonTapped() {
+        addLocationButtonAction()
     }
 
     // TODO: All *Location*View.swift have LayoutMetrics, maybe define a public enum

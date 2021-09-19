@@ -19,4 +19,14 @@ final class FirestoreService {
             }
         }
     }
+    
+    func addLocation(_ location: LocationData) {
+        if let uid = location.id {
+            do {
+                try db.collection(Strings.Names.Firestore.locationCollection).document(uid).setData(from: location)
+            } catch {
+                print(error)
+            }
+        }
+    }
 }

@@ -17,7 +17,7 @@ class AddLocationFormsController: UIViewController {
 
     private var locationType: MapPinType
 
-    private var formsView: AddLocationFormView
+    private var formsView: AddLocationFormView!
 
     private let locationAdapter: LocationAdapter = .init()
     private let mapAdapter: MapAdapter = .init()
@@ -26,7 +26,7 @@ class AddLocationFormsController: UIViewController {
 
     init(locationType: MapPinType) {
         self.locationType = locationType
-        self.formsView = AddLocationFormView(theme: locationType)
+        
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -39,6 +39,9 @@ class AddLocationFormsController: UIViewController {
     // MARK: - Overridden Methods
 
     override func loadView() {
+        self.formsView = AddLocationFormView(theme: locationType) { [weak self] in
+            self?.registerLocation()
+        }
         setupViews()
     }
 
@@ -61,6 +64,45 @@ class AddLocationFormsController: UIViewController {
         // TODO: Homework, is this good implementation?
         view = formsView
     }
+    
+    private func registerLocation() {
+        let id: String = randomNonceString()
+        let name: String = formsView.getName()
+        let location: CLLocation = formsView.getLocation()
+        let description: String = formsView.getDescription()
+        
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+        
+        var streetName: String = ""
+        var city: String = ""
+        var neighborhood: String = ""
+        
+        CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
+            guard error == nil else {
+                print("reverse geodcode fail: \(error!.localizedDescription)")
+                return
+            }
+        
+            if let firstPlacemark = placemarks?.first {
+                streetName = firstPlacemark.thoroughfare ?? ""
+                city = firstPlacemark.locality ?? ""
+                neighborhood = firstPlacemark.subLocality ?? ""
+            }
+        }
+
+        FirestoreService().addLocation(
+            LocationData(id: id,
+                         name: name,
+                         latitude: latitude,
+                         longitude: longitude,
+                         street: streetName,
+                         city: city,
+                         neighborhood: neighborhood,
+                         description: description))
+
+        self.dismiss(animated: true, completion: nil)
+    }
 
     // MARK: - Layout Metrics
 
@@ -75,20 +117,20 @@ extension AddLocationFormsController: UserLocationDelegate {
     }
 }
 
-#if canImport(SwiftUI) && DEBUG
-    import SwiftUI
-    struct FormViewRepresentable: UIViewRepresentable {
-        func makeUIView(context: Context) -> UIView {
-            return AddLocationFormView(theme: .skateSpot)
-        }
-
-        func updateUIView(_ view: UIView, context: Context) {}
-    }
-
-    @available(iOS 13.0, *)
-    struct JonasBrothersPreview: PreviewProvider {
-        static var previews: some View {
-            FormViewRepresentable()
-        }
-    }
-#endif
+//#if canImport(SwiftUI) && DEBUG
+//    import SwiftUI
+//    struct FormViewRepresentable: UIViewRepresentable {
+//        func makeUIView(context: Context) -> UIView {
+//            return AddLocationFormView(theme: .skateSpot)
+//        }
+//
+//        func updateUIView(_ view: UIView, context: Context) {}
+//    }
+//
+//    @available(iOS 13.0, *)
+//    struct JonasBrothersPreview: PreviewProvider {
+//        static var previews: some View {
+//            FormViewRepresentable()
+//        }
+//    }
+//#endif
