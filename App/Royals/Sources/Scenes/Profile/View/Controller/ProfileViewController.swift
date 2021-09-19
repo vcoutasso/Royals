@@ -15,7 +15,13 @@ class ProfileViewController: UIViewController {
 
     // MARK: - Private attributes
 
-    private lazy var userCard: UserCardView = .init()
+    private lazy var userCard: UserCardView = .init { [weak self] in
+        guard let self = self else { return }
+
+        let settingsVC = SettingsViewController()
+        self.present(settingsVC, animated: true)
+    }
+
     private lazy var highlightsCard: HighlightsCardView = .init()
 
     private lazy var logoutButton: UIButton = {

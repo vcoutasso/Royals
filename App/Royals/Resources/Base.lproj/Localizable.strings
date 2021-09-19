@@ -28,6 +28,10 @@
 
 "loginScene.callout.text" = "HEY DUDE,\nREADY TO FLIP?";
 
+"profileScene.settingsView.nameTextField.title" = "Edit your name";
+"profileScene.settingsView.nameTextField.placeholder" = "Type your name here";
+"profileScene.settingsView.userTextField.title" = "Edit your username";
+"profileScene.settingsView.userTextField.placeholder" = "@username";
 "profileScene.logoutButton.title" = "Logout";
 
 "userModel.fallbackData.handle" = "Anonymous";

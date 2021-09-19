@@ -28,7 +28,10 @@
 "loginScene.callout.text" = "PARÇA, É NOIX.\nPRONTO PRO ROLÊ?";
 "mapScene.searchResults.title" = "Picos";
 
-
+"profileScene.settingsView.nameTextField.title" = "Editar seu nome";
+"profileScene.settingsView.nameTextField.placeholder" = "Insira seu nome aqui";
+"profileScene.settingsView.userTextField.title" = "Editar seu usuário";
+"profileScene.settingsView.userTextField.placeholder" = "@usuário";
 "profileScene.logoutButton.title" = "Logout";
 
 "userModel.fallbackData.handle" = "Anônimo";
