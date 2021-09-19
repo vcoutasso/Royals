@@ -1,6 +1,6 @@
 //
 //  SpotInfoMapView.swift
-//  Skatable
+//  Royals
 //
 //  Created by Maria Luiza Amaral on 08/09/21.
 //

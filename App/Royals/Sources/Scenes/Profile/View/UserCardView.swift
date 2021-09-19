@@ -66,8 +66,7 @@ final class UserCardView: UIView {
 
         for item in items {
             if !stack.arrangedSubviews.isEmpty {
-                let separator = UIView()
-                separator.backgroundColor = Assets.Colors.darkGray.color
+                let separator = SeparatorView()
                 stack.addArrangedSubview(separator)
 
                 separator.snp.makeConstraints { make in
