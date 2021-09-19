@@ -10,6 +10,7 @@ import UIKit
 class SettingsViewController: UIViewController {
     // MARK: - Private attributes
 
+    // TODO: Button toggles, but thats all it does. Needs a handler for state changes
     private lazy var contentVisibility: SettingToggleView = {
         .init(title: Strings.Localizable.ProfileScene.SettingsView.ContentVisibility.title)
     }()
