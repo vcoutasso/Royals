@@ -99,7 +99,13 @@ final class TabBarCoordinator: TabBarCoordinatorProtocol {
                 case .logout:
                     self?.finish()
                 case .settings:
-                    let settingsVC = SettingsViewController()
+                    let settingsVC = SettingsViewController(sendDoneButtonTappedEvent: {
+                                                                profileVC.didSendEventClosure?(.profile)
+                                                            },
+                                                            sendLogoutButtonTappedEvent: {
+                                                                profileVC.didSendEventClosure?(.logout)
+                                                            })
+
                     navController.setNavigationBarHidden(false, animated: false)
                     navController.pushViewController(settingsVC, animated: true)
                 }

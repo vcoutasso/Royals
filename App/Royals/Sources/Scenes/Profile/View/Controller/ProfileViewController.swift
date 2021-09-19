@@ -21,16 +21,6 @@ final class ProfileViewController: UIViewController {
 
     private lazy var highlightsCard: HighlightsCardView = .init()
 
-    private lazy var logoutButton: UIButton = {
-        let btn = UIButton()
-
-        btn.setTitle(Strings.Localizable.ProfileScene.LogoutButton.title, for: .normal)
-        btn.setTitleColor(Assets.Colors.red.color, for: .normal)
-        btn.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
-
-        return btn
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,7 +41,6 @@ final class ProfileViewController: UIViewController {
 
     private func setupHierarchy() {
         view.addSubview(userCard)
-        view.addSubview(logoutButton)
         view.addSubview(highlightsCard)
     }
 
@@ -64,11 +53,6 @@ final class ProfileViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
 
-        logoutButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-
         highlightsCard.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalTo(LayoutMetrics.highlightsCardWidth)
@@ -76,12 +60,6 @@ final class ProfileViewController: UIViewController {
             make.top.equalTo(userCard.snp.bottom)
                 .offset(LayoutMetrics.cardVerticalPadding)
         }
-    }
-
-    @objc private func logoutButtonTapped() {
-        try? Auth.auth().signOut()
-
-        didSendEventClosure?(.logout)
     }
 
     // MARK: - Layout Metrics
