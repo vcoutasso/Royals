@@ -19,6 +19,8 @@ class CurrentUser {
             CurrentUser.shared.stateDidChange(with: user)
         }
 
+    private let firestoreService: FirestoreService = .init()
+
     // MARK: - Private methdos
 
     private func stateDidChange(with user: User?) {
@@ -27,9 +29,7 @@ class CurrentUser {
             return
         }
 
-        CurrentUser.shared.user = instantiateAppUser(with: user)
-
-        FirestoreService().login()
+        firestoreService.getUserCredentials(with: user.uid)
     }
 
     private func instantiateAppUser(with user: User) -> AppUser {
@@ -43,6 +43,30 @@ class CurrentUser {
     private init() {
         guard let currentUser = Auth.auth().currentUser else { return }
 
+        // Initialize with default user data
         self.user = instantiateAppUser(with: currentUser)
+
+        // Try to fetch updated data from firestore
+        firestoreService.getUserCredentials(with: currentUser.uid)
+    }
+
+    // MARK: - Public methods
+
+    func updateUserData(handle: String?, username: String?) {
+        if let handle = handle, !handle.isEmpty {
+            CurrentUser.shared.user?.handle = handle
+        }
+
+        if let username = username, !username.isEmpty {
+            let newUsername = username.first! == "@" ? username : "@" + username
+            CurrentUser.shared.user?.username = newUsername.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+
+        firestoreService.saveUserCredentials()
+    }
+
+    // FIXME: Hmm doesn't seem very safe amirite
+    func setAppUser(_ user: AppUser) {
+        CurrentUser.shared.user = user
     }
 }

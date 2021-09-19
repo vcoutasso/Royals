@@ -34,6 +34,9 @@
 "profileScene.settingsView.userTextField.placeholder" = "@username";
 "profileScene.settingsView.changePicture.description" = "Edit picture";
 "profileScene.settingsView.contentVisibility.title" = "Content visibility";
+"profileScene.settingsView.navigationItem.title" = "Settings";
+"profileScene.settingsView.contentVisibility.description" = "Posts in this profile may appear in feeds and your profile can be discovered by users";
+"profileScene.settingsView.navigationItem.doneButton.title" = "Done";
 "profileScene.logoutButton.title" = "Logout";
 
 "userModel.fallbackData.handle" = "Anonymous";

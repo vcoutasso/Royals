@@ -13,6 +13,8 @@ final class SettingsTextFieldView: UIStackView {
     private weak var delegate: UITextFieldDelegate?
     private var textFieldTitle: String
     private var placeholderText: String
+    private var titleLabel: UILabel
+    private var textField: UITextField
 
     // MARK: - Initialization
 
@@ -20,6 +22,8 @@ final class SettingsTextFieldView: UIStackView {
         self.delegate = delegate
         self.textFieldTitle = textFieldTitle
         self.placeholderText = placeholderText
+        self.titleLabel = UILabel()
+        self.textField = UITextField()
 
         super.init(frame: .zero)
 
@@ -34,12 +38,10 @@ final class SettingsTextFieldView: UIStackView {
     // MARK: - Private methods
 
     private func setupStackView() {
-        let title = UILabel()
-        title.text = textFieldTitle
-        title.font = .systemFont(ofSize: LayoutMetrics.titleFontSize, weight: .regular)
-        title.textColor = Assets.Colors.white.color
+        titleLabel.text = textFieldTitle
+        titleLabel.font = .systemFont(ofSize: LayoutMetrics.titleFontSize, weight: .regular)
+        titleLabel.textColor = Assets.Colors.white.color
 
-        let textField = UITextField()
         textField.placeholder = placeholderText
         textField.leftView = UIView(frame: CGRect(x: 0,
                                                   y: 0,
@@ -50,7 +52,7 @@ final class SettingsTextFieldView: UIStackView {
         textField.layer.cornerRadius = LayoutMetrics.cornerRadius
         textField.delegate = delegate
 
-        addArrangedSubview(title)
+        addArrangedSubview(titleLabel)
         addArrangedSubview(textField)
 
         axis = .vertical
@@ -61,6 +63,12 @@ final class SettingsTextFieldView: UIStackView {
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(LayoutMetrics.height)
         }
+    }
+
+    // MARK: - Public methods
+
+    func getTextFieldText() -> String? {
+        textField.text
     }
 
     // MARK: - Layout Metrics
