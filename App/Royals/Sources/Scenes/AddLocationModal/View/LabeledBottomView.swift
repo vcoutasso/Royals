@@ -12,7 +12,6 @@ class LabeledBottomView: UIView {
     private var icon: UIImageView
     private var label: UILabel
     private var hStack: UIStackView
-    var bottomView: UIView
 
     init(iconName: String, labelText: String, theme: UIColor) {
         if let image = UIImage(systemName: iconName) {
@@ -24,7 +23,6 @@ class LabeledBottomView: UIView {
         self.theme = theme
         self.label = UILabel(frame: .zero)
         self.hStack = UIStackView(frame: .zero)
-        self.bottomView = UIView()
 
         super.init(frame: .zero)
 
@@ -46,9 +44,10 @@ class LabeledBottomView: UIView {
         icon.preferredSymbolConfiguration = iconsConfig
         icon.image!.withTintColor(Assets.Colors.black.color)
         icon.image!.withRenderingMode(.alwaysTemplate)
+        icon.contentMode = .scaleAspectFit
         icon.tintColor = UIColor.black
         icon.backgroundColor = theme
-        icon.layer.cornerRadius = 5
+        icon.layer.cornerRadius = LayoutMetrics.iconCornerRadius
 
         hStack = UIStackView(arrangedSubviews: [icon, label])
         hStack.axis = .horizontal
@@ -56,40 +55,22 @@ class LabeledBottomView: UIView {
         hStack.backgroundColor = Assets.Colors.darkSystemGray5.color
         hStack.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         hStack.layer.cornerRadius = LayoutMetrics.generalCornerRadius
-
-        bottomView.backgroundColor = Assets.Colors.darkSystemGray5.color
-        bottomView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        bottomView.layer.cornerRadius = LayoutMetrics.generalCornerRadius
+        hStack.spacing = LayoutMetrics.stackSpacing
     }
 
     private func setupHierarchy() {
         addSubview(hStack)
-        addSubview(bottomView)
     }
 
     private func setupConstraints() {
         icon.snp.makeConstraints { make in
-            make.size.equalTo(22)
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(5)
-        }
-
-        label.snp.makeConstraints { make in
-            make.leading.equalTo(icon.snp_trailingMargin).offset(5)
+            make.size.equalTo(LayoutMetrics.iconFrameSize)
+            make.leading.equalToSuperview().inset(LayoutMetrics.stackInset)
         }
 
         hStack.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.height.equalTo(42)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-        }
-
-        bottomView.snp.makeConstraints { make in
-            make.top.equalTo(hStack.snp_bottomMargin)
-            make.height.equalTo(100)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.height.equalTo(LayoutMetrics.stackHeight)
+            make.leading.trailing.equalToSuperview()
         }
     }
 
@@ -102,13 +83,23 @@ class LabeledBottomView: UIView {
         static let textFontSize: CGFloat = 25
         static let labelsFont = UIFont.systemFont(ofSize: 16)
 
+        static let stackHeight: CGFloat = 42
+        static let bottomViewHeight: CGFloat = 120
+
         static let generalCornerRadius: CGFloat = 8
+        static let iconCornerRadius: CGFloat = 5
 
         static let generalTopPadding: CGFloat = 20
         static let generalHorizontalPadding: CGFloat = 20
 
         static let titleToNameTopPadding: CGFloat = 50
 
-        static let iconsFontSize: CGFloat = 12
+        static let iconsFontSize: CGFloat = 5
+
+        static let stackSpacing: CGFloat = 10
+
+        static let iconFrameSize: CGFloat = 22
+
+        static let stackInset: CGFloat = 10
     }
 }

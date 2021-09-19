@@ -60,33 +60,32 @@ class DescriptionAndIconTextField: UITextField {
         icon.tintColor = UIColor.black
         icon.backgroundColor = themeColor
         icon.contentMode = .scaleAspectFit
-        icon.layer.cornerRadius = 5
+        icon.layer.cornerRadius = LayoutMetrics.iconCornerRadius
         icon.preferredSymbolConfiguration = iconsConfig
 
         iconStack = UIStackView(arrangedSubviews: [icon, descriptionLabel])
         iconStack.axis = .horizontal
         iconStack.alignment = .center
+        iconStack.spacing = LayoutMetrics.stackSpacing
 
         placeholder = placeholderText
-        text = Strings.Localizable.MapScene.AddLocationForm.namePlaceholder
         backgroundColor = Assets.Colors.darkSystemGray5.color
         textColor = Assets.Colors.darkGray.color
         leftViewMode = .always
-        leftView = iconStack
+        leftView = UIView()
+        leftView!.addSubview(iconStack)
         font = LayoutMetrics.labelsFont
         layer.cornerRadius = LayoutMetrics.generalCornerRadius
     }
 
     private func setupConstraints() {
         icon.snp.makeConstraints { make in
-            make.size.equalTo(22)
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(5)
+            make.size.equalTo(LayoutMetrics.iconFrameSize)
         }
 
-        descriptionLabel.snp.makeConstraints { make in
-            make.leading.equalTo(icon.snp.trailingMargin).offset(5)
-//            make.trailing.equalToSuperview().offset(20)
+        iconStack.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(LayoutMetrics.stackInset)
         }
     }
 
@@ -98,5 +97,12 @@ class DescriptionAndIconTextField: UITextField {
         static let titleToNameTopPadding: CGFloat = 50
 
         static let iconsFontSize: CGFloat = 12
+        static let iconCornerRadius: CGFloat = 5
+
+        static let stackSpacing: CGFloat = 10
+
+        static let iconFrameSize: CGFloat = 22
+
+        static let stackInset: CGFloat = 10
     }
 }

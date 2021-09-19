@@ -22,6 +22,16 @@ final class FirestoreService {
         }
     }
 
+    func addLocation(_ location: LocationData) {
+        if let uid = location.id {
+            do {
+                try db.collection(Strings.Names.Firestore.locationCollection).document(uid).setData(from: location)
+            } catch {
+                print(error)
+            }
+        }
+    }
+
     func getUserCredentials(with uid: String?) {
         db.collection(Strings.Names.Firestore.userCollection).getDocuments { querySnapshot, error in
             guard let documents = querySnapshot?.documents else {
