@@ -32,6 +32,7 @@
 "profileScene.settingsView.nameTextField.placeholder" = "Type your name here";
 "profileScene.settingsView.userTextField.title" = "Edit your username";
 "profileScene.settingsView.userTextField.placeholder" = "@username";
+"profileScene.settingsView.contentVisibility.title" = "Content visibility";
 "profileScene.logoutButton.title" = "Logout";
 
 "userModel.fallbackData.handle" = "Anonymous";

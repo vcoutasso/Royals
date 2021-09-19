@@ -10,18 +10,27 @@ import UIKit
 class SettingsViewController: UIViewController {
     // MARK: - Private attributes
 
-    private lazy var editUserHandleStack: SettingsTextFieldView = .init(delegate: self,
-                                                                        textFieldTitle: Strings.Localizable.ProfileScene
-                                                                            .SettingsView.NameTextField.title,
-                                                                        placeholderText: Strings.Localizable
-                                                                            .ProfileScene.SettingsView.NameTextField
-                                                                            .placeholder)
+    private lazy var contentVisibility: SettingToggleView = {
+        .init(title: Strings.Localizable.ProfileScene.SettingsView.ContentVisibility.title)
+    }()
 
-    private lazy var editUsernameStack: SettingsTextFieldView = .init(delegate: self,
-                                                                      textFieldTitle: Strings.Localizable.ProfileScene
-                                                                          .SettingsView.UserTextField.title,
-                                                                      placeholderText: Strings.Localizable.ProfileScene
-                                                                          .SettingsView.UserTextField.placeholder)
+    private lazy var editUserHandleStack: SettingsTextFieldView = {
+        .init(delegate: self,
+              textFieldTitle: Strings.Localizable.ProfileScene
+                  .SettingsView.NameTextField.title,
+              placeholderText: Strings.Localizable
+                  .ProfileScene.SettingsView.NameTextField
+                  .placeholder)
+
+    }()
+
+    private lazy var editUsernameStack: SettingsTextFieldView = {
+        .init(delegate: self,
+              textFieldTitle: Strings.Localizable.ProfileScene
+                  .SettingsView.UserTextField.title,
+              placeholderText: Strings.Localizable.ProfileScene
+                  .SettingsView.UserTextField.placeholder)
+    }()
 
     // MARK: - View controller lifecycle
 
@@ -42,6 +51,7 @@ class SettingsViewController: UIViewController {
     private func setupHierarchy() {
         view.addSubview(editUserHandleStack)
         view.addSubview(editUsernameStack)
+        view.addSubview(contentVisibility)
     }
 
     private func setupConstraints() {
@@ -49,14 +59,21 @@ class SettingsViewController: UIViewController {
             make.top.equalToSuperview()
                 .offset(LayoutMetrics.viewTopOffset)
             make.leading.trailing.equalToSuperview()
-                .inset(LayoutMetrics.fieldHorizontalPadding)
+                .inset(LayoutMetrics.horizontalPadding)
         }
 
         editUsernameStack.snp.makeConstraints { make in
             make.top.equalTo(editUserHandleStack.snp.bottom)
-                .offset(LayoutMetrics.fieldsVerticalSpacing)
+                .offset(LayoutMetrics.verticalSpacing)
             make.leading.trailing.equalToSuperview()
-                .inset(LayoutMetrics.fieldHorizontalPadding)
+                .inset(LayoutMetrics.horizontalPadding)
+        }
+
+        contentVisibility.snp.makeConstraints { make in
+            make.top.equalTo(editUsernameStack.snp.bottom)
+                .offset(LayoutMetrics.verticalSpacing)
+            make.leading.trailing.equalToSuperview()
+                .inset(LayoutMetrics.horizontalPadding)
         }
     }
 
@@ -64,8 +81,8 @@ class SettingsViewController: UIViewController {
 
     private enum LayoutMetrics {
         static let viewTopOffset: CGFloat = 20
-        static let fieldHorizontalPadding: CGFloat = 18
-        static let fieldsVerticalSpacing: CGFloat = 30
+        static let horizontalPadding: CGFloat = 18
+        static let verticalSpacing: CGFloat = 24
     }
 }
 
