@@ -1,6 +1,6 @@
 //
 //  CarouselCellView.swift
-//  Skatable
+//  Royals
 //
 //  Created by Maria Luiza Amaral on 09/09/21.
 //

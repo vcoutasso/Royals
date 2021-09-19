@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HighlightsCardView: UIView {
+final class HighlightsCardView: UIView {
     // MARK: - Private attributes
 
     private var starAttachment = NSTextAttachment(image: UIImage(systemName: Strings.Names.Icons.star)!)
@@ -62,11 +62,8 @@ class HighlightsCardView: UIView {
         return stack
     }()
 
-    private lazy var separator: UIView = {
-        let separator = UIView()
-        separator.backgroundColor = Assets.Colors.darkGray.color
-
-        return separator
+    private lazy var separator: SeparatorView = {
+        .init()
     }()
 
     // MARK: - Initialization

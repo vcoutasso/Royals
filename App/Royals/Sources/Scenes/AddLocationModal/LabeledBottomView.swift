@@ -1,6 +1,6 @@
 //
 //  LabeledBottomView.swift
-//  Skatable
+//  Royals
 //
 //  Created by Bruno Thuma on 13/09/21.
 //

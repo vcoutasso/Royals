@@ -7,10 +7,11 @@
 
 import UIKit
 
-class UserCardView: UIView {
+final class UserCardView: UIView {
     // MARK: - Private attributes
 
-    // TODO: Add button tapped target
+    private var presentOnButtonTap: () -> Void
+
     private lazy var settingsButton: UIButton = {
         let font = UIFont.systemFont(ofSize: LayoutMetrics.buttonIconFontSize, weight: .bold)
         let configuration = UIImage.SymbolConfiguration(font: font)
@@ -23,6 +24,8 @@ class UserCardView: UIView {
         // FIXME: Background image does not seem to fill the frame rect
         button.setBackgroundImage(backgroundImage, for: .normal)
         button.setImage(icon, for: .normal)
+
+        button.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
 
         return button
     }()
@@ -63,8 +66,7 @@ class UserCardView: UIView {
 
         for item in items {
             if !stack.arrangedSubviews.isEmpty {
-                let separator = UIView()
-                separator.backgroundColor = Assets.Colors.darkGray.color
+                let separator = SeparatorView()
                 stack.addArrangedSubview(separator)
 
                 separator.snp.makeConstraints { make in
@@ -86,8 +88,10 @@ class UserCardView: UIView {
 
     // MARK: - Initialization
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(presentOnButtonTap: @escaping () -> Void) {
+        self.presentOnButtonTap = presentOnButtonTap
+
+        super.init(frame: .zero)
 
         setupView()
         setupHierarchy()
@@ -138,6 +142,10 @@ class UserCardView: UIView {
             make.topMargin.equalTo(userInfo.snp.bottomMargin)
             make.bottomMargin.equalToSuperview()
         }
+    }
+
+    @objc private func settingsButtonTapped() {
+        presentOnButtonTap()
     }
 
     // MARK: - Layout Metrics

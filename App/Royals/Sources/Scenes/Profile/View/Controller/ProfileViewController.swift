@@ -8,14 +8,21 @@
 import FirebaseAuth
 import UIKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     // MARK: - Public attributes
 
     var didSendEventClosure: ((ProfileViewController.Event) -> Void)?
 
     // MARK: - Private attributes
 
-    private lazy var userCard: UserCardView = .init()
+    private lazy var userCard: UserCardView = .init { [weak self] in
+        guard let self = self else { return }
+
+        let settingsVC = SettingsViewController()
+        // TODO: Push VC instead of presenting it modally
+        self.present(settingsVC, animated: true)
+    }
+
     private lazy var highlightsCard: HighlightsCardView = .init()
 
     private lazy var logoutButton: UIButton = {
@@ -31,11 +38,16 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupView()
         setupHierarchy()
         setupConstraints()
     }
 
     // MARK: - Private methods
+
+    private func setupView() {
+        view.backgroundColor = Assets.Colors.darkSystemGray6.color
+    }
 
     private func setupHierarchy() {
         view.addSubview(userCard)

@@ -1,6 +1,6 @@
 //
 //  OptionMapInfoCell.swift
-//  Skatable
+//  Royals
 //
 //  Created by Maria Luiza Amaral on 13/09/21.
 //
