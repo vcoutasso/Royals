@@ -13,18 +13,20 @@ class AddLocationFormView: UIView {
     private var addLocationButton: UIButton
     private var addLocationButtonAction: () -> Void
     private var title: MultiatributedLabelView
-    private var nameTextField: DescriptionAndIconTextField
-    private var locationTextField: DescriptionAndIconTextField
     private var photosField: LabeledBottomView
     private var photosCarrousselView: UIView
     private var descriptionField: LabeledBottomView
     private var descriptionTextView: UITextView
+    private var nameTextField: DescriptionAndIconTextField
+    private var locationTextField: DescriptionAndIconTextField
+
+    private weak var delegate: AddLocationFormsController?
 
     var mapView: MKMapView
 
     // MARK: - Contructor
 
-    init(theme: MapPinType, createAction: @escaping () -> Void) {
+    init(delegate: AddLocationFormsController, theme: MapPinType, createAction: @escaping () -> Void) {
         self.theme = {
             switch theme {
             case .skateSpot:
@@ -34,20 +36,24 @@ class AddLocationFormView: UIView {
             }
         }()
 
+        self.delegate = delegate
+
         self.addLocationButtonAction = createAction
 
         self.addLocationButton = UIButton(type: .system)
 
         self.title = MultiatributedLabelView(theme: theme)
 
-        self.nameTextField = DescriptionAndIconTextField(iconName: Strings.Names.Icons.nameField,
+        self.nameTextField = DescriptionAndIconTextField(textFieldDelegate: delegate,
+                                                         iconName: Strings.Names.Icons.nameField,
                                                          descriptionLabelText: Strings.Localizable.MapScene
                                                              .AddLocationForm.name,
                                                          placeholderText: Strings.Localizable.MapScene.AddLocationForm
                                                              .namePlaceholder,
                                                          theme: theme)
 
-        self.locationTextField = DescriptionAndIconTextField(iconName: Strings.Names.Icons.location,
+        self.locationTextField = DescriptionAndIconTextField(textFieldDelegate: delegate,
+                                                             iconName: Strings.Names.Icons.location,
                                                              descriptionLabelText: Strings.Localizable.MapScene
                                                                  .AddLocationForm.location,
                                                              placeholderText: Strings.Localizable.MapScene
@@ -67,6 +73,7 @@ class AddLocationFormView: UIView {
                                                   theme: self.theme)
 
         self.descriptionTextView = UITextView()
+        descriptionTextView.delegate = delegate
 
         super.init(frame: .zero)
 

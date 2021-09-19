@@ -14,7 +14,13 @@ class DescriptionAndIconTextField: UITextField {
     private var descriptionLabel: UILabel
     private var themeColor: UIColor
 
-    init(iconName: String, descriptionLabelText: String, placeholderText: String, theme: MapPinType) {
+    private weak var textFieldDelegate: UITextFieldDelegate?
+
+    init(textFieldDelegate: UITextFieldDelegate,
+         iconName: String,
+         descriptionLabelText: String,
+         placeholderText: String,
+         theme: MapPinType) {
         self.themeColor = {
             switch theme {
             case .skateSpot:
@@ -36,6 +42,8 @@ class DescriptionAndIconTextField: UITextField {
         self.placeholderText = placeholderText
 
         super.init(frame: .zero)
+
+        self.delegate = textFieldDelegate
 
         backgroundColor = Assets.Colors.darkSystemGray6.color
 

@@ -38,7 +38,7 @@ class AddLocationFormsController: UIViewController {
     // MARK: - Overridden Methods
 
     override func loadView() {
-        formsView = AddLocationFormView(theme: locationType) { [weak self] in
+        formsView = AddLocationFormView(delegate: self, theme: locationType) { [weak self] in
             self?.registerLocation()
         }
         setupViews()
@@ -58,7 +58,7 @@ class AddLocationFormsController: UIViewController {
     private func setupViews() {
         formsView.mapView.delegate = mapAdapter
 
-        // TODO: Homework, is this good implementation?
+        // FIXME: We should be adding subviews, not replacing the entire view
         view = formsView
     }
 
@@ -104,6 +104,27 @@ class AddLocationFormsController: UIViewController {
 
     private enum LayoutMetrics {
         static let centeringRegionRadius: CLLocationDistance = 500
+    }
+}
+
+extension AddLocationFormsController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
+}
+
+extension AddLocationFormsController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+
+        return true
     }
 }
 
