@@ -7,22 +7,27 @@
 
 import UIKit
 
-class UserCardView: UIView {
+final class UserCardView: UIView {
     // MARK: - Private attributes
 
-    // TODO: Add button tapped target
+    private var presentOnButtonTap: () -> Void
+
     private lazy var settingsButton: UIButton = {
-        let settings = UIButton()
-        let configuration = UIImage.SymbolConfiguration(pointSize: LayoutMetrics.buttonIconFontSize, weight: .bold)
+        let font = UIFont.systemFont(ofSize: LayoutMetrics.buttonIconFontSize, weight: .bold)
+        let configuration = UIImage.SymbolConfiguration(font: font)
 
-        settings.backgroundColor = Assets.Colors.yellow.color
-        settings.layer.cornerRadius = LayoutMetrics.settingsButtonCornerRadius
-        // FIXME: Button not glowing properly when highlighted
-        settings.setImage(UIImage(systemName: Strings.Names.Icons.settings, withConfiguration: configuration),
-                          for: .normal)
-        settings.tintColor = .black
+        let icon = UIImage(systemName: Strings.Names.Icons.settings, withConfiguration: configuration)?
+            .imageWithColor(color: Assets.Colors.darkSystemGray5.color)
+        let backgroundImage = UIImage(systemName: Strings.Names.Icons.squareFill)
 
-        return settings
+        let button = UIButton()
+        // FIXME: Background image does not seem to fill the frame rect
+        button.setBackgroundImage(backgroundImage, for: .normal)
+        button.setImage(icon, for: .normal)
+
+        button.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
+
+        return button
     }()
 
     private lazy var profilePicture: UIImageView = {
@@ -34,12 +39,12 @@ class UserCardView: UIView {
 
     private lazy var userInfo: UIStackView = {
         let userHandle = UILabel()
-        userHandle.text = "Username"
+        userHandle.text = CurrentUser.shared.user?.handle
         userHandle.font = UIFont.systemFont(ofSize: LayoutMetrics.userHandleFontSize, weight: .semibold)
         userHandle.textColor = Assets.Colors.lightGray.color
 
         let username = UILabel()
-        username.text = "@user"
+        username.text = CurrentUser.shared.user?.username
         username.font = UIFont.systemFont(ofSize: LayoutMetrics.usernameFontSize, weight: .light)
         username.textColor = Assets.Colors.lightGray.color
 
@@ -61,8 +66,7 @@ class UserCardView: UIView {
 
         for item in items {
             if !stack.arrangedSubviews.isEmpty {
-                let separator = UIView()
-                separator.backgroundColor = Assets.Colors.darkGray.color
+                let separator = SeparatorView()
                 stack.addArrangedSubview(separator)
 
                 separator.snp.makeConstraints { make in
@@ -84,8 +88,10 @@ class UserCardView: UIView {
 
     // MARK: - Initialization
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(presentOnButtonTap: @escaping () -> Void) {
+        self.presentOnButtonTap = presentOnButtonTap
+
+        super.init(frame: .zero)
 
         setupView()
         setupHierarchy()
@@ -138,7 +144,11 @@ class UserCardView: UIView {
         }
     }
 
-    // MARK: - Laayout Metrics
+    @objc private func settingsButtonTapped() {
+        presentOnButtonTap()
+    }
+
+    // MARK: - Layout Metrics
 
     private enum LayoutMetrics {
         private static let rectSize: CGFloat = 32

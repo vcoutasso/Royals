@@ -114,21 +114,3 @@ extension AddLocationFormsController: UserLocationDelegate {
         lastKnownLocation = location
     }
 }
-
-//#if canImport(SwiftUI) && DEBUG
-//    import SwiftUI
-//    struct FormViewRepresentable: UIViewRepresentable {
-//        func makeUIView(context: Context) -> UIView {
-//            return AddLocationFormView(theme: .skateSpot)
-//        }
-//
-//        func updateUIView(_ view: UIView, context: Context) {}
-//    }
-//
-//    @available(iOS 13.0, *)
-//    struct JonasBrothersPreview: PreviewProvider {
-//        static var previews: some View {
-//            FormViewRepresentable()
-//        }
-//    }
-//#endif

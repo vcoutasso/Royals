@@ -23,10 +23,15 @@ final class GuestLoginService: NSObject {
 
     @objc func start() {
         Auth.auth().signInAnonymously { _, error in
-            if error != nil {
-                print(error?.localizedDescription ?? "")
-                return
+            if let error = error {
+                if error.localizedDescription !=
+                    "Network error (such as timeout, interrupted connection or unreachable host) has occurred." {
+                    print(error.localizedDescription)
+                    return
+                }
             }
+
+            try? Auth.auth().signOut()
 
             self.contextProvider.didSendEventClosure?(.login)
         }

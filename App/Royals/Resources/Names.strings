@@ -13,14 +13,21 @@
 "icons.location" = "location.fill";
 "icons.add" = "plus.circle.fill";
 "icons.settings" = "gearshape.fill";
-
+"icons.star" = "star.fill";
+"icons.houseFill" = "house.fill";
+"icons.houseCircle" = "house.circle.fill";
+"icons.starCircle" = "star.circle.fill";
+"icons.houseCircle" = "house.circle.fill";
+"icons.exclamationMark" = "exclamationmark.circle.fill";
+"icons.xMark" = "xmark.octagon.fill";
 "icons.skateSpot" = "cone.fill";
 "icons.skateStopper" = "xmark.octagon.fill";
-
+"icons.heartCircle" = "heart.circle.fill";
+"icons.squareFill" = "square.fill";
 "icons.nameField" = "highlighter";
-"icons.location" = "pin";
 "icons.photo" = "photo";
 "icons.skateSpotFilless" = "cone";
+"icons.camera" = "camera.fill";
 
 "keys.uid" = "uid";
 

@@ -26,6 +26,17 @@
 "mapScene.addLocationForm.photos" = "Add photos to the location";
 "mapScene.addLocationForm.description" = "Add a description to the location";
 
-"loginScene.callout.text" = "PARÇA, É NOIX.\nPRONTO PRO ROLÊ?";
+"loginScene.callout.text" = "HEY DUDE,\nREADY TO FLIP?";
 
+"profileScene.settingsView.nameTextField.title" = "Edit your name";
+"profileScene.settingsView.nameTextField.placeholder" = "Type your name here";
+"profileScene.settingsView.userTextField.title" = "Edit your username";
+"profileScene.settingsView.userTextField.placeholder" = "@username";
+"profileScene.settingsView.changePicture.description" = "Edit picture";
+"profileScene.settingsView.contentVisibility.title" = "Content visibility";
+"profileScene.settingsView.navigationItem.title" = "Settings";
+"profileScene.settingsView.contentVisibility.description" = "Posts in this profile may appear in feeds and your profile can be discovered by users";
+"profileScene.settingsView.navigationItem.doneButton.title" = "Done";
 "profileScene.logoutButton.title" = "Logout";
+
+"userModel.fallbackData.handle" = "Anonymous";

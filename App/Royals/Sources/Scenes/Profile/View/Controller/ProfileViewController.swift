@@ -8,53 +8,49 @@
 import FirebaseAuth
 import UIKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     // MARK: - Public attributes
 
     var didSendEventClosure: ((ProfileViewController.Event) -> Void)?
 
     // MARK: - Private attributes
 
-    private lazy var userCard: UserCardView = .init()
+    private lazy var userCard: UserCardView = .init { [weak self] in
+        self?.didSendEventClosure?(.settings)
+    }
+
     private lazy var highlightsCard: HighlightsCardView = .init()
-
-    private lazy var logoutButton: UIButton = {
-        let btn = UIButton()
-
-        btn.setTitle(Strings.Localizable.ProfileScene.LogoutButton.title, for: .normal)
-        btn.setTitleColor(Assets.Colors.red.color, for: .normal)
-        btn.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
-
-        return btn
-    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupView()
         setupHierarchy()
         setupConstraints()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        didSendEventClosure?(.profile)
+    }
+
     // MARK: - Private methods
+
+    private func setupView() {
+        view.backgroundColor = Assets.Colors.darkSystemGray6.color
+    }
 
     private func setupHierarchy() {
         view.addSubview(userCard)
-        view.addSubview(logoutButton)
         view.addSubview(highlightsCard)
     }
 
     private func setupConstraints() {
         userCard.snp.makeConstraints { make in
-            make.top.equalTo(view.layoutMarginsGuide.snp.top)
+            make.topMargin.equalTo(view.layoutMarginsGuide.snp.topMargin)
                 .offset(LayoutMetrics.cardVerticalPadding)
             make.width.equalTo(LayoutMetrics.userCardWidth)
             make.height.equalTo(LayoutMetrics.userCardHeight)
             make.centerX.equalToSuperview()
-        }
-
-        logoutButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview()
         }
 
         highlightsCard.snp.makeConstraints { make in
@@ -64,12 +60,6 @@ class ProfileViewController: UIViewController {
             make.top.equalTo(userCard.snp.bottom)
                 .offset(LayoutMetrics.cardVerticalPadding)
         }
-    }
-
-    @objc private func logoutButtonTapped() {
-        try? Auth.auth().signOut()
-
-        didSendEventClosure?(.logout)
     }
 
     // MARK: - Layout Metrics
@@ -85,6 +75,8 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController {
     enum Event {
+        case profile
+        case settings
         case logout
     }
 }

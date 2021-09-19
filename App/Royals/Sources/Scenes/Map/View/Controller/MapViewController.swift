@@ -135,7 +135,6 @@ final class MapViewController: UIViewController {
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
         mapView.showsCompass = false
-        mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.delegate = mapAdapter
     }
 
@@ -190,9 +189,8 @@ final class MapViewController: UIViewController {
 
     private func presentAddMenuModal() {
         let menuVC = AddMenuViewController()
-        modalPresentationStyle = .overCurrentContext
         menuVC.modalDelegate = self
-        present(menuVC, animated: true, completion: {})
+        present(menuVC, animated: true)
     }
 
     private func presentAddLocationModal(_ selectedLocationType: MapPinType) {

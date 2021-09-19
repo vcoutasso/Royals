@@ -28,5 +28,15 @@
 "loginScene.callout.text" = "PARÇA, É NOIX.\nPRONTO PRO ROLÊ?";
 "mapScene.searchResults.title" = "Picos";
 
-
+"profileScene.settingsView.nameTextField.title" = "Editar seu nome";
+"profileScene.settingsView.nameTextField.placeholder" = "Insira seu nome aqui";
+"profileScene.settingsView.userTextField.title" = "Editar seu usuário";
+"profileScene.settingsView.userTextField.placeholder" = "@usuário";
+"profileScene.settingsView.changePicture.description" = "Editar foto";
+"profileScene.settingsView.contentVisibility.title" = "Visibilidade do conteúdo";
+"profileScene.settingsView.navigationItem.title" = "Configurações";
+"profileScene.settingsView.contentVisibility.description" = "Posts neste perfil poderão aparecer nos feeds e seu perfil poderá ser encontrado em users";
+"profileScene.settingsView.navigationItem.doneButton.title" = "Salvar";
 "profileScene.logoutButton.title" = "Logout";
+
+"userModel.fallbackData.handle" = "Anônimo";
