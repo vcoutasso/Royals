@@ -77,7 +77,7 @@ final class TabBarCoordinator: TabBarCoordinatorProtocol {
 
         switch page {
         case .home:
-            let homeVC = WIPViewController()
+            let homeVC = FeedViewController()
             navController.pushViewController(homeVC, animated: true)
         case .map:
             let mapVC = MapViewController()

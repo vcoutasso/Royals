@@ -18,7 +18,7 @@ final class MapViewController: UIViewController {
     private var selectedLocType: MapPinType?
 
     private lazy var mapView: MKMapView = .init()
-    private lazy var searchBar: SearchBarView = .init()
+    private lazy var searchBar: SearchBarView = .init(placeholder: Strings.Localizable.MapScene.SearchBar.placeholder)
     private lazy var searchBarContainerView: UIView = .init(frame: .zero)
     private lazy var addButton: MapButtonView = .init(iconName: Strings.Names.Icons.add, action: presentAddMenuModal)
     private lazy var locationButton: MapButtonView = .init(iconName: Strings.Names.Icons.location,
