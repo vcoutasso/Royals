@@ -1,5 +1,5 @@
 //
-//  AddPinForms.swift
+//  AddLocationFormsController.swift
 //  Royals
 //
 //  Created by Bruno Thuma on 07/09/21.
@@ -47,20 +47,21 @@ class AddLocationFormsController: UIViewController {
     }
 }
 
-#if canImport(SwiftUI) && DEBUG
+#if DEBUG
     import SwiftUI
-    struct FormViewRepresentable: UIViewRepresentable {
-        func makeUIView(context: Context) -> UIView {
-            return AddLocationFormView(theme: .skateSpot)
+    struct AddLocationFormsPreview: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+                .previewDevice("iPhone 12")
+                .preferredColorScheme(.dark)
         }
 
-        func updateUIView(_ view: UIView, context: Context) {}
-    }
+        struct ContentView: UIViewControllerRepresentable {
+            func makeUIViewController(context: Context) -> UIViewController {
+                return AddLocationFormsController(locationType: .skateSpot)
+            }
 
-    @available(iOS 13.0, *)
-    struct JonasBrothersPreview: PreviewProvider {
-        static var previews: some View {
-            FormViewRepresentable()
+            func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
         }
     }
 #endif
