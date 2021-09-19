@@ -33,24 +33,26 @@ class AddLocationFormView: UIView {
                 return Assets.Colors.red.color
             }
         }()
-        
+
         self.addLocationButtonAction = createAction
-        
+
         self.addLocationButton = UIButton(type: .system)
 
         self.title = MultiatributedLabelView(theme: theme)
 
-        self.nameTextField = DescriptionAndIconTextField(
-            iconName: Strings.Names.Icons.nameField,
-            descriptionLabelText: Strings.Localizable.MapScene.AddLocationForm.name,
-            placeholderText: Strings.Localizable.MapScene.AddLocationForm.namePlaceholder,
-            theme: theme)
+        self.nameTextField = DescriptionAndIconTextField(iconName: Strings.Names.Icons.nameField,
+                                                         descriptionLabelText: Strings.Localizable.MapScene
+                                                             .AddLocationForm.name,
+                                                         placeholderText: Strings.Localizable.MapScene.AddLocationForm
+                                                             .namePlaceholder,
+                                                         theme: theme)
 
-        self.locationTextField = DescriptionAndIconTextField(
-            iconName: Strings.Names.Icons.location,
-            descriptionLabelText: Strings.Localizable.MapScene.AddLocationForm.location,
-            placeholderText: Strings.Localizable.MapScene.AddLocationForm.locationPlaceholder,
-            theme: theme)
+        self.locationTextField = DescriptionAndIconTextField(iconName: Strings.Names.Icons.location,
+                                                             descriptionLabelText: Strings.Localizable.MapScene
+                                                                 .AddLocationForm.location,
+                                                             placeholderText: Strings.Localizable.MapScene
+                                                                 .AddLocationForm.locationPlaceholder,
+                                                             theme: theme)
 
         self.mapView = MKMapView()
 
@@ -60,10 +62,9 @@ class AddLocationFormView: UIView {
 
         self.photosCarrousselView = UIView()
 
-        self.descriptionField = LabeledBottomView(
-            iconName: Strings.Names.Icons.skateSpotFilless,
-            labelText: Strings.Localizable.MapScene.AddLocationForm.description,
-            theme: self.theme)
+        self.descriptionField = LabeledBottomView(iconName: Strings.Names.Icons.skateSpotFilless,
+                                                  labelText: Strings.Localizable.MapScene.AddLocationForm.description,
+                                                  theme: self.theme)
 
         self.descriptionTextView = UITextView()
 
@@ -82,6 +83,7 @@ class AddLocationFormView: UIView {
     }
 
     // MARK: - Public methods
+
     func getName() -> String {
         return nameTextField.text ?? ""
     }
@@ -93,14 +95,14 @@ class AddLocationFormView: UIView {
     func getDescription() -> String {
         return descriptionTextView.text ?? ""
     }
+
     // MARK: - Private methods
 
     private func setupViews() {
-        
         addLocationButton.setTitle("Criar", for: .normal)
         addLocationButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         addLocationButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        
+
         title.textAlignment = .left
         title.numberOfLines = -1
 
@@ -143,7 +145,7 @@ class AddLocationFormView: UIView {
             make.top.equalToSuperview().offset(5)
             make.trailing.equalToSuperview().offset(-5)
         }
-        
+
         title.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(LayoutMetrics.generalTopPadding)
             make.leading.trailing.equalToSuperview().inset(LayoutMetrics.generalHorizontalPadding)
@@ -189,7 +191,7 @@ class AddLocationFormView: UIView {
             make.height.equalTo(120)
         }
     }
-    
+
     @objc private func buttonTapped() {
         addLocationButtonAction()
     }

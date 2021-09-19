@@ -21,7 +21,7 @@ final class FirestoreService {
             }
         }
     }
-    
+
     func addLocation(_ location: LocationData) {
         if let uid = location.id {
             do {
