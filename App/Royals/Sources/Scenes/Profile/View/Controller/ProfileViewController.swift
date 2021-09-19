@@ -19,6 +19,7 @@ final class ProfileViewController: UIViewController {
         guard let self = self else { return }
 
         let settingsVC = SettingsViewController()
+        // TODO: Push VC instead of presenting it modally
         self.present(settingsVC, animated: true)
     }
 
@@ -37,11 +38,16 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupView()
         setupHierarchy()
         setupConstraints()
     }
 
     // MARK: - Private methods
+
+    private func setupView() {
+        view.backgroundColor = Assets.Colors.darkSystemGray6.color
+    }
 
     private func setupHierarchy() {
         view.addSubview(userCard)
