@@ -16,11 +16,7 @@ final class ProfileViewController: UIViewController {
     // MARK: - Private attributes
 
     private lazy var userCard: UserCardView = .init { [weak self] in
-        guard let self = self else { return }
-
-        let settingsVC = SettingsViewController()
-        // TODO: Push VC instead of presenting it modally
-        self.present(settingsVC, animated: true)
+        self?.didSendEventClosure?(.settings)
     }
 
     private lazy var highlightsCard: HighlightsCardView = .init()
@@ -43,6 +39,10 @@ final class ProfileViewController: UIViewController {
         setupConstraints()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        didSendEventClosure?(.profile)
+    }
+
     // MARK: - Private methods
 
     private func setupView() {
@@ -57,7 +57,7 @@ final class ProfileViewController: UIViewController {
 
     private func setupConstraints() {
         userCard.snp.makeConstraints { make in
-            make.top.equalTo(view.layoutMarginsGuide.snp.top)
+            make.topMargin.equalTo(view.layoutMarginsGuide.snp.topMargin)
                 .offset(LayoutMetrics.cardVerticalPadding)
             make.width.equalTo(LayoutMetrics.userCardWidth)
             make.height.equalTo(LayoutMetrics.userCardHeight)
@@ -97,6 +97,8 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController {
     enum Event {
+        case profile
+        case settings
         case logout
     }
 }

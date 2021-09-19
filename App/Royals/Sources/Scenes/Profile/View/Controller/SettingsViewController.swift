@@ -41,8 +41,22 @@ final class SettingsViewController: UIViewController {
     }()
 
     // TODO: Button toggles, but thats all it does. Needs a handler for state changes
-    private lazy var contentVisibility: SettingToggleView = {
-        .init(title: Strings.Localizable.ProfileScene.SettingsView.ContentVisibility.title)
+    private lazy var contentVisibility: UIStackView = {
+        let setting = SettingToggleView(title: Strings.Localizable.ProfileScene.SettingsView.ContentVisibility.title)
+
+        let description = UILabel()
+        description.text = Strings.Localizable.ProfileScene.SettingsView.ContentVisibility.description
+        description.font = .systemFont(ofSize: LayoutMetrics.descriptionFontSize, weight: .light)
+        description.textColor = Assets.Colors.lightGray.color
+        description.numberOfLines = 0
+        description.textAlignment = .left
+
+        let stack = UIStackView(arrangedSubviews: [setting, description])
+        stack.axis = .vertical
+//        stack.alignment = .leading
+        stack.spacing = LayoutMetrics.descriptionVerticalSpacing
+
+        return stack
     }()
 
     private lazy var editUserHandleStack: SettingsTextFieldView = {
@@ -75,8 +89,23 @@ final class SettingsViewController: UIViewController {
 
     // MARK: - Private methods
 
+    @objc private func doneButtonTapped() {
+        print("opaa")
+    }
+
     private func setupView() {
         view.backgroundColor = Assets.Colors.darkSystemGray6.color
+
+        let titleView = UILabel()
+        titleView.text = Strings.Localizable.ProfileScene.SettingsView.NavigationItem.title
+        navigationItem.titleView = titleView
+
+        let rightBarButton = UIBarButtonItem(title: Strings.Localizable.ProfileScene
+            .SettingsView.NavigationItem.DoneButton.title,
+            style: .plain,
+            target: self,
+            action: #selector(doneButtonTapped))
+        navigationItem.setRightBarButton(rightBarButton, animated: false)
     }
 
     private func setupHierarchy() {
@@ -89,8 +118,8 @@ final class SettingsViewController: UIViewController {
     private func setupConstraints() {
         profilePicture.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.size.equalTo(profilePicture.frame.size) // FIXME: Why is this needed?
-            make.top.equalToSuperview()
+            make.size.equalTo(profilePicture.frame.size) // FIXME: Why is this needed? Seems redundant
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
                 .offset(LayoutMetrics.viewTopOffset)
         }
 
@@ -127,6 +156,8 @@ final class SettingsViewController: UIViewController {
         static let verticalSpacing: CGFloat = 24
         static let iconFontSize: CGFloat = 24
         static let editLabelFontSize: CGFloat = 14
+        static let descriptionFontSize: CGFloat = 16
+        static let descriptionVerticalSpacing: CGFloat = 14
     }
 }
 
