@@ -8,7 +8,7 @@
 import FirebaseAuth
 import UIKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     // MARK: - Public attributes
 
     var didSendEventClosure: ((ProfileViewController.Event) -> Void)?

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsTextFieldView: UIStackView {
+final class SettingsTextFieldView: UIStackView {
     // MARK: - Private attributes
 
     private weak var delegate: UITextFieldDelegate?

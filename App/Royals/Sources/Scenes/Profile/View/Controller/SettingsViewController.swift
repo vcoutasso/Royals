@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
     // MARK: - Private attributes
 
     // TODO: Button toggles, but thats all it does. Needs a handler for state changes

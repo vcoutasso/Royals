@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HighlightsCardView: UIView {
+final class HighlightsCardView: UIView {
     // MARK: - Private attributes
 
     private var starAttachment = NSTextAttachment(image: UIImage(systemName: Strings.Names.Icons.star)!)

@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class SearchResultsViewController: UITableViewController {
+final class SearchResultsViewController: UITableViewController {
     // MARK: - Overridden methods
 
     override func viewDidAppear(_ animated: Bool) {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingToggleView: UIStackView {
+final class SettingToggleView: UIStackView {
     // MARK: - Private attributes
 
     private var settingTitle: String

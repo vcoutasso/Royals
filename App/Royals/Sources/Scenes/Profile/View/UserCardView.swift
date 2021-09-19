@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UserCardView: UIView {
+final class UserCardView: UIView {
     // MARK: - Private attributes
 
     private var presentOnButtonTap: () -> Void
