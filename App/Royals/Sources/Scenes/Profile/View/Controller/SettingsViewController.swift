@@ -10,6 +10,7 @@ import UIKit
 final class SettingsViewController: UIViewController {
     // MARK: - Private attributes
 
+    // TODO: This should be user interactable in order to change the profile pic
     private lazy var profilePicture: UIView = {
         let view = UIView(frame: CGRect(origin: .zero, size: LayoutMetrics.profilePictureSize))
         view.backgroundColor = .white
