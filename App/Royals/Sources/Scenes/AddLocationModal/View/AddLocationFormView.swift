@@ -21,7 +21,7 @@ class AddLocationFormView: UIView {
     private var descriptionTextView: UITextView
 
     var mapView: MKMapView
-    
+
     // MARK: - Contructor
 
     init(theme: MapPinType, createAction: @escaping () -> Void) {
@@ -34,7 +34,7 @@ class AddLocationFormView: UIView {
             }
         }()
         
-        self.addLocationButtonAction = addLocationButtonAction
+        self.addLocationButtonAction = createAction
         
         self.addLocationButton = UIButton(type: .system)
 
@@ -59,7 +59,7 @@ class AddLocationFormView: UIView {
                                              theme: self.theme)
 
         self.photosCarrousselView = UIView()
-        
+
         self.descriptionField = LabeledBottomView(
             iconName: Strings.Names.Icons.skateSpotFilless,
             labelText: Strings.Localizable.MapScene.AddLocationForm.description,
@@ -82,7 +82,6 @@ class AddLocationFormView: UIView {
     }
 
     // MARK: - Public methods
-
     func getName() -> String {
         return nameTextField.text ?? ""
     }
@@ -94,7 +93,6 @@ class AddLocationFormView: UIView {
     func getDescription() -> String {
         return descriptionTextView.text ?? ""
     }
-
     // MARK: - Private methods
 
     private func setupViews() {
@@ -116,7 +114,7 @@ class AddLocationFormView: UIView {
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
         mapView.showsCompass = false
-        
+
         photosCarrousselView.backgroundColor = Assets.Colors.darkSystemGray5.color
         photosCarrousselView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         photosCarrousselView.layer.cornerRadius = LayoutMetrics.generalCornerRadius
@@ -173,9 +171,9 @@ class AddLocationFormView: UIView {
             make.top.equalTo(mapView.snp_bottomMargin).offset(LayoutMetrics.generalItemsSpacing)
             make.leading.trailing.equalToSuperview().inset(LayoutMetrics.generalHorizontalPadding)
         }
-        
+
         photosCarrousselView.snp.makeConstraints { make in
-            make.top.equalTo(photosField.snp_bottomMargin).offset(LayoutMetrics.generalItemsSpacing )
+            make.top.equalTo(photosField.snp_bottomMargin).offset(LayoutMetrics.generalItemsSpacing)
             make.leading.trailing.equalToSuperview().inset(LayoutMetrics.generalHorizontalPadding)
             make.height.equalTo(120)
         }
@@ -186,7 +184,7 @@ class AddLocationFormView: UIView {
         }
 
         descriptionTextView.snp.makeConstraints { make in
-            make.top.equalTo(descriptionField.snp_bottomMargin).offset(LayoutMetrics.generalItemsSpacing )
+            make.top.equalTo(descriptionField.snp_bottomMargin).offset(LayoutMetrics.generalItemsSpacing)
             make.leading.trailing.equalToSuperview().inset(LayoutMetrics.generalHorizontalPadding)
             make.height.equalTo(120)
         }

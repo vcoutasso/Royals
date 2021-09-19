@@ -82,7 +82,7 @@ class LabeledBottomView: UIView {
     private enum LayoutMetrics {
         static let textFontSize: CGFloat = 25
         static let labelsFont = UIFont.systemFont(ofSize: 16)
-        
+
         static let stackHeight: CGFloat = 42
         static let bottomViewHeight: CGFloat = 120
 
@@ -95,11 +95,11 @@ class LabeledBottomView: UIView {
         static let titleToNameTopPadding: CGFloat = 50
 
         static let iconsFontSize: CGFloat = 5
-        
+
         static let stackSpacing: CGFloat = 10
-        
+
         static let iconFrameSize: CGFloat = 22
-        
+
         static let stackInset: CGFloat = 10
     }
 }
