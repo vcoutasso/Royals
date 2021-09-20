@@ -5,6 +5,7 @@
 //  Created by Vinícius Couto on 18/09/21.
 //
 
+import FirebaseAuth
 import UIKit
 
 final class SettingsViewController: UIViewController {
@@ -124,6 +125,8 @@ final class SettingsViewController: UIViewController {
     }
 
     @objc private func logoutButtonTapped() {
+        try? Auth.auth().signOut()
+
         sendLogoutButtonTappedEvent?()
     }
 
