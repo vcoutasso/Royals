@@ -14,6 +14,10 @@ class FeedViewController: UIViewController {
         .init(placeholder: Strings.Localizable.FeedScene.SearchBar.placeholder)
     }()
 
+    private lazy var dummyPost1: PostStackView = {
+        .init()
+    }()
+
     // MARK: - View controller lifecyle
 
     override func viewDidLoad() {
@@ -32,12 +36,20 @@ class FeedViewController: UIViewController {
 
     private func setupHierarchy() {
         view.addSubview(searchBar)
+        view.addSubview(dummyPost1)
     }
 
     private func setupConstraints() {
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
                 .offset(LayoutMetrics.searchBarBottomOffset)
+            make.leading.trailing.equalToSuperview()
+                .inset(LayoutMetrics.searchBarHorizontalPadding)
+        }
+
+        dummyPost1.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
+                .offset(20)
             make.leading.trailing.equalToSuperview()
                 .inset(LayoutMetrics.searchBarHorizontalPadding)
         }

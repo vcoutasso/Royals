@@ -17,6 +17,9 @@ final class SearchResultsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.backgroundColor = Assets.Colors.darkSystemGray5.color
+        tableView.backgroundColor = Assets.Colors.darkSystemGray5.color
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -44,6 +47,7 @@ final class SearchResultsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = SearchResultsCellView()
+        cell.backgroundColor = Assets.Colors.darkSystemGray5.color
         cell.configure(spotName: "Pico Sei lá Meu", address: "Rua das Pitangas, Batel, Curitiba")
         return cell
     }
