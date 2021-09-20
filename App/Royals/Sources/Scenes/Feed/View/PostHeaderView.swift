@@ -12,6 +12,7 @@ class PostHeaderView: UIView {
 
     private var originalPoster: AppUser
     private var spotName: String
+    private var postTitle: String
 
     private lazy var subtitleView: PostSubtitleView = {
         .init(handle: originalPoster.handle,
@@ -19,11 +20,42 @@ class PostHeaderView: UIView {
               spotName: spotName)
     }()
 
+    private lazy var descriptionView: UIStackView = {
+        let title = UILabel()
+        title.text = postTitle
+        title.font = .systemFont(ofSize: LayoutMetrics.titleFontSize, weight: .semibold)
+        title.textColor = Assets.Colors.white.color
+
+        let stack = UIStackView(arrangedSubviews: [title, subtitleView])
+        stack.axis = .vertical
+        stack.alignment = .leading
+        stack.spacing = LayoutMetrics.verticalStackSpacing
+
+        return stack
+    }()
+
+    private lazy var profilePicMiniature: UIImageView = {
+        let image = UIImageView(image: Assets.Images.dummyUserImage.image)
+        image.makeRounded()
+
+        return image
+    }()
+
+    private lazy var headerView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [profilePicMiniature, descriptionView])
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.spacing = LayoutMetrics.horizontalStackSpacing
+
+        return stack
+    }()
+
     // MARK: - Initialization
 
-    init(originalPoster: AppUser, spotName: String) {
+    init(originalPoster: AppUser, spotName: String, postTitle: String) {
         self.originalPoster = originalPoster
         self.spotName = spotName
+        self.postTitle = postTitle
 
         super.init(frame: .zero)
 
@@ -39,11 +71,11 @@ class PostHeaderView: UIView {
     // MARK: - Private methods
 
     private func setupHierarchy() {
-        addSubview(subtitleView)
+        addSubview(headerView)
     }
 
     private func setupConstraints() {
-        subtitleView.snp.makeConstraints { make in
+        headerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
@@ -51,7 +83,10 @@ class PostHeaderView: UIView {
     // MARK: - Layout Metrics
 
     private enum LayoutMetrics {
-        static let subtitleFontSize: CGFloat = 12
+        static let verticalStackSpacing: CGFloat = 5
+        static let horizontalStackSpacing: CGFloat = 10
+        static let titleFontSize: CGFloat = 18
+        static let imageRadius: CGFloat = 36
     }
 }
 
@@ -66,7 +101,9 @@ class PostHeaderView: UIView {
 
         struct ContentView: UIViewControllerRepresentable {
             func makeUIViewController(context: Context) -> UIViewController {
-                let mockHeaderView = PostHeaderView(originalPoster: .init(), spotName: "Teste")
+                let mockHeaderView = PostHeaderView(originalPoster: .init(),
+                                                    spotName: "Ambiental, Brazil",
+                                                    postTitle: "Detonando na Pista")
                 let vc = UIViewController()
                 vc.view.addSubview(mockHeaderView)
                 mockHeaderView.snp.makeConstraints { make in
