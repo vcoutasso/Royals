@@ -29,6 +29,8 @@
 "icons.skateSpotFilless" = "cone";
 "icons.camera" = "camera.fill";
 "icons.chatBubble" = "bubble.left";
+"icons.mappinPont" = "mappin.and.ellipse";
+"icons.starOutline" = "star";
 
 "keys.uid" = "uid";
 

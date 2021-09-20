@@ -10,7 +10,7 @@ import UIKit
 final class InfoMapViewController: UIViewController {
     // MARK: - Private variables
 
-    private var separator: SeparatorView = .init(frame: CGRect(x: .zero, y: .zero, width: 347, height: 2))
+    private var optionDelegate: LocationOptionDelegate?
 
     // TODO: Review image handling
     private lazy var spotInfo: SpotInfoMapView =
@@ -25,7 +25,7 @@ final class InfoMapViewController: UIViewController {
                   UIImage(asset: Assets.Images.picoAmbiental)!,
                   UIImage(asset: Assets.Images.picoAmbiental)!,
                   UIImage(asset: Assets.Images.picoAmbiental)!,
-              ])
+              ], action: buttonOption)
 
     // MARK: - Public methods
 
@@ -53,7 +53,29 @@ final class InfoMapViewController: UIViewController {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-        view.backgroundColor = Assets.Colors.darkSystemGray5.color
+        view.backgroundColor = Assets.Colors.darkSystemGray6.color
+    }
+
+    func buttonOption(_ sender: UIButton) {
+        switch sender.tag {
+        case 1:
+            let alert = UIAlertController(title: "Favoritado",
+                                          message: "Ambiental foi adicionado aos seus Picos favoritos",
+                                          preferredStyle: UIAlertController.Style.alert)
+
+            // add the actions (buttons)
+            alert.addAction(UIAlertAction(title: "Cancelar", style: UIAlertAction.Style.default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: nil))
+
+            present(alert, animated: true, completion: nil)
+
+        case 2:
+            optionDelegate?.sendValue(uid: "", type: .rating)
+            dismiss(animated: true, completion: nil)
+
+        default:
+            print("quero mimi")
+        }
     }
 
     private enum LayoutMetrics {
