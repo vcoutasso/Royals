@@ -207,6 +207,12 @@ final class MapViewController: UIViewController {
         present(locationVC, animated: true)
     }
 
+    private func presentLocationOptionModal() {
+        let menuVC = InfoMapViewController()
+        modalPresentationStyle = .overCurrentContext
+        present(menuVC, animated: true, completion: {})
+    }
+
     // MARK: - Layout Metrics
 
     private enum LayoutMetrics {
@@ -238,6 +244,10 @@ extension MapViewController: LocationAdapterDelegate, MapAdapterDelegate {
 
         return location
     }
+
+    func locationTapped(uid: String) {
+        presentLocationOptionModal()
+    }
 }
 
 extension MapViewController: UISearchBarDelegate {
@@ -263,5 +273,11 @@ extension MapViewController: UISearchBarDelegate {
 extension MapViewController: ModalViewControllerDelegate {
     func sendValue(selectedType: MapPinType) {
         presentAddLocationModal(selectedType)
+    }
+}
+
+extension MapViewController: LocationOptionDelegate {
+    func sendValue(uid: String, type: MenuType) {
+        print("e ai meu")
     }
 }

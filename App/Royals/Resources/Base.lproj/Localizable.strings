@@ -1,4 +1,5 @@
-/* 
+
+/*
   Localizable.strings
   Royals
 
@@ -25,6 +26,8 @@
 "mapScene.addLocationForm.locationHint" = "Drag the map to position the pin on the correct location";
 "mapScene.addLocationForm.photos" = "Add photos to the location";
 "mapScene.addLocationForm.description" = "Add a description to the location";
+"mapScene.avaliacaoDoPico.title" = "Comment";
+"mapScene.avaliacaoDoPico.placeholderComment" = "Add a comment";
 
 "loginScene.callout.text" = "HEY DUDE,\nREADY TO FLIP?";
 
