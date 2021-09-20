@@ -14,6 +14,8 @@ class FeedViewController: UIViewController {
         .init(placeholder: Strings.Localizable.FeedScene.SearchBar.placeholder)
     }()
 
+    private lazy var skelly: UIImageView = .init(image: Assets.Images.unavailableSkelly.image)
+
     private lazy var dummyPost1: PostStackView = {
         .init()
     }()
@@ -36,7 +38,7 @@ class FeedViewController: UIViewController {
 
     private func setupHierarchy() {
         view.addSubview(searchBar)
-        view.addSubview(dummyPost1)
+        view.addSubview(skelly)
     }
 
     private func setupConstraints() {
@@ -47,11 +49,8 @@ class FeedViewController: UIViewController {
                 .inset(LayoutMetrics.searchBarHorizontalPadding)
         }
 
-        dummyPost1.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom)
-                .offset(20)
-            make.leading.trailing.equalToSuperview()
-                .inset(LayoutMetrics.searchBarHorizontalPadding)
+        skelly.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
     }
 
