@@ -12,9 +12,11 @@ final class InfoMapViewController: UIViewController {
 
     private var optionDelegate: LocationOptionDelegate?
 
+    private var type: MapPinType
+
     // TODO: Review image handling
-    private lazy var spotInfo: SpotInfoMapView =
-        .init(type: .skateSpot,
+    private lazy var spotInfo: SpotInfoMapView = {
+        .init(type: type,
               title: "Ambiental",
               distance: "150 m",
               rating: 4.5,
@@ -26,8 +28,20 @@ final class InfoMapViewController: UIViewController {
                   UIImage(asset: Assets.Images.picoAmbiental)!,
                   UIImage(asset: Assets.Images.picoAmbiental)!,
               ], action: buttonOption)
+    }()
 
     // MARK: - Public methods
+
+    init(type: MapPinType) {
+        self.type = type
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - Overridden methods
 

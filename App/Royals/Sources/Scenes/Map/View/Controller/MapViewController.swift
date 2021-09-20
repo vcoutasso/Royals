@@ -207,8 +207,8 @@ final class MapViewController: UIViewController {
         present(locationVC, animated: true)
     }
 
-    private func presentLocationOptionModal() {
-        let menuVC = InfoMapViewController()
+    private func presentLocationOptionModal(of type: MapPinType) {
+        let menuVC = InfoMapViewController(type: type)
         modalPresentationStyle = .overCurrentContext
         present(menuVC, animated: true, completion: {})
     }
@@ -245,8 +245,8 @@ extension MapViewController: LocationAdapterDelegate, MapAdapterDelegate {
         return location
     }
 
-    func locationTapped(uid: String) {
-        presentLocationOptionModal()
+    func locationTapped(type: MapPinType) {
+        presentLocationOptionModal(of: type)
     }
 }
 

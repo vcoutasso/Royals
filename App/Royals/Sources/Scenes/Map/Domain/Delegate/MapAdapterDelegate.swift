@@ -8,5 +8,5 @@
 protocol MapAdapterDelegate: AnyObject {
     func willLocateUser()
 
-    func locationTapped(uid: String)
+    func locationTapped(type: MapPinType)
 }
