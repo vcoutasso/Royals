@@ -40,10 +40,12 @@ final class SpotInfoMapView: UIView {
 
     static var imagesList = [UIImage]()
 
+    var action: ((UIButton) -> Void)?
+
     // MARK: - Initialization
 
     init(type: MapPinType, title: String, distance: String, rating: Float?, descriptionStopper: String?,
-         quantityRating: Int?, address: String, images: [UIImage]) {
+         quantityRating: Int?, address: String, images: [UIImage], action: @escaping (UIButton) -> Void) {
         self.type = type
         self.title = title
         self.distance = distance
@@ -64,7 +66,7 @@ final class SpotInfoMapView: UIView {
         self.separator = .init(frame: CGRect(x: .zero, y: .zero, width: LayoutMetrics.separatorWidth, height: 2))
         self.separator2 = .init(frame: CGRect(x: .zero, y: .zero, width: LayoutMetrics.separatorWidth, height: 2))
         self.separator3 = .init(frame: CGRect(x: .zero, y: .zero, width: LayoutMetrics.separatorWidth, height: 2))
-        self.tableView = .init(type: type)
+        self.tableView = .init(type: type, action: action)
 
         super.init(frame: .zero)
 
