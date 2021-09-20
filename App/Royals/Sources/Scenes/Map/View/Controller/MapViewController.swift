@@ -249,3 +249,22 @@ extension MapViewController: ModalViewControllerDelegate {
         presentAddLocationModal(selectedType)
     }
 }
+
+#if DEBUG
+    import SwiftUI
+    struct MapPreview: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+                .previewDevice("iPhone 12")
+                .preferredColorScheme(.dark)
+        }
+
+        struct ContentView: UIViewControllerRepresentable {
+            func makeUIViewController(context: Context) -> UIViewController {
+                return MapViewController()
+            }
+
+            func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+        }
+    }
+#endif
