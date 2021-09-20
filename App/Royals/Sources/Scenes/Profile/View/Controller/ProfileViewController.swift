@@ -5,7 +5,6 @@
 //  Created by Vinícius Couto on 09/09/21.
 //
 
-import FirebaseAuth
 import UIKit
 
 final class ProfileViewController: UIViewController {
@@ -80,3 +79,22 @@ extension ProfileViewController {
         case logout
     }
 }
+
+#if DEBUG
+    import SwiftUI
+    struct ProfilePreview: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+                .previewDevice("iPhone 12")
+                .preferredColorScheme(.dark)
+        }
+
+        struct ContentView: UIViewControllerRepresentable {
+            func makeUIViewController(context: Context) -> UIViewController {
+                return ProfileViewController()
+            }
+
+            func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+        }
+    }
+#endif

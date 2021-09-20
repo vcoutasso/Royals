@@ -11,6 +11,8 @@
 "tabbar.leaderboard.title" = "Royals";
 "tabbar.profile.title" = "Perfil";
 
+"feedScene.searchBar.placeholder" = "Encontre picos e manobras";
+
 "mapScene.searchBar.placeholder" = "Onde você vai skatar hoje?";
 "mapScene.addMenu.skateSpot.title" = "Adicionar Pico";
 "mapScene.addMenu.skateStopper.title" = "Adicionar Stopper";

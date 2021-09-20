@@ -10,9 +10,10 @@ import UIKit
 final class SearchBarView: UISearchBar {
     // MARK: - Initialization
 
-    init() {
+    init(placeholder: String?) {
         super.init(frame: .zero)
 
+        self.placeholder = placeholder
         setupView()
     }
 
@@ -24,8 +25,6 @@ final class SearchBarView: UISearchBar {
     // MARK: - Private methods
 
     private func setupView() {
-        placeholder = Strings.Localizable.MapScene.SearchBar.placeholder
-
         searchTextField.backgroundColor = Assets.Colors.darkSystemGray5.color
         searchTextField.textColor = Assets.Colors.darkSystemGray1.color
         searchTextField.leftView?.tintColor = Assets.Colors.darkSystemGray1.color
@@ -34,8 +33,6 @@ final class SearchBarView: UISearchBar {
         barTintColor = Assets.Colors.darkSystemGray1.color
 
         delegate = self
-
-        translatesAutoresizingMaskIntoConstraints = false
     }
 }
 

@@ -6,11 +6,13 @@
   Created by Vinícius Couto on 25/08/21.
 */
 
-"tabbar.home.title" = "Home";
+"tabbar.home.title" = "Feed";
 "tabbar.map.title" = "Map";
 "tabbar.publish.title" = "Publish";
-"tabbar.leaderboard.title" = "Leaderboard";
+"tabbar.leaderboard.title" = "Royals";
 "tabbar.profile.title" = "Profile";
+
+"feedScene.searchBar.placeholder" = "Find spots and tricks";
 
 "mapScene.searchBar.placeholder" = "Where are you going to skate today?";
 "mapScene.addMenu.skateSpot.title" = "Add Spot";

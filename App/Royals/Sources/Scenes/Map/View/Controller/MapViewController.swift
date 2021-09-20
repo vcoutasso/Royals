@@ -16,7 +16,7 @@ final class MapViewController: UIViewController {
     private let mapAdapter: MapAdapter = .init()
 
     private lazy var mapView: MKMapView = .init()
-    private lazy var searchBar: SearchBarView = .init()
+    private lazy var searchBar: SearchBarView = .init(placeholder: Strings.Localizable.MapScene.SearchBar.placeholder)
     private lazy var searchBarContainerView: UIView = .init(frame: .zero)
     private lazy var addButton: MapButtonView = .init(iconName: Strings.Names.Icons.add, action: presentAddMenuModal)
     private lazy var locationButton: MapButtonView = .init(iconName: Strings.Names.Icons.location,
@@ -281,3 +281,22 @@ extension MapViewController: LocationOptionDelegate {
         print("e ai meu")
     }
 }
+
+#if DEBUG
+    import SwiftUI
+    struct MapPreview: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+                .previewDevice("iPhone 12")
+                .preferredColorScheme(.dark)
+        }
+
+        struct ContentView: UIViewControllerRepresentable {
+            func makeUIViewController(context: Context) -> UIViewController {
+                return MapViewController()
+            }
+
+            func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+        }
+    }
+#endif
