@@ -64,17 +64,11 @@ final class AddMenuViewController: UIViewController {
     }
 
     @objc private func skateSpotButtonTap() {
-//        guard let action = spotButtonAction else { return }
-//
-//        action()
         dismiss(animated: true, completion: nil)
         modalDelegate?.sendValue(selectedType: .skateSpot)
     }
 
     @objc private func skateStopperButtonTap() {
-//        guard let action = stopperButtonAction else { return }
-//
-//        action()
         dismiss(animated: true, completion: nil)
         modalDelegate?.sendValue(selectedType: .skateStopper)
     }

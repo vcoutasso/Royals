@@ -25,7 +25,7 @@
 "mapScene.addLocationForm.locationPlaceholder" = "Insira a localização";
 "mapScene.addLocationForm.locationHint" = "Mova o mapa para a localização correta";
 "mapScene.addLocationForm.photos" = "Adicione fotos do local";
-"mapScene.addLocationForm.description" = "Adicione uma escrição do local";
+"mapScene.addLocationForm.description" = "Adicione uma descrição do local";
 
 "loginScene.callout.text" = "PARÇA, É NOIX.\nPRONTO PRO ROLÊ?";
 "mapScene.searchResults.title" = "Picos";
