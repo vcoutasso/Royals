@@ -86,7 +86,7 @@ final class TabBarCoordinator: TabBarCoordinatorProtocol {
             let publishVC = WIPViewController()
             navController.pushViewController(publishVC, animated: true)
         case .leaderboard:
-            let leaderboardVC = WIPViewController()
+            let leaderboardVC = LeaderboardViewController()
             navController.pushViewController(leaderboardVC, animated: true)
         case .profile:
             let profileVC = ProfileViewController()

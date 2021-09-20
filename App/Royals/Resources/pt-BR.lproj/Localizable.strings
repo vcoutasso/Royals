@@ -43,4 +43,6 @@
 "profileScene.settingsView.navigationItem.doneButton.title" = "Salvar";
 "profileScene.logoutButton.title" = "Logout";
 
+"leaderboardScene.searchBar.placeholder" = "Pesquise um pico ou usuário";
+
 "userModel.fallbackData.handle" = "Anônimo";

@@ -44,4 +44,6 @@
 "profileScene.settingsView.navigationItem.doneButton.title" = "Done";
 "profileScene.logoutButton.title" = "Logout";
 
+"leaderboardScene.searchBar.placeholder" = "Find skate spots or users";
+
 "userModel.fallbackData.handle" = "Anonymous";
