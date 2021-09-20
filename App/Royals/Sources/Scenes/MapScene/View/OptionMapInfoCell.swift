@@ -11,18 +11,13 @@ final class OptionMapInfoCell: UITableViewCell {
     // MARK: - Public attributes
 
     // TODO: fazer as funcoes de cada botao
-    private var button = UIButton()
-    private var button1 = UIButton()
-    private var button2 = UIButton()
-    private var button3 = UIButton()
-    private var button4 = UIButton()
-
-    private var button5 = UIButton()
-    private var button6 = UIButton()
+    var button = UIButton()
 
     private var icon = UIImageView()
 
     private var type: MapPinType?
+
+    var action: ((UIButton) -> Void)!
 
     static let cellId = "OptionCell"
 
@@ -46,7 +41,7 @@ final class OptionMapInfoCell: UITableViewCell {
 
     func set(option: Option) {
         button.setTitle(option.nameButton, for: .normal)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
         icon.image = option.icon
         type = option.type
 
@@ -61,14 +56,8 @@ final class OptionMapInfoCell: UITableViewCell {
         }
     }
 
-    @objc private func buttonTapped() {
-        let alert = UIAlertController(title: "Favoritado", message: "Ambiental foi adicionado aos seus Picos favoritos",
-                                      preferredStyle: UIAlertController.Style.alert)
-
-        // add the actions (buttons)
-        alert.addAction(UIAlertAction(title: "Cancelar", style: UIAlertAction.Style.default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: nil))
-        print("usuario fez signup")
+    @objc private func buttonTapped(sender: UIButton) {
+        action(sender)
     }
 
     func configure() {

@@ -21,6 +21,6 @@ extension UIImageView {
         layer.masksToBounds = false
         layer.borderColor = UIColor.clear.cgColor
         clipsToBounds = true
-        layer.cornerRadius = frame.size.height / 2
+        layer.cornerRadius = frame.height / 2
     }
 }

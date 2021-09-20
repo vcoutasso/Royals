@@ -56,6 +56,7 @@ final class MapAdapter: NSObject, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let mapPin = view.annotation as? MapPinAnnotation {
             mapPin.isSelected = true
+            delegate?.locationTapped(uid: mapPin.id.description)
             view.image = mapPin.imageView.image
         }
     }

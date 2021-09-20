@@ -12,11 +12,13 @@ class OptionInfoMapTableView: UIView {
 
     var tableView = UITableView()
     var listOptions: [Option] = []
+    var action: ((UIButton) -> Void)?
 
     // MARK: - Table view data source
 
-    init(type: MapPinType) {
+    init(type: MapPinType, action: @escaping (UIButton) -> Void) {
         super.init(frame: .zero)
+        self.action = action
         // passar pelo init o tipo de view que precisa ( as opcoes da table)
         self.listOptions = fetchData(type: type)
         configureTableView()
@@ -77,7 +79,11 @@ extension OptionInfoMapTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: OptionMapInfoCell.cellId) as! OptionMapInfoCell
         let option = listOptions[indexPath.row]
+        let spotIdentifier: Int = option.type == MapPinType.skateSpot ? 0 : 4
         cell.set(option: option)
+        cell.action = action
+        cell.button.tag = indexPath.row + spotIdentifier
+
         return cell
     }
 }
