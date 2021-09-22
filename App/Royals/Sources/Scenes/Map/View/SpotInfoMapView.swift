@@ -63,9 +63,9 @@ final class SpotInfoMapView: UIView {
         self.addressInfoLabel = UILabel(frame: .zero)
         self.buttonFeed = UIButton(frame: .zero)
         self.feedIcon = UIImage()
-        self.separator = .init(frame: CGRect(x: .zero, y: .zero, width: LayoutMetrics.separatorWidth, height: 2))
-        self.separator2 = .init(frame: CGRect(x: .zero, y: .zero, width: LayoutMetrics.separatorWidth, height: 2))
-        self.separator3 = .init(frame: CGRect(x: .zero, y: .zero, width: LayoutMetrics.separatorWidth, height: 2))
+        self.separator = .init()
+        self.separator2 = .init()
+        self.separator3 = .init()
         self.tableView = .init(type: type, action: action)
 
         super.init(frame: .zero)

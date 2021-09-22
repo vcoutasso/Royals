@@ -15,4 +15,10 @@ extension UIView {
         layer.cornerRadius = frame.height / 2
         clipsToBounds = true
     }
+
+    func makeRectangle(color: UIColor, cornerRadius: CGFloat) {
+        backgroundColor = color
+        layer.cornerRadius = cornerRadius
+        layer.masksToBounds = true
+    }
 }

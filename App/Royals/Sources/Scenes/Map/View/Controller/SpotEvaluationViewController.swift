@@ -55,19 +55,19 @@ class SpotEvaluationViewController: UIViewController {
         profile.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(430)
+            make.height.equalTo(LayoutMetrics.heightProfile)
         }
 
         commentProfile1.snp.makeConstraints { make in
-            make.top.equalTo(profile.snp.bottom).offset(32)
-            make.leading.equalToSuperview().offset(15)
-            make.trailing.equalToSuperview().offset(-15)
+            make.top.equalTo(profile.snp.bottom).offset(LayoutMetrics.commentProfileTopAtProfile)
+            make.leading.equalToSuperview().offset(LayoutMetrics.leadingGereral)
+            make.trailing.equalToSuperview().offset(LayoutMetrics.trailingGereral)
         }
 
         commentProfile2.snp.makeConstraints { make in
-            make.top.equalTo(commentProfile1.snp.bottom).offset(16)
-            make.leading.equalToSuperview().offset(15)
-            make.trailing.equalToSuperview().offset(-15)
+            make.top.equalTo(commentProfile1.snp.bottom).offset(LayoutMetrics.commentProfileTop)
+            make.leading.equalToSuperview().offset(LayoutMetrics.leadingGereral)
+            make.trailing.equalToSuperview().offset(LayoutMetrics.trailingGereral)
         }
 
         contentView.snp.makeConstraints { make in
@@ -85,5 +85,14 @@ class SpotEvaluationViewController: UIViewController {
         }
 
         view.backgroundColor = Assets.Colors.darkSystemGray6.color
+    }
+
+    private enum LayoutMetrics {
+        static let heightProfile: CGFloat = 430
+        static let commentProfileTopAtProfile: CGFloat = 32
+        static let topTable: CGFloat = 510
+        static let leadingGereral: CGFloat = 15
+        static let trailingGereral: CGFloat = -15
+        static let commentProfileTop: CGFloat = 16
     }
 }
