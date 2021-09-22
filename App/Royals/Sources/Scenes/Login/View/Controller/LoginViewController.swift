@@ -36,12 +36,16 @@ final class LoginViewController: UIViewController {
         calloutLabel.lineBreakMode = .byWordWrapping
         calloutLabel.numberOfLines = 0
         calloutLabel.font = UIFont(font: Fonts.SpriteGraffiti.regular, size: LayoutMetrics.textFontSize)
-        let guestLoginGesture = UITapGestureRecognizer(target: guestLoginService,
-                                                       action: #selector(guestLoginService.start))
-        guestLoginGesture.numberOfTouchesRequired = 1
-        guestLoginGesture.numberOfTapsRequired = 2
-        calloutLabel.isUserInteractionEnabled = true
-        calloutLabel.addGestureRecognizer(guestLoginGesture)
+
+        // Hidden anonymous login for debugging purposes
+        #if DEBUG
+            let guestLoginGesture = UITapGestureRecognizer(target: guestLoginService,
+                                                           action: #selector(guestLoginService.start))
+            guestLoginGesture.numberOfTouchesRequired = 1
+            guestLoginGesture.numberOfTapsRequired = 2
+            calloutLabel.isUserInteractionEnabled = true
+            calloutLabel.addGestureRecognizer(guestLoginGesture)
+        #endif
 
         appleButton.cornerRadius = LayoutMetrics.loginButtonCornerRadius
         appleButton.addTarget(appleLoginService, action: #selector(appleLoginService.start), for: .touchUpInside)
