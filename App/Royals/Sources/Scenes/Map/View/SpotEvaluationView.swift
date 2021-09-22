@@ -16,8 +16,8 @@ class SpotEvaluationView: UIView {
     private let rectangle = UIView()
     private let rectangleStars = UIView()
     private let rectangleText = UIView()
-    private let separator: SeparatorView = .init()
-    private let commentTextField: CommentTextFieldView = .init()
+    private let separator: SeparatorView = .init(viewHeight: 10, color: Assets.Colors.darkSystemGray3.color)
+    private let commentText: CommentTextFieldView = .init()
 
     private lazy var profileImage2: UIImageView = {
         UIImageView(image: UIImage(asset: Assets.Images.profileImage2))
@@ -127,17 +127,9 @@ class SpotEvaluationView: UIView {
     }()
 
     private func setupView() {
-        rectangle.backgroundColor = Assets.Colors.darkSystemGray5.color
-        rectangle.layer.cornerRadius = LayoutMetrics.rectangleCornerRadius
-        rectangle.layer.masksToBounds = true
-
-        rectangleStars.backgroundColor = Assets.Colors.darkSystemGray5.color
-        rectangleStars.layer.cornerRadius = LayoutMetrics.rectangleCornerRadius
-        rectangleStars.layer.masksToBounds = true
-
-        rectangleText.backgroundColor = Assets.Colors.darkSystemGray5.color
-        rectangleText.layer.cornerRadius = LayoutMetrics.rectangleCornerRadius
-        rectangleText.layer.masksToBounds = true
+        rectangle.makeRectangle(color: Assets.Colors.darkSystemGray5.color, cornerRadius: 8)
+        rectangleStars.makeRectangle(color: Assets.Colors.darkSystemGray5.color, cornerRadius: 8)
+        rectangleText.makeRectangle(color: Assets.Colors.darkSystemGray5.color, cornerRadius: 8)
     }
 
     private func setupHierarchy() {
@@ -148,61 +140,61 @@ class SpotEvaluationView: UIView {
         addSubview(rectangleText)
         addSubview(separator)
         addSubview(thirdStack)
-        addSubview(commentTextField)
+        addSubview(commentText)
     }
 
     private func setupConstraints() {
         rectangle.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(LayoutMetrics.geralLeading)
-            make.trailing.equalToSuperview().offset(-LayoutMetrics.geralLeading)
-            make.top.equalToSuperview().offset(LayoutMetrics.rectangleTop1)
+            make.leading.equalToSuperview().offset(LayoutMetrics.generalLeading)
+            make.trailing.equalToSuperview().offset(LayoutMetrics.generalTrailing)
+            make.top.equalToSuperview().offset(LayoutMetrics.rectangleTopAtSuperView)
             make.height.equalTo(LayoutMetrics.rectangleHeight1)
         }
 
         firstStack.snp.makeConstraints { make in
             make.leading.equalTo(rectangle.snp.leading).offset(LayoutMetrics.firstStackLeading)
-            make.trailing.equalTo(rectangle.snp.trailing).offset(-61)
-            make.top.equalTo(rectangle.snp.top).offset(21)
-            make.bottom.equalTo(rectangle.snp.bottom).offset(-21)
+            make.trailing.equalTo(rectangle.snp.trailing).offset(LayoutMetrics.firstStackTrailing)
+            make.top.equalTo(rectangle.snp.top).offset(LayoutMetrics.firstStackTop)
+            make.bottom.equalTo(rectangle.snp.bottom).offset(LayoutMetrics.firstStackBottom)
         }
 
         rectangleStars.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(LayoutMetrics.geralLeading)
-            make.trailing.equalToSuperview().offset(-LayoutMetrics.geralLeading)
-            make.top.equalTo(rectangle.snp.bottom).offset(16)
-            make.height.equalTo(58)
+            make.leading.equalToSuperview().offset(LayoutMetrics.generalLeading)
+            make.trailing.equalToSuperview().offset(LayoutMetrics.generalTrailing)
+            make.top.equalTo(rectangle.snp.bottom).offset(LayoutMetrics.rectangleTop)
+            make.height.equalTo(LayoutMetrics.rectangleStarsHeight)
         }
 
         secondStack.snp.makeConstraints { make in
-            make.leading.equalTo(rectangleStars.snp.leading).offset(21)
-            make.trailing.equalTo(rectangleStars.snp.trailing).offset(-21)
-            make.top.equalTo(rectangleStars.snp.top).offset(18)
-            make.bottom.equalTo(rectangleStars.snp.bottom).offset(-18)
+            make.leading.equalTo(rectangleStars.snp.leading).offset(LayoutMetrics.secondStarkLeading)
+            make.trailing.equalTo(rectangleStars.snp.trailing).offset(LayoutMetrics.secondStarkTrailing)
+            make.top.equalTo(rectangleStars.snp.top).offset(LayoutMetrics.secondStarkTop)
+            make.bottom.equalTo(rectangleStars.snp.bottom).offset(LayoutMetrics.secondStarkBottom)
         }
 
         rectangleText.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(LayoutMetrics.geralLeading)
-            make.trailing.equalToSuperview().offset(-LayoutMetrics.geralLeading)
-            make.top.equalTo(rectangleStars.snp.bottom).offset(16)
-            make.height.equalTo(154)
+            make.leading.equalToSuperview().offset(LayoutMetrics.generalLeading)
+            make.trailing.equalToSuperview().offset(LayoutMetrics.generalTrailing)
+            make.top.equalTo(rectangleStars.snp.bottom).offset(LayoutMetrics.rectangleTop)
+            make.height.equalTo(LayoutMetrics.rectangleTextHeight)
         }
 
         thirdStack.snp.makeConstraints { make in
-            make.leading.equalTo(rectangleStars.snp.leading).offset(14)
-            make.trailing.equalTo(rectangleStars.snp.trailing).offset(-20)
-            make.top.equalTo(rectangleText.snp.top).offset(13)
+            make.leading.equalTo(rectangleText.snp.leading).offset(LayoutMetrics.generalLeading)
+            make.trailing.equalTo(rectangleText.snp.trailing).offset(LayoutMetrics.thirdStackTrailing)
+            make.top.equalTo(rectangleText.snp.top).offset(LayoutMetrics.thirdStackTop)
         }
 
         separator.snp.makeConstraints { make in
-            make.leading.equalTo(rectangleStars.snp.leading)
-            make.trailing.equalTo(rectangleStars.snp.trailing)
-            make.top.equalTo(rectangleText.snp.top).offset(41)
-            make.height.equalTo(0.5)
+            make.leading.equalTo(rectangleText.snp.leading)
+            make.trailing.equalTo(rectangleText.snp.trailing)
+            make.top.equalTo(rectangleText.snp.top).offset(LayoutMetrics.separatorTop)
+            make.height.equalTo(0.3)
         }
 
-        commentTextField.snp.makeConstraints { make in
-            make.leading.equalTo(rectangleStars.snp.leading).offset(10)
-            make.trailing.equalTo(rectangleStars.snp.trailing).offset(-20)
+        commentText.snp.makeConstraints { make in
+            make.leading.equalTo(rectangleText.snp.leading).offset(LayoutMetrics.commentTextLeading)
+            make.trailing.equalTo(rectangleText.snp.trailing).offset(LayoutMetrics.commentTextTrailing)
             make.top.equalTo(separator.snp.bottom)
         }
     }
@@ -221,9 +213,25 @@ class SpotEvaluationView: UIView {
         static let titleFontSize: CGFloat = 16
         static let stackLabelSpace: CGFloat = 122
         static let rectangleCornerRadius: CGFloat = 8
-        static let geralLeading: CGFloat = 15
+        static let generalLeading: CGFloat = 15
+        static let generalTrailing: CGFloat = -15
         static let rectangleHeight1: CGFloat = 100
-        static let rectangleTop1: CGFloat = 82
+        static let rectangleTopAtSuperView: CGFloat = 82
         static let firstStackLeading: CGFloat = 14
+        static let firstStackTrailing: CGFloat = -61
+        static let firstStackTop: CGFloat = 21
+        static let firstStackBottom: CGFloat = -21
+        static let rectangleTop: CGFloat = 16
+        static let rectangleStarsHeight: CGFloat = 58
+        static let secondStarkLeading: CGFloat = 21
+        static let secondStarkTrailing: CGFloat = -21
+        static let secondStarkTop: CGFloat = 18
+        static let secondStarkBottom: CGFloat = 21
+        static let rectangleTextHeight: CGFloat = 154
+        static let thirdStackTrailing: CGFloat = -20
+        static let thirdStackTop: CGFloat = 13
+        static let separatorTop: CGFloat = 41
+        static let commentTextLeading: CGFloat = 10
+        static let commentTextTrailing: CGFloat = -20
     }
 }

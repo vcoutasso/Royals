@@ -19,15 +19,15 @@ class SeparatorView: UIView {
 
     // MARK: - Initialization
 
-    init(viewHeight: CGFloat) {
+    init(viewHeight: CGFloat, color: UIColor) {
         self.viewHeight = viewHeight
         super.init(frame: .zero)
-        setupView()
+        setupView(color: color)
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()
+        backgroundColor = Assets.Colors.separatorGray.color
     }
 
     @available(*, unavailable)
@@ -35,7 +35,7 @@ class SeparatorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setupView() {
-        backgroundColor = Assets.Colors.separatorGray.color
+    private func setupView(color: UIColor) {
+        backgroundColor = color
     }
 }
