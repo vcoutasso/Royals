@@ -101,5 +101,3 @@ Pods/
 **/Generated/*.swift
 
 GoogleService-Info.plist
-
-Podfile.lock

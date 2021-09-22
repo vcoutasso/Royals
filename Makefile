@@ -2,11 +2,11 @@ all: generate open
 
 generate:
 	@ echo "\033[1;37mGenerating project files and installing dependencies\033[0m"
-	@ (cd App; xcodegen -c && pod install)
+	@ (cd App; xcodegen -c && pod install --deployment)
 	@ echo "\033[1;37mRunning SwiftGen\033[0m"
 	@ App/Pods/SwiftGen/bin/swiftgen config run --config config/swiftgen.yml
 	@ echo "\033[1;37mAdding generated files to project\033[0m"
-	@ (cd App; xcodegen -c && pod install)
+	@ (cd App; xcodegen -c && pod install --deployment)
 
 open:
 	@ open App/Royals.xcworkspace
