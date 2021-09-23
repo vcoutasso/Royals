@@ -7,11 +7,11 @@
 
 import UIKit
 
+// TODO: This need refactoring ASAP
 final class SpotInfoMapView: UIView {
     // MARK: - Private variables
 
     private var carouselView: CarouselView = .init()
-    private var carouselData = [CarouselView.CarouselData]()
 
     private let type: MapPinType
     private let title: String
@@ -33,9 +33,51 @@ final class SpotInfoMapView: UIView {
     private var feedIcon = UIImage()
     private var buttonFeed = UIButton()
     private var ratingStackView = UIStackView()
-//    private var separator: SeparatorView = .createHorizontalListSeparator()
-//    private var separator2: SeparatorView = .createHorizontalListSeparator()
-//    private var separator3: SeparatorView = .createHorizontalListSeparator()
+    private lazy var separator: SeparatorView = {
+        .createHorizontalListSeparator { [weak self] make in
+            guard let self = self else { return }
+
+            make.leading.equalToSuperview()
+                .offset(LayoutMetrics.generalHorizontalPadding)
+            make.trailing.equalToSuperview()
+                .offset(-LayoutMetrics.generalHorizontalPadding)
+
+            switch self.type {
+            case .skateSpot:
+                make.top.equalTo(self.buttonFeed.snp.bottom)
+                    .offset(LayoutMetrics.separatorTop)
+            case .skateStopper:
+                make.top.equalTo(self.descriptionLabel.snp.bottom)
+                    .offset(LayoutMetrics.separatorTop)
+            }
+        }
+    }()
+
+    private lazy var separator2: SeparatorView = {
+        .createHorizontalListSeparator { [weak self] make in
+            guard let self = self else { return }
+
+            make.leading.equalToSuperview()
+                .offset(LayoutMetrics.generalHorizontalPadding)
+            make.trailing.equalToSuperview()
+                .offset(-LayoutMetrics.generalHorizontalPadding)
+            make.top.equalTo(self.addressInfoLabel.snp.bottom)
+                .offset(LayoutMetrics.separatorTop)
+        }
+    }()
+
+    private lazy var separator3: SeparatorView = {
+        .createHorizontalListSeparator { [weak self] make in
+            guard let self = self else { return }
+
+            make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
+            make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
+            make.top.equalTo(self.carouselView.snp.bottom)
+                .offset(LayoutMetrics.topCarosel)
+            // make.bottom.equalTo(tableView.snp.top).offset(30)
+        }
+    }()
+
     private var tableView: OptionInfoMapTableView
 
     static var imagesList = [UIImage]()
@@ -68,9 +110,6 @@ final class SpotInfoMapView: UIView {
         super.init(frame: .zero)
 
         setupView()
-        setupHierarchy()
-        setupConstraints()
-        carouselView.configureView(with: carouselData)
     }
 
     @available(*, unavailable)
@@ -80,60 +119,26 @@ final class SpotInfoMapView: UIView {
 
     // MARK: - Private methods
 
-    private func setupView() {
-        let font = UIFont.systemFont(ofSize: LayoutMetrics.ratingFontSize, weight: .regular)
-        let configuration = UIImage.SymbolConfiguration(font: font)
-        let attributedText =
-            NSMutableAttributedString(string: " \(String(describing: rating!))", attributes:
-                [
-                    NSAttributedString.Key.font: UIFont
-                        .systemFont(ofSize: LayoutMetrics.ratingFontSize,
-                                    weight: .bold),
-                    NSAttributedString.Key.foregroundColor: Assets.Colors.yellow.color,
-                ])
+    private func getSymbolConfiguration() -> UIImage.SymbolConfiguration {
+        UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: LayoutMetrics.ratingFontSize, weight: .regular))
+    }
 
-        attributedText.append(NSAttributedString(string: "(\(String(describing: quantityRating!)))", attributes:
-            [
-                NSAttributedString.Key.font: UIFont
-                    .systemFont(ofSize: LayoutMetrics.ratingFontSize,
-                                weight: .light),
-                NSAttributedString.Key.foregroundColor: Assets.Colors
-                    .darkSystemGray1.color,
-            ]))
-
+    private func setupTitleLabel() {
         titleLabel.text = title
         titleLabel.font = UIFont(font: Fonts.SpriteGraffiti.regular, size: LayoutMetrics.titleFontSize)
 
+        addSubview(titleLabel)
+
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(LayoutMetrics.generalTopPadding).labeled("title")
+            make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
+            make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
+            make.height.equalTo(22)
+        }
+    }
+
+    private func setupSpotLabel() {
         spotLabel.font = UIFont.systemFont(ofSize: LayoutMetrics.distanceFontSize, weight: .regular)
-
-        descriptionLabel.text = descriptionStopper
-        descriptionLabel.textColor = Assets.Colors.darkSystemGray1.color
-        descriptionLabel.numberOfLines = -1
-        addressInfoLabel.lineBreakMode = .byWordWrapping
-        descriptionLabel.contentMode = .scaleToFill
-        descriptionLabel.font = UIFont.systemFont(ofSize: LayoutMetrics.distanceFontSize, weight: .medium)
-
-        ratingIcon.image = UIImage(systemName: Strings.Names.Icons.star,
-                                   withConfiguration: configuration)!.imageWithColor(color: Assets.Colors.yellow.color)
-        ratingIcon.contentMode = .scaleAspectFit
-        ratingLabel.attributedText = attributedText
-        ratingLabel.font = UIFont.systemFont(ofSize: LayoutMetrics.optionsFontSize)
-        ratingStackView = UIStackView(arrangedSubviews: [ratingIcon, ratingLabel])
-        ratingStackView.alignment = .leading
-
-        feedIcon = (UIImage(systemName: Strings.Names.Icons.houseFill, withConfiguration: configuration)!
-            .imageWithColor(color: Assets.Colors.green.color))!
-        buttonFeed.setTitle("Ver feed", for: .normal)
-        buttonFeed.setImage(feedIcon, for: .normal)
-        buttonFeed.titleLabel?.font = UIFont.systemFont(ofSize: LayoutMetrics.optionsFontSize, weight: .semibold)
-        buttonFeed.setTitleColor(Assets.Colors.green.color, for: .normal)
-        buttonFeed.contentHorizontalAlignment = .leading
-
-        addressLabel.text = "Endereço"
-        addressLabel.textColor = Assets.Colors.darkSystemGray1.color
-        addressInfoLabel.text = address
-        addressInfoLabel.numberOfLines = 4
-        addressInfoLabel.font = UIFont.systemFont(ofSize: LayoutMetrics.addressInfoFontSize, weight: .regular)
 
         switch type {
         case .skateSpot:
@@ -143,43 +148,7 @@ final class SpotInfoMapView: UIView {
             spotLabel.text = "Stopper - \(distance)"
         }
 
-        for img in images {
-            carouselData.append(.init(image: img))
-        }
-
-        //        axis = .vertical
-        //        alignment = .leading
-        //        spacing = 20
-        backgroundColor = LayoutMetrics.backgroundColor
-    }
-
-    private func setupHierarchy() {
-        addSubview(titleLabel)
         addSubview(spotLabel)
-        if type == .skateSpot {
-            addSubview(ratingStackView)
-            addSubview(buttonFeed)
-        }
-        if type == .skateStopper {
-            addSubview(descriptionLabel)
-        }
-
-//        addSubview(separator)
-        addSubview(addressLabel)
-        addSubview(addressInfoLabel)
-//        addSubview(separator2)
-        addSubview(carouselView)
-//        addSubview(separator3)
-        addSubview(tableView)
-    }
-
-    private func setupConstraints() {
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(LayoutMetrics.generalTopPadding).labeled("title")
-            make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
-            make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
-            make.height.equalTo(22)
-        }
 
         spotLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
@@ -187,82 +156,141 @@ final class SpotInfoMapView: UIView {
             make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
             make.height.equalTo(22)
         }
+    }
 
-        if type == .skateStopper {
-            descriptionLabel.snp.makeConstraints { make in
-                make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
-                make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
-                make.top.equalTo(spotLabel.snp.bottom).offset(LayoutMetrics.descriptionTop)
-                // make.height.equalTo(70)
-            }
+    private func setupDescriptionLabel() {
+        descriptionLabel.text = descriptionStopper
+        descriptionLabel.textColor = Assets.Colors.darkSystemGray1.color
+        descriptionLabel.numberOfLines = -1
+        addressInfoLabel.lineBreakMode = .byWordWrapping
+        descriptionLabel.contentMode = .scaleToFill
+        descriptionLabel.font = UIFont.systemFont(ofSize: LayoutMetrics.distanceFontSize, weight: .medium)
+
+        addSubview(descriptionLabel)
+
+        descriptionLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
+            make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
+            make.top.equalTo(spotLabel.snp.bottom).offset(LayoutMetrics.descriptionTop)
         }
+    }
 
-        if type == .skateSpot {
-            ratingStackView.snp.makeConstraints { make in
-                make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
-                make.trailing.equalToSuperview().offset(-248)
-                make.top.equalTo(spotLabel.snp.bottom).offset(LayoutMetrics.ratingTop)
-                make.height.equalTo(LayoutMetrics.ratingHeight)
-            }
+    private func setupRatingStackView() {
+        ratingIcon.image = UIImage(systemName: Strings.Names.Icons.star,
+                                   withConfiguration: getSymbolConfiguration())!
+            .imageWithColor(color: Assets.Colors.yellow.color)
+        ratingIcon.contentMode = .scaleAspectFit
 
-            buttonFeed.snp.makeConstraints { make in
-                make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
-                make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
-                make.top.equalTo(ratingStackView.snp.bottom).offset(LayoutMetrics.buttonFeedTop)
-                make.height.equalTo(LayoutMetrics.buttonFeedHeight)
-            }
+        let attributedText =
+            NSMutableAttributedString(string: " \(String(describing: rating!))", attributes:
+                [
+                    NSAttributedString.Key.font: UIFont
+                        .systemFont(ofSize: LayoutMetrics.ratingFontSize, weight: .bold),
+                    NSAttributedString.Key.foregroundColor: Assets.Colors.yellow.color,
+                ])
+
+        attributedText.append(NSAttributedString(string: "(\(String(describing: quantityRating!)))", attributes:
+            [
+                NSAttributedString.Key.font: UIFont
+                    .systemFont(ofSize: LayoutMetrics.ratingFontSize, weight: .light),
+                NSAttributedString.Key.foregroundColor: Assets.Colors.darkSystemGray1.color,
+            ]))
+
+        ratingLabel.attributedText = attributedText
+        ratingLabel.font = UIFont.systemFont(ofSize: LayoutMetrics.optionsFontSize)
+
+        ratingStackView = UIStackView(arrangedSubviews: [ratingIcon, ratingLabel])
+        ratingStackView.alignment = .leading
+
+        addSubview(ratingStackView)
+
+        ratingStackView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
+            make.trailing.equalToSuperview().offset(-248)
+            make.top.equalTo(spotLabel.snp.bottom).offset(LayoutMetrics.ratingTop)
+            make.height.equalTo(LayoutMetrics.ratingHeight)
         }
+    }
 
-//        separator.snp.makeConstraints { make in
-//            make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
-//            make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
-//            make.height.equalTo(1)
-//            switch type {
-//            case .skateSpot:
-//                make.top.equalTo(buttonFeed.snp.bottom).offset(LayoutMetrics.separatorTop)
-//            case .skateStopper:
-//                make.top.equalTo(descriptionLabel.snp.bottom).offset(LayoutMetrics.separatorTop)
-//            }
-//        }
+    private func setupButtonFeed() {
+        feedIcon = (UIImage(systemName: Strings.Names.Icons.houseFill, withConfiguration: getSymbolConfiguration())!
+            .imageWithColor(color: Assets.Colors.green.color))!
+
+        buttonFeed.setTitle("Ver feed", for: .normal)
+        buttonFeed.setImage(feedIcon, for: .normal)
+        buttonFeed.titleLabel?.font = UIFont.systemFont(ofSize: LayoutMetrics.optionsFontSize, weight: .semibold)
+        buttonFeed.setTitleColor(Assets.Colors.green.color, for: .normal)
+        buttonFeed.contentHorizontalAlignment = .leading
+
+        addSubview(buttonFeed)
+
+        buttonFeed.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
+            make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
+            make.top.equalTo(ratingStackView.snp.bottom).offset(LayoutMetrics.buttonFeedTop)
+            make.height.equalTo(LayoutMetrics.buttonFeedHeight)
+        }
+    }
+
+    private func setupSeparator() {
+        addSubview(separator)
+    }
+
+    private func setupAddressLabel() {
+        addressLabel.text = "Endereço"
+        addressLabel.textColor = Assets.Colors.darkSystemGray1.color
+
+        addSubview(addressLabel)
 
         addressLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
             make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
             make.height.equalTo(22)
-//            make.top.equalTo(separator.snp.bottom).offset(LayoutMetrics.addressLabelTop)
+            make.top.equalTo(separator.snp.bottom).offset(LayoutMetrics.addressLabelTop)
         }
-        //
+    }
+
+    private func setupAddressInfoLabel() {
+        addressInfoLabel.text = address
+        addressInfoLabel.numberOfLines = 4
+        addressInfoLabel.font = UIFont.systemFont(ofSize: LayoutMetrics.addressInfoFontSize, weight: .regular)
+
+        addSubview(addressInfoLabel)
+
         addressInfoLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
             // make.height.equalTo(88)
             make.trailing.equalToSuperview().offset(-LayoutMetrics.addressTrailing)
             make.top.equalTo(addressLabel.snp.bottom).offset(LayoutMetrics.addressLabelInfoTop)
         }
+    }
 
-//        separator2.snp.makeConstraints { make in
-//            make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
-//            make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
-//            make.top.equalTo(addressInfoLabel.snp.bottom).offset(LayoutMetrics.separatorTop)
-//            make.height.equalTo(1)
-//        }
-        //
+    private func setupSeparator2() {
+        addSubview(separator2)
+    }
+
+    private func setupCarouselView() {
+        carouselView.configureView(with: images.map { .init(image: $0) })
+
+        addSubview(carouselView)
+
         carouselView.snp.makeConstraints { make in
             make.height.equalTo(LayoutMetrics.heightCarosel)
-//            make.top.equalTo(separator2.snp.bottom).offset(LayoutMetrics.topCarosel)
+            make.top.equalTo(separator2.snp.bottom).offset(LayoutMetrics.topCarosel)
             make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
             make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
         }
+    }
 
-//        separator3.snp.makeConstraints { make in
-//            make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
-//            make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
-//            make.height.equalTo(1)
-//            make.top.equalTo(carouselView.snp.bottom).offset(LayoutMetrics.topCarosel)
-//            // make.bottom.equalTo(tableView.snp.top).offset(30)
-//        }
+    private func setupSeparator3() {
+        addSubview(separator3)
+    }
+
+    private func setupTableView() {
+        addSubview(tableView)
 
         tableView.snp.makeConstraints { make in
-//            make.top.equalTo(separator3.snp.bottom).offset(0)
+            make.top.equalTo(separator3.snp.bottom).offset(0)
             make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
             make.leading.equalToSuperview()
             switch type {
@@ -272,6 +300,29 @@ final class SpotInfoMapView: UIView {
                 make.height.equalTo(LayoutMetrics.heightTableStopper)
             }
         }
+    }
+
+    private func setupView() {
+        backgroundColor = LayoutMetrics.backgroundColor
+
+        setupTitleLabel()
+        setupSpotLabel()
+
+        switch type {
+        case .skateSpot:
+            setupRatingStackView()
+            setupButtonFeed()
+        case .skateStopper:
+            setupDescriptionLabel()
+        }
+
+        setupSeparator()
+        setupAddressLabel()
+        setupAddressInfoLabel()
+        setupSeparator2()
+        setupCarouselView()
+        setupSeparator3()
+        setupTableView()
     }
 }
 

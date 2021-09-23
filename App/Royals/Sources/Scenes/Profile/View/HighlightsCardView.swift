@@ -62,7 +62,6 @@ final class HighlightsCardView: UIView {
         return stack
     }()
 
-    // TODO: review reference cycle
     private lazy var separator: SeparatorView = {
         .createVerticalFieldSeparator { [weak self] make in
             make.center.equalToSuperview()

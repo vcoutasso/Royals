@@ -17,7 +17,7 @@ class SpotEvaluationView: UIView {
     private let rectangleStars = UIView()
     private let rectangleText = UIView()
     private lazy var separator: SeparatorView = {
-        .createHorizontalFieldSeparator { make in
+        .createHorizontalListSeparator { make in
             make.leading.equalTo(self.rectangleText.snp.leading)
             make.trailing.equalTo(self.rectangleText.snp.trailing)
             make.top.equalTo(self.rectangleText.snp.top)
@@ -192,13 +192,6 @@ class SpotEvaluationView: UIView {
             make.trailing.equalTo(rectangleText.snp.trailing).offset(LayoutMetrics.thirdStackTrailing)
             make.top.equalTo(rectangleText.snp.top).offset(LayoutMetrics.thirdStackTop)
         }
-
-//        separator.snp.makeConstraints { make in
-//            make.leading.equalTo(rectangleText.snp.leading)
-//            make.trailing.equalTo(rectangleText.snp.trailing)
-//            make.top.equalTo(rectangleText.snp.top).offset(LayoutMetrics.separatorTop)
-//            make.height.equalTo(0.3)
-//        }
 
         commentText.snp.makeConstraints { make in
             make.leading.equalTo(rectangleText.snp.leading).offset(LayoutMetrics.commentTextLeading)

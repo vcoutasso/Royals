@@ -11,8 +11,8 @@ import UIKit
 final class SeparatorView: UIView {
     // MARK: - Private attributes
 
-    private var frameWidth: CGFloat = .leastNonzeroMagnitude
     private var constraintMaker: ((ConstraintMaker) -> Void)?
+    private var sizeSeparatorMaker: ((ConstraintMaker) -> Void)?
 
     // MARK: - Initialization
 
@@ -37,9 +37,8 @@ final class SeparatorView: UIView {
             snp.makeConstraints(maker)
         }
 
-        snp.makeConstraints { make in
-            make.width.equalTo(frameWidth)
-        }
+        // If this is nil, something is broken with the interface to this class
+        snp.makeConstraints(sizeSeparatorMaker!)
     }
 
     // MARK: - Static constructors
@@ -47,7 +46,9 @@ final class SeparatorView: UIView {
     static func createVerticalFieldSeparator(_ constraints: @escaping (ConstraintMaker) -> Void) -> SeparatorView {
         let separator = SeparatorView(frame: .zero)
         separator.constraintMaker = constraints
-        separator.frameWidth = LayoutMetrics.verticalFieldSeparatorWidth
+        separator.sizeSeparatorMaker = { make in
+            make.width.equalTo(LayoutMetrics.verticalFieldSeparatorWidth)
+        }
         separator.backgroundColor = Assets.Colors.darkSystemGray2.color
 
         return separator
@@ -56,7 +57,9 @@ final class SeparatorView: UIView {
     static func createHorizontalFieldSeparator(_ constraints: @escaping (ConstraintMaker) -> Void) -> SeparatorView {
         let separator = SeparatorView(frame: .zero)
         separator.constraintMaker = constraints
-        separator.frameWidth = LayoutMetrics.horizontalFieldSeparatorWidth
+        separator.sizeSeparatorMaker = { make in
+            make.height.equalTo(LayoutMetrics.horizontalFieldSeparatorWidth)
+        }
         separator.backgroundColor = Assets.Colors.darkSystemGray1.color
 
         return separator
@@ -65,7 +68,9 @@ final class SeparatorView: UIView {
     static func createHorizontalListSeparator(_ constraints: @escaping (ConstraintMaker) -> Void) -> SeparatorView {
         let separator = SeparatorView(frame: .zero)
         separator.constraintMaker = constraints
-        separator.frameWidth = LayoutMetrics.horizontalListSeparatorWidth
+        separator.sizeSeparatorMaker = { make in
+            make.height.equalTo(LayoutMetrics.horizontalListSeparatorWidth)
+        }
         separator.backgroundColor = Assets.Colors.separatorGray.color
 
         return separator
