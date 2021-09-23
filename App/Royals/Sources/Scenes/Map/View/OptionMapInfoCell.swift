@@ -39,7 +39,7 @@ final class OptionMapInfoCell: UITableViewCell {
 
     // MARK: - Publich methods
 
-    func set(option: Option) {
+    func set(option: OptionInfoMap) {
         button.setTitle(option.nameButton, for: .normal)
         button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
         icon.image = option.icon

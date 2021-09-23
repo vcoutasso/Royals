@@ -5,7 +5,9 @@
 //  Created by Maria Luiza Amaral on 19/09/21.
 //
 
-protocol LocationOptionDelegate {
+import Foundation
+
+protocol LocationOptionDelegate: AnyObject {
     func sendValue(uid: String, type: MenuType)
 }
 

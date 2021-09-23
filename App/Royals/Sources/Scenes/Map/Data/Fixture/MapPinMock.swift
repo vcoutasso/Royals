@@ -1,4 +1,3 @@
-//
 //  MapPinMock.swift
 //  Royals
 //

@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Option {
+struct OptionInfoMap {
     var nameButton: String
     var icon: UIImage
     var type: MapPinType

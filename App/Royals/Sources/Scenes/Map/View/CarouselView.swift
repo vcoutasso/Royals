@@ -19,7 +19,7 @@ class CarouselView: UIView, UICollectionViewDelegate {
         collection.dataSource = self
         collection.delegate = self
         collection.backgroundColor = .clear
-        collection.register(CarouselCell.self, forCellWithReuseIdentifier: CarouselCell.cellId)
+        collection.register(CarouselCellView.self, forCellWithReuseIdentifier: CarouselCellView.cellId)
         return collection
     }()
 
@@ -82,8 +82,8 @@ extension CarouselView: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCell.cellId,
-                                                            for: indexPath) as? CarouselCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCellView.cellId,
+                                                            for: indexPath) as? CarouselCellView
         else { return UICollectionViewCell() }
 
         let image = carouselData[indexPath.row].image

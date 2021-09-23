@@ -12,7 +12,7 @@ class OptionInfoMapTableView: UIView {
     // MARK: - Overridden methods
 
     var tableView = UITableView()
-    var listOptions: [Option] = []
+    var listOptions: [OptionInfoMap] = []
     var action: ((UIButton) -> Void)?
 
     // MARK: - Table view data source
@@ -91,25 +91,28 @@ extension OptionInfoMapTableView: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension OptionInfoMapTableView {
-    func fetchData(type: MapPinType) -> [Option] {
+    func fetchData(type: MapPinType) -> [OptionInfoMap] {
         switch type {
         case .skateSpot:
-            let option1 = Option(nameButton: "Ver feed", icon: UIImage(systemName: Strings.Names.Icons.houseCircle)!,
-                                 type: .skateSpot)
-            let option2 = Option(nameButton: "Adicionar aos favoritos",
-                                 icon: UIImage(systemName: Strings.Names.Icons.starCircle)!, type: .skateSpot)
-            let option3 = Option(nameButton: "Avaliação do Pico",
-                                 icon: UIImage(systemName: Strings.Names.Icons.heartCircle)!, type: .skateSpot)
-            let option4 = Option(nameButton: "Reportar Problema",
-                                 icon: UIImage(systemName: Strings.Names.Icons.exclamationMark)!, type: .skateSpot)
+            let option1 = OptionInfoMap(nameButton: "Ver feed",
+                                        icon: UIImage(systemName: Strings.Names.Icons.houseCircle)!,
+                                        type: .skateSpot)
+            let option2 = OptionInfoMap(nameButton: "Adicionar aos favoritos",
+                                        icon: UIImage(systemName: Strings.Names.Icons.starCircle)!, type: .skateSpot)
+            let option3 = OptionInfoMap(nameButton: "Avaliação do Pico",
+                                        icon: UIImage(systemName: Strings.Names.Icons.heartCircle)!, type: .skateSpot)
+            let option4 = OptionInfoMap(nameButton: "Reportar Problema",
+                                        icon: UIImage(systemName: Strings.Names.Icons.exclamationMark)!,
+                                        type: .skateSpot)
 
             return [option1, option2, option3, option4]
 
         case .skateStopper:
-            let option5 = Option(nameButton: "Descrição do Stopper",
-                                 icon: UIImage(systemName: Strings.Names.Icons.xMark)!, type: .skateStopper)
-            let option6 = Option(nameButton: "Reportar Problema",
-                                 icon: UIImage(systemName: Strings.Names.Icons.exclamationMark)!, type: .skateStopper)
+            let option5 = OptionInfoMap(nameButton: "Descrição do Stopper",
+                                        icon: UIImage(systemName: Strings.Names.Icons.xMark)!, type: .skateStopper)
+            let option6 = OptionInfoMap(nameButton: "Reportar Problema",
+                                        icon: UIImage(systemName: Strings.Names.Icons.exclamationMark)!,
+                                        type: .skateStopper)
             return [option5, option6]
         }
     }

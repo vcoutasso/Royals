@@ -1,5 +1,5 @@
 //
-//  InfoMapViewControlller.swift
+//  InfoMapViewController.swift
 //  Royals
 //
 //  Created by Maria Luiza Amaral on 08/09/21.
@@ -10,7 +10,7 @@ import UIKit
 final class InfoMapViewController: UIViewController {
     // MARK: - Private variables
 
-    private var optionDelegate: LocationOptionDelegate?
+    private weak var optionDelegate: LocationOptionDelegate?
 
     private var type: MapPinType
 

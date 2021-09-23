@@ -6,7 +6,7 @@
 //
 
 import UIKit
-class CarouselCell: UICollectionViewCell {
+class CarouselCellView: UICollectionViewCell {
     // MARK: - SubViews
 
     private lazy var imageView = UIImageView()
@@ -30,7 +30,7 @@ class CarouselCell: UICollectionViewCell {
 
 // MARK: - Setups
 
-private extension CarouselCell {
+private extension CarouselCellView {
     func setupUI() {
         backgroundColor = .clear
 
@@ -46,7 +46,7 @@ private extension CarouselCell {
 
 // MARK: - Public
 
-extension CarouselCell {
+extension CarouselCellView {
     public func configure(image: UIImage?) {
         imageView.image = image
     }
