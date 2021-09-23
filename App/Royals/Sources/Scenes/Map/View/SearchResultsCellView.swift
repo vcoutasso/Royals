@@ -10,6 +10,9 @@ import UIKit
 final class SearchResultsCellView: UITableViewCell {
     // MARK: - Public attributes
 
+    var spotName: String?
+    var address: String?
+
     private var title: UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -38,16 +41,22 @@ final class SearchResultsCellView: UITableViewCell {
         return vstack
     }
 
-    var spotName: String?
-    var address: String?
-
     // MARK: - Initialization
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    convenience init(spotName: String, address: String) {
+        self.init(style: .default, reuseIdentifier: nil)
+
+        self.spotName = spotName
+        self.address = address
 
         imageView?.image = Assets.Images.miniSkateSpot.image
         imageView?.contentMode = .scaleAspectFit
+
+        setupView()
+    }
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
 
     @available(*, unavailable)
@@ -55,11 +64,10 @@ final class SearchResultsCellView: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Publich methods
+    // MARK: - Private methods
 
-    func configure(spotName: String, address: String) {
-        self.spotName = spotName
-        self.address = address
+    private func setupView() {
+        backgroundColor = Assets.Colors.darkSystemGray5.color
 
         let cellView = UIStackView(arrangedSubviews: [imageView ?? UIImageView(), info])
         cellView.axis = .horizontal
