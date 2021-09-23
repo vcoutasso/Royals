@@ -37,7 +37,7 @@ final class SeparatorView: UIView {
             snp.makeConstraints(maker)
         }
 
-        // If this is nil, something is broken with the interface to this class
+        // If sizeSeparatorMaker is nil, something is broken with the interface to this class
         snp.makeConstraints(sizeSeparatorMaker!)
     }
 

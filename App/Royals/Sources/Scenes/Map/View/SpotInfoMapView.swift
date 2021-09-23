@@ -9,7 +9,7 @@ import UIKit
 
 // TODO: This need refactoring ASAP
 final class SpotInfoMapView: UIView {
-    // MARK: - Private variables
+    // MARK: - Private attributes
 
     private var carouselView: CarouselView = .init()
 
@@ -33,6 +33,7 @@ final class SpotInfoMapView: UIView {
     private var feedIcon = UIImage()
     private var buttonFeed = UIButton()
     private var ratingStackView = UIStackView()
+
     private lazy var separator: SeparatorView = {
         .createHorizontalListSeparator { [weak self] make in
             guard let self = self else { return }
@@ -74,7 +75,6 @@ final class SpotInfoMapView: UIView {
             make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
             make.top.equalTo(self.carouselView.snp.bottom)
                 .offset(LayoutMetrics.topCarosel)
-            // make.bottom.equalTo(tableView.snp.top).offset(30)
         }
     }()
 
@@ -259,7 +259,6 @@ final class SpotInfoMapView: UIView {
 
         addressInfoLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
-            // make.height.equalTo(88)
             make.trailing.equalToSuperview().offset(-LayoutMetrics.addressTrailing)
             make.top.equalTo(addressLabel.snp.bottom).offset(LayoutMetrics.addressLabelInfoTop)
         }
