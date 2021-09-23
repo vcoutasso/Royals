@@ -16,7 +16,15 @@ class SpotEvaluationView: UIView {
     private let rectangle = UIView()
     private let rectangleStars = UIView()
     private let rectangleText = UIView()
-    private let separator: SeparatorView = .init(viewHeight: 10, color: Assets.Colors.darkSystemGray3.color)
+    private lazy var separator: SeparatorView = {
+        .createHorizontalFieldSeparator { make in
+            make.leading.equalTo(self.rectangleText.snp.leading)
+            make.trailing.equalTo(self.rectangleText.snp.trailing)
+            make.top.equalTo(self.rectangleText.snp.top)
+                .offset(LayoutMetrics.separatorTop)
+        }
+    }()
+
     private let commentText: CommentTextFieldView = .init()
 
     private lazy var profileImage2: UIImageView = {
@@ -185,12 +193,12 @@ class SpotEvaluationView: UIView {
             make.top.equalTo(rectangleText.snp.top).offset(LayoutMetrics.thirdStackTop)
         }
 
-        separator.snp.makeConstraints { make in
-            make.leading.equalTo(rectangleText.snp.leading)
-            make.trailing.equalTo(rectangleText.snp.trailing)
-            make.top.equalTo(rectangleText.snp.top).offset(LayoutMetrics.separatorTop)
-            make.height.equalTo(0.3)
-        }
+//        separator.snp.makeConstraints { make in
+//            make.leading.equalTo(rectangleText.snp.leading)
+//            make.trailing.equalTo(rectangleText.snp.trailing)
+//            make.top.equalTo(rectangleText.snp.top).offset(LayoutMetrics.separatorTop)
+//            make.height.equalTo(0.3)
+//        }
 
         commentText.snp.makeConstraints { make in
             make.leading.equalTo(rectangleText.snp.leading).offset(LayoutMetrics.commentTextLeading)

@@ -81,7 +81,9 @@ class PostFooterView: UIStackView {
     // MARK: - Private methods
 
     private func setupViews() {
-        let separator = SeparatorView()
+        let separator = SeparatorView.createVerticalFieldSeparator { make in
+            make.height.equalToSuperview()
+        }
 
         axis = .horizontal
         alignment = .center
@@ -90,11 +92,6 @@ class PostFooterView: UIStackView {
         addArrangedSubview(commentsButton)
         addArrangedSubview(separator)
         addArrangedSubview(tagsScrollView)
-
-        separator.snp.makeConstraints { make in
-            make.width.equalTo(LayoutMetrics.separatorWidth)
-            make.height.equalToSuperview()
-        }
     }
 
     // MARK: - Layout Metrics
@@ -106,7 +103,6 @@ class PostFooterView: UIStackView {
         static let tagButtonBorderWidth: CGFloat = 2
         static let tagButtonTitleFontSize: CGFloat = 12
         static let stackSpacing: CGFloat = 15
-        static let separatorWidth: CGFloat = 1
     }
 }
 

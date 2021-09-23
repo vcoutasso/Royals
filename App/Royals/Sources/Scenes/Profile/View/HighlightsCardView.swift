@@ -62,8 +62,13 @@ final class HighlightsCardView: UIView {
         return stack
     }()
 
+    // TODO: review reference cycle
     private lazy var separator: SeparatorView = {
-        .init()
+        .createVerticalFieldSeparator { [weak self] make in
+            make.center.equalToSuperview()
+            make.height.equalTo(self!.snp.height)
+                .multipliedBy(LayoutMetrics.separatorHeightMultiplier)
+        }
     }()
 
     // MARK: - Initialization
@@ -108,13 +113,6 @@ final class HighlightsCardView: UIView {
             make.centerX.equalTo(spotImage)
             make.topMargin.equalTo(spotImage.snp.bottomMargin)
                 .offset(LayoutMetrics.descriptionTopOffset)
-        }
-
-        separator.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.equalTo(LayoutMetrics.separatorWidth)
-            make.height.equalTo(snp.height)
-                .multipliedBy(LayoutMetrics.separatorHeightMultiplier)
         }
 
         skateImage.snp.makeConstraints { make in

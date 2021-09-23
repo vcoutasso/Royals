@@ -33,9 +33,9 @@ final class SpotInfoMapView: UIView {
     private var feedIcon = UIImage()
     private var buttonFeed = UIButton()
     private var ratingStackView = UIStackView()
-    private var separator = SeparatorView()
-    private var separator2 = SeparatorView()
-    private var separator3 = SeparatorView()
+//    private var separator: SeparatorView = .createHorizontalListSeparator()
+//    private var separator2: SeparatorView = .createHorizontalListSeparator()
+//    private var separator3: SeparatorView = .createHorizontalListSeparator()
     private var tableView: OptionInfoMapTableView
 
     static var imagesList = [UIImage]()
@@ -63,9 +63,6 @@ final class SpotInfoMapView: UIView {
         self.addressInfoLabel = UILabel(frame: .zero)
         self.buttonFeed = UIButton(frame: .zero)
         self.feedIcon = UIImage()
-        self.separator = .init()
-        self.separator2 = .init()
-        self.separator3 = .init()
         self.tableView = .init(type: type, action: action)
 
         super.init(frame: .zero)
@@ -167,12 +164,12 @@ final class SpotInfoMapView: UIView {
             addSubview(descriptionLabel)
         }
 
-        addSubview(separator)
+//        addSubview(separator)
         addSubview(addressLabel)
         addSubview(addressInfoLabel)
-        addSubview(separator2)
+//        addSubview(separator2)
         addSubview(carouselView)
-        addSubview(separator3)
+//        addSubview(separator3)
         addSubview(tableView)
     }
 
@@ -216,23 +213,23 @@ final class SpotInfoMapView: UIView {
             }
         }
 
-        separator.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
-            make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
-            make.height.equalTo(1)
-            switch type {
-            case .skateSpot:
-                make.top.equalTo(buttonFeed.snp.bottom).offset(LayoutMetrics.separatorTop)
-            case .skateStopper:
-                make.top.equalTo(descriptionLabel.snp.bottom).offset(LayoutMetrics.separatorTop)
-            }
-        }
+//        separator.snp.makeConstraints { make in
+//            make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
+//            make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
+//            make.height.equalTo(1)
+//            switch type {
+//            case .skateSpot:
+//                make.top.equalTo(buttonFeed.snp.bottom).offset(LayoutMetrics.separatorTop)
+//            case .skateStopper:
+//                make.top.equalTo(descriptionLabel.snp.bottom).offset(LayoutMetrics.separatorTop)
+//            }
+//        }
 
         addressLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
             make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
             make.height.equalTo(22)
-            make.top.equalTo(separator.snp.bottom).offset(LayoutMetrics.addressLabelTop)
+//            make.top.equalTo(separator.snp.bottom).offset(LayoutMetrics.addressLabelTop)
         }
         //
         addressInfoLabel.snp.makeConstraints { make in
@@ -242,30 +239,30 @@ final class SpotInfoMapView: UIView {
             make.top.equalTo(addressLabel.snp.bottom).offset(LayoutMetrics.addressLabelInfoTop)
         }
 
-        separator2.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
-            make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
-            make.top.equalTo(addressInfoLabel.snp.bottom).offset(LayoutMetrics.separatorTop)
-            make.height.equalTo(1)
-        }
+//        separator2.snp.makeConstraints { make in
+//            make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
+//            make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
+//            make.top.equalTo(addressInfoLabel.snp.bottom).offset(LayoutMetrics.separatorTop)
+//            make.height.equalTo(1)
+//        }
         //
         carouselView.snp.makeConstraints { make in
             make.height.equalTo(LayoutMetrics.heightCarosel)
-            make.top.equalTo(separator2.snp.bottom).offset(LayoutMetrics.topCarosel)
+//            make.top.equalTo(separator2.snp.bottom).offset(LayoutMetrics.topCarosel)
             make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
             make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
         }
 
-        separator3.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
-            make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
-            make.height.equalTo(1)
-            make.top.equalTo(carouselView.snp.bottom).offset(LayoutMetrics.topCarosel)
-            // make.bottom.equalTo(tableView.snp.top).offset(30)
-        }
+//        separator3.snp.makeConstraints { make in
+//            make.leading.equalToSuperview().offset(LayoutMetrics.generalHorizontalPadding)
+//            make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
+//            make.height.equalTo(1)
+//            make.top.equalTo(carouselView.snp.bottom).offset(LayoutMetrics.topCarosel)
+//            // make.bottom.equalTo(tableView.snp.top).offset(30)
+//        }
 
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(separator3.snp.bottom).offset(0)
+//            make.top.equalTo(separator3.snp.bottom).offset(0)
             make.trailing.equalToSuperview().offset(-LayoutMetrics.generalHorizontalPadding)
             make.leading.equalToSuperview()
             switch type {
