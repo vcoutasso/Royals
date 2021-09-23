@@ -40,6 +40,8 @@ class CurrentUser {
               isAnonymous: user.isAnonymous)
     }
 
+    // MARK: - Initialization
+
     private init() {
         guard let currentUser = Auth.auth().currentUser else { return }
 

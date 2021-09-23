@@ -66,14 +66,12 @@ final class UserCardView: UIView {
 
         for item in items {
             if !stack.arrangedSubviews.isEmpty {
-                let separator = SeparatorView()
-                stack.addArrangedSubview(separator)
-
-                separator.snp.makeConstraints { make in
-                    make.width.equalTo(LayoutMetrics.statsStackSeparatorWidth)
+                let separator = SeparatorView.createVerticalFieldSeparator { make in
                     make.height.equalTo(stack.snp.height)
                         .multipliedBy(LayoutMetrics.statsStackHeightMultiplier)
                 }
+
+                stack.addArrangedSubview(separator)
             }
 
             let label = UILabel()

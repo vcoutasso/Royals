@@ -7,6 +7,7 @@
 
 import UIKit
 
+// TODO: Fix separator style
 class OptionInfoMapTableView: UIView {
     // MARK: - Overridden methods
 
