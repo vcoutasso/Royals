@@ -3,7 +3,8 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'Royals' do
-  # Pods for Royals
+  pod 'IQKeyboardManagerSwift'
+
   pod 'SwiftFormat/CLI'
   pod 'SwiftLint'
   pod 'SwiftGen'
