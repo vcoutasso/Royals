@@ -37,7 +37,7 @@ final class OptionMapInfoCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Publich methods
+    // MARK: - Public methods
 
     func set(option: OptionInfoMap) {
         button.setTitle(option.nameButton, for: .normal)
